@@ -1,6 +1,6 @@
 require 'telegram/bot'
 require './lib.rb'
-token = "439391885:AAFmePFsAZsMwsBPP7QDUsU0aflP-Yb2Bao"
+token = "fff"
 
 def mapping_results(data)
   data.map do |arr|
