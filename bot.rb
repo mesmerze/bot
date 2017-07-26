@@ -1,7 +1,10 @@
 require 'telegram/bot'
-require './lib.rb'
+require './lib/const_wrapper.rb'
 require 'dotenv/load'
+
 token = ENV['TOKEN']
+
+include ConstWrapper
 
 def map_results(data)
   data.map do |arr|
