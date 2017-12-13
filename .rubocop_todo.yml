@@ -21,6 +21,21 @@ Gemspec/RequiredRubyVersion:
   Exclude:
     - 'fat_free_crm.gemspec'
 
+# Offense count: 16
+# Cop supports --auto-correct.
+# Configuration parameters: Include, TreatCommentsAsGroupSeparators.
+# Include: **/*.gemspec
+Gemspec/OrderedDependencies:
+  Exclude:
+    - 'fat_free_crm.gemspec'
+
+# Offense count: 1
+# Configuration parameters: Include.
+# Include: **/*.gemspec
+Gemspec/RequiredRubyVersion:
+  Exclude:
+    - 'fat_free_crm.gemspec'
+
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentationWidth.
@@ -55,6 +70,12 @@ Layout/ClosingParenthesisIndentation:
     - 'spec/models/entities/opportunity_spec.rb'
     - 'spec/models/polymorphic/version_spec.rb'
     - 'spec/views/comments/edit.js.haml_spec.rb'
+
+# Offense count: 1
+# Cop supports --auto-correct.
+Layout/CommentIndentation:
+  Exclude:
+    - 'config/boot.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
@@ -119,6 +140,14 @@ Layout/IndentHeredoc:
   Exclude:
     - 'spec/lib/mail_processor/sample_emails/dropbox.rb'
 
+# Offense count: 1
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle.
+# SupportedStyles: normal, rails
+Layout/IndentationConsistency:
+  Exclude:
+    - 'config/boot.rb'
+
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
@@ -159,6 +188,14 @@ Layout/SpaceAroundOperators:
     - 'app/views/application/show.atom.builder'
     - 'app/views/application/show.rss.builder'
     - 'app/views/campaigns/index.xls.builder'
+
+# Offense count: 2
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle.
+# SupportedStyles: space, no_space
+# SupportedStylesForEmptyBraces: space, no_space
+Layout/SpaceBeforeBlockBraces:
+  EnforcedStyleForEmptyBraces: space
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -508,6 +545,18 @@ Style/EvalWithLocation:
   Exclude:
     - 'lib/fat_free_crm/permissions.rb'
 
+# Offense count: 2
+# Cop supports --auto-correct.
+Style/Encoding:
+  Exclude:
+    - 'db/schema.rb'
+    - 'fat_free_crm.gemspec'
+
+# Offense count: 1
+Style/EvalWithLocation:
+  Exclude:
+    - 'lib/fat_free_crm/permissions.rb'
+
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
@@ -654,7 +703,6 @@ Style/ParallelAssignment:
   Exclude:
     - 'lib/fat_free_crm/core_ext/alias_method_chain.rb'
 
-# Offense count: 100
 # Cop supports --auto-correct.
 # Configuration parameters: PreferredDelimiters.
 Style/PercentLiteralDelimiters:
