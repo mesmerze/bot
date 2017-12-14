@@ -45,3 +45,6 @@ Style/SafeNavigation:
 Style/WordArray:
   Exclude:
     - 'db/schema.rb'
+
+Style/SymbolArray:
+  EnforcedStyle: percent
