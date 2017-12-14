@@ -6,14 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 17
-# Cop supports --auto-correct.
-# Configuration parameters: Include, TreatCommentsAsGroupSeparators.
-# Include: **/Gemfile, **/gems.rb
-Bundler/OrderedGems:
-  Exclude:
-    - 'Gemfile'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
@@ -195,11 +187,6 @@ Lint/UselessAssignment:
 Metrics/AbcSize:
   Max: 55
 
-# Offense count: 292
-# Configuration parameters: CountComments, ExcludedMethods.
-Metrics/BlockLength:
-  Max: 775
-
 # Offense count: 3
 # Configuration parameters: CountBlocks.
 Metrics/BlockNesting:
@@ -263,7 +250,7 @@ Security/YAMLLoad:
     - 'lib/tasks/ffcrm/config.rake'
 
 # Offense count: 12
-Style/AccessorMethodName:
+Naming/AccessorMethodName:
   Exclude:
     - 'app/controllers/application_controller.rb'
     - 'app/controllers/entities/accounts_controller.rb'
@@ -277,24 +264,6 @@ Style/AccessorMethodName:
     - 'spec/controllers/entities/campaigns_controller_spec.rb'
     - 'spec/controllers/entities/opportunities_controller_spec.rb'
     - 'spec/support/macros.rb'
-
-# Offense count: 12
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: prefer_alias, prefer_alias_method
-Style/Alias:
-  Exclude:
-    - 'app/controllers/authentications_controller.rb'
-    - 'app/controllers/entities/accounts_controller.rb'
-    - 'app/controllers/entities/campaigns_controller.rb'
-    - 'app/controllers/entities/contacts_controller.rb'
-    - 'app/controllers/entities/leads_controller.rb'
-    - 'app/controllers/entities/opportunities_controller.rb'
-    - 'app/models/entities/contact.rb'
-    - 'app/models/entities/lead.rb'
-    - 'app/models/users/user.rb'
-    - 'lib/fat_free_crm/core_ext/string.rb'
-    - 'spec/support/auth_macros.rb'
 
 # Offense count: 4
 # Cop supports --auto-correct.
@@ -378,20 +347,6 @@ Style/EmptyCaseCondition:
   Exclude:
     - 'app/models/polymorphic/task.rb'
 
-# Offense count: 10
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: compact, expanded
-Style/EmptyMethod:
-  Exclude:
-    - 'app/controllers/admin/fields_controller.rb'
-    - 'app/controllers/admin/settings_controller.rb'
-    - 'app/controllers/admin/tags_controller.rb'
-    - 'app/controllers/entities_controller.rb'
-    - 'db/migrate/20120216042541_is_paranoid_to_paper_trail.rb'
-    - 'db/migrate/20120316045804_activities_to_versions.rb'
-    - 'db/migrate/20121221033947_fix_country_mapping.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
@@ -424,17 +379,6 @@ Style/GlobalVars:
 # Configuration parameters: MinBodyLength.
 Style/GuardClause:
   Enabled: false
-
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, UseHashRocketsWithSymbolValues, PreferHashRocketsForNonAlnumEndingSymbols.
-# SupportedStyles: ruby19, hash_rockets, no_mixed_keys, ruby19_no_mixed_keys
-Style/HashSyntax:
-  Exclude:
-    - 'app/views/application/index.rss.builder'
-    - 'app/views/application/show.rss.builder'
-    - 'app/views/home/index.atom.builder'
-    - 'app/views/home/index.rss.builder'
 
 # Offense count: 2
 Style/IdenticalConditionalBranches:
@@ -534,7 +478,7 @@ Style/PercentLiteralDelimiters:
 # NamePrefix: is_, has_, have_
 # NamePrefixBlacklist: is_, has_, have_
 # NameWhitelist: is_a?
-Style/PredicateName:
+Naming/PredicateName:
   Exclude:
     - 'spec/**/*'
     - 'app/inputs/date_time_input.rb'
@@ -561,15 +505,6 @@ Style/RegexpLiteral:
     - 'spec/views/contacts/update.js.haml_spec.rb'
     - 'spec/views/opportunities/update.js.haml_spec.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: ConvertCodeThatCanStartToReturnNil.
-Style/SafeNavigation:
-  Exclude:
-    - 'app/controllers/tasks_controller.rb'
-    - 'app/models/observers/opportunity_observer.rb'
-    - 'db/migrate/20100928030618_add_admin_to_users.rb'
-
 # Offense count: 9
 # Cop supports --auto-correct.
 # Configuration parameters: AllowAsExpressionSeparator.
@@ -582,13 +517,6 @@ Style/Semicolon:
     - 'spec/models/fields/custom_field_date_pair_spec.rb'
     - 'spec/models/fields/custom_field_spec.rb'
     - 'spec/support/macros.rb'
-
-# Offense count: 82
-# Cop supports --auto-correct.
-# Configuration parameters: MinSize, SupportedStyles.
-# SupportedStyles: percent, brackets
-Style/SymbolArray:
-  EnforcedStyle: brackets
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -612,14 +540,6 @@ Style/UnneededInterpolation:
 # Offense count: 12
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: snake_case, normalcase, non_integer
-Style/VariableNumber:
+Naming/VariableNumber:
   Exclude:
     - 'spec/controllers/home_controller_spec.rb'
-
-# Offense count: 18
-# Cop supports --auto-correct.
-# Configuration parameters: SupportedStyles, WordRegex.
-# SupportedStyles: percent, brackets
-Style/WordArray:
-  EnforcedStyle: percent
-  MinSize: 5
