@@ -1,19 +1,50 @@
 inherit_from: .rubocop_todo.yml
+
 AllCops:
   TargetRubyVersion: 2.3
 
-Lint/ScriptPermission:
-  Exclude:
-    - 'Rakefile'
+Bundler/OrderedGems:
+  Enabled: false
+
+Gemspec/OrderedDependencies:
+  Enabled: false
 
 StringLiterals:
   Enabled: false
 
+Lint/BooleanSymbol:
+  Exclude:
+    - 'config/initializers/ransack.rb'
+
 Metrics/LineLength:
   Enabled: false
 
+Metrics/BlockLength:
+  Exclude:
+    - 'Gemfile'
+    - 'config/routes.rb'
+    - 'db/schema.rb'
+    - 'db/migrate/**/*'
+    - 'spec/**/*'
+    - '**/*.gemspec'
+    - '**/*.rake'
+    - '**/*.xls.builder'
+
+Style/Alias:
+  EnforcedStyle: prefer_alias
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
 Style/MutableConstant:
   Enabled: false
+
+Style/SafeNavigation:
+  Enabled: false
+
+Style/WordArray:
+  Exclude:
+    - 'db/schema.rb'
 
 Style/SymbolArray:
   EnforcedStyle: percent
