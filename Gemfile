@@ -1,14 +1,6 @@
 source 'https://rubygems.org'
 
-# Uncomment the database that you have configured in config/database.yml
-# ----------------------------------------------------------------------
-db_drivers = {
-  "mysql" => "mysql2",
-  "sqlite" => "sqlite3",
-  "postgres" => "pg"
-}
-
-gem db_drivers[ENV['CI'] && ENV['DB']] || 'pg'
+gem 'pg'
 
 # Removes a gem dependency
 def remove(name)
@@ -28,6 +20,8 @@ spec = Bundler.load_gemspec(File.expand_path("../fat_free_crm.gemspec", __FILE__
 spec.runtime_dependencies.each do |dep|
   gem dep.name, *dep.requirement.as_list
 end
+
+Bundler.load_gemspec(File.expand_path("../fat_free_crm.gemspec", __FILE__))
 
 # Remove premailer auto-require
 gem 'premailer', require: false

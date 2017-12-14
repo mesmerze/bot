@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: ts_cms_development
+
+test:
+  <<: *default
+  database: ts_cms_test
+
+production:
+  <<: *default
+  database: ts_cms_production
+  username: ts_cms
+  password: <%= ENV['TS_CMS_DATABASE_PASSWORD'] %>
