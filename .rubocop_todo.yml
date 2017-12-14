@@ -800,3 +800,10 @@ Naming/VariableNumber:
 # URISchemes: http, https
 Metrics/LineLength:
   Max: 390
+
+# Offense count: 12
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+# SupportedStyles: snake_case, normalcase, non_integer
+Naming/VariableNumber:
+  Exclude:
+    - 'spec/controllers/home_controller_spec.rb'
