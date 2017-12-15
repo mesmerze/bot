@@ -69,7 +69,6 @@ group :test do
 end
 
 group :heroku do
-  gem 'unicorn', platform: :ruby
   gem 'rails_12factor'
 end
 
