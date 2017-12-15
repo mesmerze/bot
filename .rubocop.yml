@@ -39,6 +39,7 @@ Style/EmptyMethod:
 Style/MutableConstant:
   Enabled: false
 
+# See #647
 Style/SafeNavigation:
   Enabled: false
 
