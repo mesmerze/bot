@@ -2,17 +2,19 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: <%= ENV.fetch("TS_CRM_DATABASE_HOST") { 'localhost' } %>
+  port: <%= ENV.fetch("TS_CRM_DATABASE_PORT") { 5432 } %>
+  username: <%= ENV.fetch("TS_CRM_DATABASE_USER") { '' } %>
+  password: <%= ENV.fetch("TS_CRM_DATABASE_PASSWORD") { '' } %>
 
 development:
   <<: *default
-  database: ts_crm_development
+  database: <%= ENV.fetch("TS_CRM_DATABASE_DB") { 'ts_crm_development' } %>
 
 test:
   <<: *default
-  database: ts_crm_test
+  database: <%= ENV.fetch("TS_CRM_DATABASE_DB") { 'ts_crm_test' } %>
 
 production:
   <<: *default
-  database: ts_crm_production
-  username: ts_crm
-  password: <%= ENV['TS_CRM_DATABASE_PASSWORD'] %>
+  database: <%= ENV['TS_CRM_DATABASE_DB'] %>
