@@ -1,20 +1,18 @@
-# Usage:
-# docker-compose up
-# docker-compose exec web bundle exec rake db:create db:schema:load ffcrm:demo:load assets:precompile
+FROM ruby:2.3.3
+ENV LANG C.UTF-8
+RUN apt-get update -qq && apt-get install -y imagemagick && apt-get autoremove -y
+RUN gem install bundler
+RUN mkdir /code
+RUN mkdir /code/vendor
+WORKDIR /code
 
-FROM phusion/passenger-ruby24
-MAINTAINER Steve Kenworthy
+COPY Gemfile /code/Gemfile
+COPY Gemfile.lock /code/Gemfile.lock
+COPY fat_free_crm.gemspec /code/fat_free_crm.gemspec
+COPY .gitignore /code/.gitignore
+COPY lib /code/lib
+COPY vendor/gems /code/vendor/gems
+ARG BUNDLE_INSTALL_OPTS
+RUN bundle install $BUNDLE_INSTALL_OPTS --deployment
 
-ENV HOME /home/app
-
-ADD . /home/app
-WORKDIR /home/app
-
-RUN apt-get update \
-  && apt-get install -y imagemagick firefox \
-  && apt-get autoremove -y \
-  && cp config/database.postgres.docker.yml config/database.yml \
-  && chown -R app:app /home/app \
-  && rm -f /etc/service/nginx/down /etc/nginx/sites-enabled/default \
-  && cp .docker/nginx/sites-enabled/ffcrm.conf /etc/nginx/sites-enabled/ffcrm.conf \
-  && bundle install --deployment
+COPY . /code

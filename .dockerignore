@@ -1,0 +1,8 @@
+.dockerignore
+.git
+
+.bundle/
+dist/
+tmp/
+vendor/cache/**/*
+vendor/cache

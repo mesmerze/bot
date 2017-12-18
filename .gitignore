@@ -9,6 +9,7 @@ coverage/*
 db/*.sql*
 log/*.log
 doc/
+dist/
 vendor/bundle
 Gemfile.ci.lock
 
