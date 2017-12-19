@@ -9,7 +9,7 @@ shell:
 build:
 	HOST_USER_ID=$(shell id -u) HOST_USER_GID=$(shell id -g) docker-compose up --build artifact
 
-publish: build
+publish:
 	./scripts/publish.sh
 
 test:
