@@ -4,7 +4,7 @@
 # See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 #------------------------------------------------------------------------------
 class Admin::TagsController < Admin::ApplicationController
-  before_action "set_current_tab('admin/tags')", only: %i[index show]
+  before_action(only: %i[index show]) { set_current_tab('admin/tags') }
 
   load_resource
 
