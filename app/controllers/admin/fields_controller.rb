@@ -4,7 +4,9 @@
 # See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 #------------------------------------------------------------------------------
 class Admin::FieldsController < Admin::ApplicationController
-  before_action(only: [:index]) { set_current_tab('admin/fields') }
+  before_action only: [:index] do
+    set_current_tab('admin/fields')
+  end
 
   load_resource except: %i[create subform]
 

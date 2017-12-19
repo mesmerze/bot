@@ -4,7 +4,9 @@
 # See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 #------------------------------------------------------------------------------
 class Admin::PluginsController < Admin::ApplicationController
-  before_action "set_current_tab('admin/plugins')", only: [:index]
+  before_action only: [:index] do
+    set_current_tab('admin/plugins')
+  end
 
   # GET /admin/plugins
   # GET /admin/plugins.xml

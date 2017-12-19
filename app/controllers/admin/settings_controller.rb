@@ -4,7 +4,9 @@
 # See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 #------------------------------------------------------------------------------
 class Admin::SettingsController < Admin::ApplicationController
-  before_action "set_current_tab('admin/settings')", only: [:index]
+  before_action only: [:index] do
+    set_current_tab('admin/settings')
+  end
 
   # GET /admin/settings
   # GET /admin/settings.xml
