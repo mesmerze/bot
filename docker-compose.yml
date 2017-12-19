@@ -1,31 +1,24 @@
-version: '3'
+version: "3.2"
 services:
   db:
     image: postgres
+    volumes:
+      - type: volume
+        source: dbdata
+        target: /var/lib/postgresql/data
   web:
     build: .
     image: app
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    command: ./scripts/start.sh
     volumes:
-      - .:/code
-      - bundle:/code/vendor/bundle
+      - type: bind
+        source: .
+        target: /code
+      - type: volume
+        source: bundle
+        target: /bundle
     ports:
       - "3000:3000"
-    links:
-      - db
-    depends_on:
-      - db
-    environment:
-      - RAILS_ENV=development
-      - TS_CRM_DATABASE_HOST=db
-      - TS_CRM_DATABASE_USER=postgres
-  migrations:
-    build: .
-    image: app
-    command: ./scripts/migrations.sh
-    volumes:
-      - .:/code
-      - bundle:/code/vendor/bundle
     links:
       - db
     depends_on:
@@ -39,12 +32,16 @@ services:
     image: app
     command: ./scripts/test.sh
     volumes:
-      - .:/code
-      - bundle:/code/vendor/bundle
+      - type: bind
+        source: .
+        target: /code
+      - type: volume
+        source: bundle
+        target: /bundle
     links:
       - db
     depends_on:
-      - migrations
+      - db
     environment:
       - RAILS_ENV=test
       - DB=postgres
@@ -55,11 +52,17 @@ services:
     image: app
     command: ./scripts/build.sh
     volumes:
-      - .:/code
-      - bundle:/code/vendor/bundle
+      - type: bind
+        source: .
+        target: /code
+      - type: volume
+        source: bundle
+        target: /bundle
     environment:
+      - RAILS_ENV=production
       - HOST_USER_ID
       - HOST_USER_GID
 
 volumes:
   bundle:
+  dbdata:

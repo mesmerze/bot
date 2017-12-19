@@ -1,13 +1,11 @@
 #!/bin/bash
 
 set -o errexit
-set -o pipefail
 set -o nounset
 
-export RAILS_ENV="test"
+bundle check || bundle install
 
-bundle install --deployment
-
+bundle exec rake db:create
 bundle exec rake spec:preparedb
 bundle exec rake spec:models
 bundle exec rake spec:mailers

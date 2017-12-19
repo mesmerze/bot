@@ -1,3 +1,5 @@
+Dockerfile
+docker-compose.yml
 .dockerignore
 .git
 
@@ -6,3 +8,5 @@ dist/
 tmp/
 vendor/cache/**/*
 vendor/cache
+vendor/bundle/**/*
+vendor/bundle

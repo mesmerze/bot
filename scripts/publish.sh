@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -o errexit
+set -o pipefail
+set -o nounset
+
 PROJECT="crm"
 BUCKET="kkvesper-jenkins-artifacts"
 TAG_NUMBER=$(echo ${GIT_BRANCH} | cut -d'/' -f3)
