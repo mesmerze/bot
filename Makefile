@@ -1,19 +1,19 @@
 .PHONY: dev shell build publish test stop destroy
 
 dev:
-	docker-compose up web
+	docker-compose up --build web
 
 shell:
 	docker-compose run web /bin/bash
 
 build:
-	HOST_USER_ID=$(shell id -u) HOST_USER_GID=$(shell id -g) docker-compose run artifact
+	HOST_USER_ID=$(shell id -u) HOST_USER_GID=$(shell id -g) docker-compose up --build artifact
 
 publish: build
 	./scripts/publish.sh
 
 test:
-	docker-compose run test
+	docker-compose up --build test
 
 stop:
 	docker-compose stop
