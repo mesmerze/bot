@@ -12,11 +12,11 @@ rm -rf $ARTIFACT_BUILD_PATH
 cp -R /code /tmp/build
 rm -rf /tmp/build/vendor/bundle
 cp -R /bundle /tmp/build/vendor/bundle
-pushd /tmp/build
+pushd /tmp/build >/dev/null
 
 echo "Installing dependencies..."
-bundle install --without development test --deployment
-bundle package --all
+export BUNDLE_PATH="./vendor/bundle"
+bundle check || bundle install --without development test --no-cache
 
 echo "Pre-compiling assets..."
 bundle exec rake assets:precompile
