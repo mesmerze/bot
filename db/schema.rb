@@ -11,8 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20160511053730) do
-
-  # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "account_contacts", id: :serial, force: :cascade do |t|
@@ -432,5 +430,4 @@ ActiveRecord::Schema.define(version: 20160511053730) do
     t.index ["transaction_id"], name: "index_versions_on_transaction_id"
     t.index ["whodunnit"], name: "index_versions_on_whodunnit"
   end
-
 end

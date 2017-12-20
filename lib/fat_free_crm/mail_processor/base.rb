@@ -40,8 +40,8 @@ module FatFreeCRM
             @imap.create(folder)
           end
         end
-      rescue => e
-        warn "setup error #{e.inspect}"
+      rescue Exception => e
+        $stderr.puts "setup error #{e.inspect}"
       ensure
         disconnect!
       end
@@ -85,7 +85,7 @@ module FatFreeCRM
           unless @imap.disconnected?
             begin
               @imap.disconnect
-            rescue
+            rescue Exception
               nil
             end
           end

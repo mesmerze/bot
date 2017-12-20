@@ -3,6 +3,10 @@ inherit_from: .rubocop_todo.yml
 AllCops:
   TargetRubyVersion: 2.3
 
+Lint/ScriptPermission:
+  Exclude:
+    - 'Rakefile'
+
 Bundler/OrderedGems:
   Enabled: false
 
@@ -39,6 +43,7 @@ Style/EmptyMethod:
 Style/MutableConstant:
   Enabled: false
 
+# See #647
 Style/SafeNavigation:
   Enabled: false
 
