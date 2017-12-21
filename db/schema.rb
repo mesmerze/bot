@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20171220163631) do
     t.integer "rating", default: 0, null: false
     t.string "category", limit: 32
     t.text "subscribed_users"
-    t.integer "account_type"
+    t.string "account_type"
     t.string "country"
     t.decimal "online_review", precision: 3, scale: 2
     t.index ["assigned_to"], name: "index_accounts_on_assigned_to"

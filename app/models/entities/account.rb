@@ -48,9 +48,6 @@ class Account < ActiveRecord::Base
   has_many :addresses, dependent: :destroy, as: :addressable, class_name: "Address" # advanced search uses this
   has_many :emails, as: :mediator
 
-  enum account_type: %i[hotel restaurant other]
-  enum country: COUNTRY_CODES
-
   serialize :subscribed_users, Set
 
   accepts_nested_attributes_for :billing_address,  allow_destroy: true, reject_if: proc { |attributes| Address.reject_address(attributes) }
@@ -89,8 +86,8 @@ class Account < ActiveRecord::Base
   validates :category, inclusion: { in: proc { Setting.unroll(:account_category).map { |s| s.last.to_s } } }, allow_blank: true
   validate :users_for_shared_access
   validates :online_review, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 5 }, allow_blank: true
-  validates :country, inclusion: { in: COUNTRY_CODES }, allow_blank: true
-  validates :account_type, inclusion: { in: %i[hotel restaurant other] }, allow_blank: true
+  validates :country, inclusion: { in: COUNTRY_CODES, message: 'Please, use ISO code, e.g. \"JP\", \"US\", \"KR\"' }, allow_blank: true
+  validates :account_type, inclusion: { in: %w[hotel restaurant other], message: 'Please, use \"hotel\", \"restaurant\" or \"other\"' }, allow_blank: true
 
   before_save :nullify_blank_category
 

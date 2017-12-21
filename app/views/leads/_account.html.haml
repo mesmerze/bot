@@ -1,0 +1,25 @@
+- edit ||= false
+- collapsed = session[:lead_account].nil? # && @lead.errors.empty?
+= subtitle :lead_account, collapsed, t(:account)
+
+.section
+  %small#lead_status_intro{ hidden_if(collapsed) }
+    = t(:intro, t(:account_small)) unless edit
+  #lead_status{ hidden_if(collapsed) }
+    %table
+      %tr
+        %td
+          .label #{t :select_an_account}:
+          = user_select(:lead, all_users, current_user)
+        %td= spacer
+      %tr
+        %td
+          .label #{t :country}:
+          = user_select(:lead, all_users, current_user)
+        %td
+          .label #{t :type}:
+          = user_select(:lead, all_users, current_user)
+        %td= spacer
+        %td
+          .label #{t :online_review}:
+          = f.text_field :skype, { style: "width:60px" }

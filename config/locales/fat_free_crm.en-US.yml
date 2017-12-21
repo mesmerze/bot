@@ -316,6 +316,8 @@ en-US:
   accounts: Accounts
   accounts_options: Accounts Options
   accounts_small: accounts
+  type: Account type
+  online_review: Online review
   assigned_to: Assigned to
   billing_address: Billing address
   create_account: Create Account
