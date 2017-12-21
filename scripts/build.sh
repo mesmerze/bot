@@ -19,7 +19,10 @@ echo "Checking for missing dependencies..."
 export BUNDLE_IGNORE_CONFIG="1"
 export BUNDLE_PATH="/tmp/build/vendor/bundle/ruby/2.3.0"
 export BUNDLE_WITHOUT="development:test"
-bundle check || bundle install --without development test --deployment
+bundle check || bundle install --without development test --deployment --path "/bundle" && rm -rf ./vendor/bundle && cp -R /bundle /tmp/build/vendor/bundle
+
+echo "Pre-compiling assets..."
+bundle exec rake assets:precompile
 
 echo "Archiving..."
 mkdir -p $ARTIFACT_BUILD_PATH
