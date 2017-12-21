@@ -26,6 +26,16 @@
 #
 
 class Account < ActiveRecord::Base
+  COUNTRY_CODES = %w[AF AX AL DZ AS AD AO AI AQ AG AR AM AW AU AT AZ BS BH BD BB BY BE BZ BJ BM
+                     BT BO BQ BA BW BV BR IO BN BG BF BI KH CM CA CV KY CF TD CL CN CX CC CO KM
+                     CG CD CK CR CI HR CU CW CY CZ DK DJ DM DO EC EG SV GQ ER EE ET FK FO FJ FI
+                     FR GF PF TF GA GM GE DE GH GI GR GL GD GP GU GT GG GN GW GY HT HM VA HN HK
+                     HU IS IN ID IR IQ IE IM IL IT JM JP JE JO KZ KE KI KP KR KW KG LA LV LB LS
+                     LR LY LI LT LU MO MK MG MW MY MV ML MT MH MQ MR MU YT MX FM MD MC MN ME MS
+                     MA MZ MM NA NR NP NL NC NZ NI NE NG NU NF MP NO OM PK PW PS PA PG PY PE PH
+                     PN PL PT PR QA RE RO RU RW BL SH KN LC MF PM VC WS SM ST SA SN RS SC SL SG
+                     SX SK SI SB SO ZA GS SS ES LK SD SR SJ SZ SE CH SY TW TJ TZ TH TL TG TK TO
+                     TT TN TR TM TC TV UG UA AE GB US UM UY UZ VU VE VN VG VI WF EH YE ZM ZW].freeze
   belongs_to :user
   belongs_to :assignee, class_name: "User", foreign_key: :assigned_to
   has_many :account_contacts, dependent: :destroy
@@ -37,6 +47,9 @@ class Account < ActiveRecord::Base
   has_one :shipping_address, -> { where(address_type: "Shipping") }, dependent: :destroy, as: :addressable, class_name: "Address"
   has_many :addresses, dependent: :destroy, as: :addressable, class_name: "Address" # advanced search uses this
   has_many :emails, as: :mediator
+
+  enum account_type: %i[hotel restaurant other]
+  enum country: COUNTRY_CODES
 
   serialize :subscribed_users, Set
 
@@ -75,6 +88,9 @@ class Account < ActiveRecord::Base
   validates :rating, inclusion: { in: 0..5 }, allow_blank: true
   validates :category, inclusion: { in: proc { Setting.unroll(:account_category).map { |s| s.last.to_s } } }, allow_blank: true
   validate :users_for_shared_access
+  validates :online_review, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 5 }, allow_blank: true
+  validates :country, inclusion: { in: COUNTRY_CODES }, allow_blank: true
+  validates :account_type, inclusion: { in: %i[hotel restaurant other] }, allow_blank: true
 
   before_save :nullify_blank_category
 
