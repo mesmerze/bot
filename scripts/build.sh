@@ -16,6 +16,7 @@ pushd /tmp/build >/dev/null
 
 echo "Installing dependencies..."
 export BUNDLE_PATH="./vendor/bundle"
+bundle package --all
 bundle check || bundle install --without development test --no-cache
 
 echo "Pre-compiling assets..."

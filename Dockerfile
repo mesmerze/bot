@@ -14,6 +14,6 @@ ADD lib/fat_free_crm/version.rb /code/lib/fat_free_crm/version.rb
 ENV BUNDLE_PATH /bundle
 ENV BUNDLE_JOBS 4
 ARG BUNDLE_INSTALL_OPTS
-RUN bundle install $BUNDLE_INSTALL_OPTS --no-cache
+RUN bundle install $BUNDLE_INSTALL_OPTS
 
 ADD . /code
