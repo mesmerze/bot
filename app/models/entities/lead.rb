@@ -40,6 +40,7 @@ class Lead < ActiveRecord::Base
   belongs_to :user
   belongs_to :campaign
   belongs_to :assignee, class_name: "User", foreign_key: :assigned_to
+  has_one :account, dependent: :destroy
   has_one :contact, dependent: :nullify # On destroy keep the contact, but nullify its lead_id
   has_many :tasks, as: :asset, dependent: :destroy # , :order => 'created_at DESC'
   has_one :business_address, -> { where "address_type='Business'" }, dependent: :destroy, as: :addressable, class_name: "Address"
@@ -49,6 +50,7 @@ class Lead < ActiveRecord::Base
   serialize :subscribed_users, Set
 
   accepts_nested_attributes_for :business_address, allow_destroy: true
+  accepts_nested_attributes_for :account
 
   scope :state, ->(filters) {
     where(['status IN (?)' + (filters.delete('other') ? ' OR status IS NULL' : ''), filters])

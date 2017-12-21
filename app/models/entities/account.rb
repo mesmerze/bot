@@ -38,6 +38,7 @@ class Account < ActiveRecord::Base
                      TT TN TR TM TC TV UG UA AE GB US UM UY UZ VU VE VN VG VI WF EH YE ZM ZW].freeze
   belongs_to :user
   belongs_to :assignee, class_name: "User", foreign_key: :assigned_to
+  belongs_to :lead
   has_many :account_contacts, dependent: :destroy
   has_many :contacts, -> { distinct }, through: :account_contacts
   has_many :account_opportunities, dependent: :destroy

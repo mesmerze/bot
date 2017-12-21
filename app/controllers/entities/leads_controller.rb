@@ -30,6 +30,8 @@ class LeadsController < EntitiesController
   # GET /leads/new
   #----------------------------------------------------------------------------
   def new
+    @accs = Account.my.order('name')
+    @account = Account.new
     @lead.attributes = { user: current_user, access: Setting.default_access, assigned_to: nil }
     get_campaigns
 
@@ -61,8 +63,12 @@ class LeadsController < EntitiesController
   #----------------------------------------------------------------------------
   def create
     get_campaigns
+    @accs = Account.my.order('name')
     @comment_body = params[:comment_body]
-
+    account_attr_params = params[:lead].delete(:account_attributes)
+    @account = Account.find_by_name(account_attr_params[:name])
+    @account.update(account_attr_params)
+    @lead.account = @account
     respond_with(@lead) do |_format|
       if @lead.save_with_permissions(params.permit!)
         @lead.add_comment_by_user(@comment_body, current_user)
