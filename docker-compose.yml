@@ -51,7 +51,7 @@ services:
     build:
       context: .
       args:
-        BUNDLE_INSTALL_OPTS: --without development test
+        BUNDLE_INSTALL_OPTS: --without development test --deployment --path /bundle
     image: app
     command: ./scripts/build.sh
     volumes:
