@@ -110,6 +110,12 @@ en-US:
               missing_account_name: ^Please specify account name.
             access:
               share_account: ^Please specify users to share the account with.
+            country:
+              bad_country_code: ^Please use ISO code, e.g. 'JP', 'US', 'KR'.
+            account_type:
+              bad_account_type: ^Please use 'hotel', 'restaurant' or 'other'.
+            online_review:
+              bad_online_review: ^Please provide number from 0 to 5.0, e.g. 3.75'.
         campaign:
           attributes:
             name:

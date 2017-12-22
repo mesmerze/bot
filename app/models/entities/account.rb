@@ -38,7 +38,7 @@ class Account < ActiveRecord::Base
                      TT TN TR TM TC TV UG UA AE GB US UM UY UZ VU VE VN VG VI WF EH YE ZM ZW].freeze
   belongs_to :user
   belongs_to :assignee, class_name: "User", foreign_key: :assigned_to
-  belongs_to :lead
+  has_many :leads, dependent: :destroy
   has_many :account_contacts, dependent: :destroy
   has_many :contacts, -> { distinct }, through: :account_contacts
   has_many :account_opportunities, dependent: :destroy
@@ -86,9 +86,9 @@ class Account < ActiveRecord::Base
   validates :rating, inclusion: { in: 0..5 }, allow_blank: true
   validates :category, inclusion: { in: proc { Setting.unroll(:account_category).map { |s| s.last.to_s } } }, allow_blank: true
   validate :users_for_shared_access
-  validates :online_review, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 5 }, allow_blank: true
-  validates :country, inclusion: { in: COUNTRY_CODES, message: 'Please, use ISO code, e.g. \"JP\", \"US\", \"KR\"' }, allow_blank: true
-  validates :account_type, inclusion: { in: %w[hotel restaurant other], message: 'Please, use \"hotel\", \"restaurant\" or \"other\"' }, allow_blank: true
+  validates :online_review, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 5, message: :bad_online_review }, allow_blank: true
+  validates :country, inclusion: { in: COUNTRY_CODES, message: :bad_country_code }, allow_blank: true
+  validates :account_type, inclusion: { in: %w[hotel restaurant other], message: :bad_account_type }, allow_blank: true
 
   before_save :nullify_blank_category
 
