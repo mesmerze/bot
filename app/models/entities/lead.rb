@@ -82,6 +82,13 @@ class Lead < ActiveRecord::Base
   after_create :increment_leads_count
   after_destroy :decrement_leads_count
 
+  def account_attributes=(attributes)
+    if attributes['id'].present?
+      self.account = Account.find(attributes['id'])
+    end
+    super
+  end
+
   # Default values provided through class methods.
   #----------------------------------------------------------------------------
   def self.per_page

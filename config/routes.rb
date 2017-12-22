@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       post :unsubscribe
       get :contacts
       get :opportunities
+      get :lead
     end
   end
 
