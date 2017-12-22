@@ -5,6 +5,7 @@
 #------------------------------------------------------------------------------
 class LeadsController < EntitiesController
   before_action :get_data_for_sidebar, only: :index
+  before_action :set_accounts, only: %i[new create]
   autocomplete :account, :name, full: true
 
   # GET /leads
@@ -30,8 +31,6 @@ class LeadsController < EntitiesController
   # GET /leads/new
   #----------------------------------------------------------------------------
   def new
-    @accs = Account.my.order('name')
-    @account = Account.new
     @lead.attributes = { user: current_user, access: Setting.default_access, assigned_to: nil }
     get_campaigns
 
@@ -195,6 +194,11 @@ class LeadsController < EntitiesController
   end
 
   private
+
+  def set_accounts
+    @accs = Account.my.order('name')
+    @account = Account.new
+  end
 
   #----------------------------------------------------------------------------
   alias get_leads get_list_of_records

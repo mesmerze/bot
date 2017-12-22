@@ -7,16 +7,16 @@
     = t(:intro, t(:account_small)) unless edit
   #lead_status{ hidden_if(collapsed) }
     = f.fields_for :account, @account do |a|
-      = a.select :id, Account.my.order('name').map{|a| [a.name, a.id]}, { :selected => @accs.first.id }
+      = a.select :id, @accs.map{|a| [a.name, a.id]}, {:include_blank => 'None Specified'}
       #lead
         %table
           %tr
             %td
               .label #{t :country}:
-              = a.select :country, Setting.unroll(:countries), { :selected => 'JP'.to_sym }, { :style => "width:60px" }
+              = a.select :country, Setting.unroll(:countries), {:include_blank => 'None Specified'}, { :style => "width:60px" }
             %td
               .label #{t :account_type}:
-              = a.select :account_type, Setting.unroll(:account_type), { :selected => 'other'.to_sym }, { :style => "width:160px" }
+              = a.select :account_type, Setting.unroll(:account_type), {:include_blank => 'None Specified'}, { :style => "width:160px" }
             %td= spacer
             %td
               .label #{t :online_review}:

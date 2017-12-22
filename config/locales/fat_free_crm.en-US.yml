@@ -83,6 +83,8 @@ en-US:
   completed_last_week: Last week
   completed_this_month: This month
   completed_last_month: Last month
+  restaurant: Restaurant
+  hotel: Hotel
 
   # Models/Activity.
   #----------------------------------------------------------------------------
@@ -473,6 +475,7 @@ en-US:
   total_leads: Total Leads
   show_status_info_small: Show status information for this lead.
   show_contact_info_small: Show contact information for this lead.
+  last_contact_date: Last contact date
 
   # Views -> Opportunities.
   #----------------------------------------------------------------------------

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171221110655) do
+ActiveRecord::Schema.define(version: 20171222135041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -273,6 +273,7 @@ ActiveRecord::Schema.define(version: 20171221110655) do
     t.string "skype", limit: 128
     t.text "subscribed_users"
     t.bigint "account_id"
+    t.date "last_contact_date"
     t.index ["account_id"], name: "index_leads_on_account_id"
     t.index ["assigned_to"], name: "index_leads_on_assigned_to"
     t.index ["user_id", "last_name", "deleted_at"], name: "index_leads_on_user_id_and_last_name_and_deleted_at", unique: true

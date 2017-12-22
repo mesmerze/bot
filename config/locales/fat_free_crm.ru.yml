@@ -83,6 +83,8 @@ ru:
   completed_last_week: На прошлой неделе
   completed_this_month: В этом месяце
   completed_last_month: В прошлом месяце
+  restaurant: Ресторан
+  hotel: Отель
 
   # Models/Activity.
   #----------------------------------------------------------------------------
@@ -328,6 +330,8 @@ ru:
   accounts_options: Свойства списка контрагентов
   account_categories: Категории контрагентов
   accounts_small: контрагенты
+  account_type: Контрагент
+  online_review: Онлайн рецензия
   assigned_to: Поручен
   billing_address: Адрес плательщика
   create_account: Создать контрагента
@@ -477,6 +481,7 @@ ru:
   total_leads: Всего потенциальных клиентов
   show_status_info_small: Показать статус этого потенциального клиента.
   show_contact_info_small: Показать контактную информацию для этого потенциального клиента.
+  last_contact_date: Дата последнего контакта
 
   # Views -> Opportunities.
   #----------------------------------------------------------------------------
