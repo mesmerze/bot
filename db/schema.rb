@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160511053730) do
+ActiveRecord::Schema.define(version: 20171226070349) do
+
+  # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "account_contacts", id: :serial, force: :cascade do |t|
@@ -48,7 +50,12 @@ ActiveRecord::Schema.define(version: 20160511053730) do
     t.integer "rating", default: 0, null: false
     t.string "category", limit: 32
     t.text "subscribed_users"
+    t.string "account_type"
+    t.string "country"
+    t.decimal "online_review", precision: 3, scale: 2
+    t.bigint "org_id"
     t.index ["assigned_to"], name: "index_accounts_on_assigned_to"
+    t.index ["org_id"], name: "index_accounts_on_org_id"
     t.index ["user_id", "name", "deleted_at"], name: "index_accounts_on_user_id_and_name_and_deleted_at", unique: true
   end
 
@@ -267,6 +274,9 @@ ActiveRecord::Schema.define(version: 20160511053730) do
     t.string "background_info"
     t.string "skype", limit: 128
     t.text "subscribed_users"
+    t.bigint "account_id"
+    t.date "last_contact_date"
+    t.index ["account_id"], name: "index_leads_on_account_id"
     t.index ["assigned_to"], name: "index_leads_on_assigned_to"
     t.index ["user_id", "last_name", "deleted_at"], name: "index_leads_on_user_id_and_last_name_and_deleted_at", unique: true
   end
@@ -299,6 +309,21 @@ ActiveRecord::Schema.define(version: 20160511053730) do
     t.text "subscribed_users"
     t.index ["assigned_to"], name: "index_opportunities_on_assigned_to"
     t.index ["user_id", "name", "deleted_at"], name: "id_name_deleted", unique: true
+  end
+
+  create_table "orgs", force: :cascade do |t|
+    t.string "name"
+    t.string "category"
+    t.string "business_scope", default: "country"
+    t.integer "assigned_to"
+    t.bigint "org_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assigned_to"], name: "index_orgs_on_assigned_to"
+    t.index ["org_id"], name: "index_orgs_on_org_id"
+    t.index ["user_id", "name", "org_id"], name: "index_orgs_on_user_id_and_name_and_org_id"
+    t.index ["user_id"], name: "index_orgs_on_user_id"
   end
 
   create_table "permissions", id: :serial, force: :cascade do |t|
@@ -430,4 +455,6 @@ ActiveRecord::Schema.define(version: 20160511053730) do
     t.index ["transaction_id"], name: "index_versions_on_transaction_id"
     t.index ["whodunnit"], name: "index_versions_on_whodunnit"
   end
+
+  add_foreign_key "leads", "accounts"
 end

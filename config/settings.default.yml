@@ -218,6 +218,11 @@
   :url:
     :controller: accounts
 - :active: false
+  :text: :tab_orgs
+  :icon: :fa-tasks
+  :url:
+    :controller: orgs
+- :active: false
   :text: :tab_campaigns
   :icon: :fa-bar-chart-o
   :url:
