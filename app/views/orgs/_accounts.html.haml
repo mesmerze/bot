@@ -1,0 +1,17 @@
+- edit ||= false
+- collapsed = session[:org_account].nil?
+= subtitle :org_account, collapsed, t(:account)
+
+.section
+  %small#org_account_intro{ hidden_if(!collapsed) }
+    = t(:intro, t(:org_account_small)) unless edit
+  #accounts{ hidden_if(collapsed) }
+    = f.simple_fields_for :accounts do |account|
+      %table
+        %tr
+          %td{style: 'display: flex; margin:0 0 0 3rem;'}
+            .label.top #{t :account_select}:
+      = render 'account_fields', f: account
+    .links
+      = link_to_add_association '', f, :accounts, class: 'ui-icon ui-icon-plus',
+                                                  style: 'display:flex; margin:0.5rem 0 0;'

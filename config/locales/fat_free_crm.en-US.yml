@@ -517,6 +517,8 @@ en-US:
   orgs: Orgs
   create_org: Create Org
   business_scope: Business Scope
+  org_account_small: account
+  account_select: Select Account
 
   # Views -> Tasks.
   #----------------------------------------------------------------------------

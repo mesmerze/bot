@@ -6,7 +6,9 @@ class OrgsController < EntitiesController
   end
 
   def new
+    @accs = Account.my.order('name')
     @org.attributes = { user: current_user, access: Setting.default_access, assigned_to: nil }
+    @org.accounts.build
 
     if params[:related]
       model, id = params[:related].split('_')
