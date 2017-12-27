@@ -84,6 +84,10 @@ en-GB:
   completed_last_week: Last week
   completed_this_month: This month
   completed_last_month: Last month
+  restaurant: Restaurant
+  hotel: Hotel
+  regional: Regional
+  global: Global
 
   # Models/Activity.
   #----------------------------------------------------------------------------
@@ -142,6 +146,12 @@ en-GB:
               missing_opportunity_name: ^Please specify opportunity name.
             access:
               share_opportunity: ^Please specify users to share the opportunity with.
+        org:
+          attributes:
+            name:
+              missing_org_name: ^Please specify org name.
+            access:
+              share_org: ^Please specify users to share the org with.
         task:
           attributes:
             name:
@@ -501,6 +511,12 @@ en-GB:
   stage: Stage
   total_opportunities: Total Opportunities
   weighted_amount: Weighted amount
+
+  # Views -> Orgs.
+  #----------------------------------------------------------------------------
+  orgs: Orgs
+  create_org: Create Org
+  business_scope: Business Scope
 
   # Views -> Tasks.
   #----------------------------------------------------------------------------

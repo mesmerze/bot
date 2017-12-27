@@ -315,6 +315,8 @@ ActiveRecord::Schema.define(version: 20171226070349) do
     t.string "name"
     t.string "category"
     t.string "business_scope", default: "country"
+    t.string "access", default: "Public"
+    t.text "subscribed_users"
     t.integer "assigned_to"
     t.bigint "org_id"
     t.bigint "user_id"

@@ -4,8 +4,12 @@ class Org < ApplicationRecord
   has_many :sub_orgs, class_name: 'Org', foreign_key: 'org_id'
   has_many :accounts
 
+  serialize :subscribed_users, Set
+
   uses_user_permissions
+  uses_comment_extensions
   acts_as_commentable
+  has_fields
   acts_as_taggable_on :tags
   sortable by: ["name ASC", "created_at DESC", "updated_at DESC"], default: "created_at DESC"
 
