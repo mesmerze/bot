@@ -43,6 +43,7 @@ class Account < ActiveRecord::Base
 
   accepts_nested_attributes_for :billing_address,  allow_destroy: true, reject_if: proc { |attributes| Address.reject_address(attributes) }
   accepts_nested_attributes_for :shipping_address, allow_destroy: true, reject_if: proc { |attributes| Address.reject_address(attributes) }
+  accepts_nested_attributes_for :org, reject_if: proc { |attributes| attributes['id'].empty? }
 
   scope :state, ->(filters) {
     where('category IN (?)' + (filters.delete('other') ? ' OR category IS NULL' : ''), filters)
@@ -78,6 +79,11 @@ class Account < ActiveRecord::Base
   validate :users_for_shared_access
 
   before_save :nullify_blank_category
+
+  def org_attributes=(attributes)
+    self.org = Org.find(attributes[:id]) unless attributes[:id].empty?
+    super
+  end
 
   # Default values provided through class methods.
   #----------------------------------------------------------------------------

@@ -149,7 +149,7 @@ en-US:
         org:
           attributes:
             name:
-              missing_org_name: ^Please specify org name.
+              missing_name: ^Please specify org name.
             access:
               share_org: ^Please specify users to share the org with.
         task:
@@ -519,6 +519,7 @@ en-US:
   business_scope: Business Scope
   org_account_small: account
   account_select: Select Account
+  select_org: Select Org
 
   # Views -> Tasks.
   #----------------------------------------------------------------------------

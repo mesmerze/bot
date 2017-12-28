@@ -1,4 +1,6 @@
 class OrgsController < EntitiesController
+  before_action :set_account, only: %i[new create]
+
   def index
     @orgs = get_orgs(page: params[:page])
 
@@ -6,7 +8,6 @@ class OrgsController < EntitiesController
   end
 
   def new
-    @accs = Account.my.order('name')
     @org.attributes = { user: current_user, access: Setting.default_access, assigned_to: nil }
     @org.accounts.build
 
@@ -43,4 +44,8 @@ class OrgsController < EntitiesController
   private
 
   alias get_orgs get_list_of_records
+
+  def set_account
+    @accs = Account.my.order('name')
+  end
 end
