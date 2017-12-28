@@ -520,6 +520,7 @@ en-GB:
   org_account_small: account
   account_select: Select Account
   select_org: Select Org
+  save_org: Save Org
 
   # Views -> Tasks.
   #----------------------------------------------------------------------------

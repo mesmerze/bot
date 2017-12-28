@@ -2,7 +2,8 @@ class Org < ActiveRecord::Base
   belongs_to :user
   belongs_to :assignee, class_name: "User", foreign_key: :assigned_to
   has_many :sub_orgs, class_name: 'Org', foreign_key: 'org_id'
-  has_many :accounts, inverse_of: :org
+  has_many :org_accounts, dependent: :destroy
+  has_many :accounts, through: :org_accounts
 
   serialize :subscribed_users, Set
   accepts_nested_attributes_for :accounts, allow_destroy: true

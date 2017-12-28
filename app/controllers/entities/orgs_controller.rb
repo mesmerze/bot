@@ -1,5 +1,5 @@
 class OrgsController < EntitiesController
-  before_action :set_account, only: %i[new create]
+  before_action :set_account, only: %i[new edit create]
 
   def index
     @orgs = get_orgs(page: params[:page])
@@ -19,6 +19,16 @@ class OrgsController < EntitiesController
     respond_with(@org)
   end
 
+  def edit
+    @accounts = @org.accounts
+
+    if params[:previous].to_s =~ /(\d+)\z/
+      @previous = Org.my.find_by_id(Regexp.last_match[1]) || Regexp.last_match[1].to_i
+    end
+
+    respond_with(@org)
+  end
+
   def create
     @comment_body = params[:comment_body]
 
@@ -27,6 +37,14 @@ class OrgsController < EntitiesController
         @org.add_comment_by_user(@comment_body, current_user)
         @orgs = get_orgs
       end
+    end
+  end
+
+  def update
+    respond_with(@org) do |_format|
+      # Must set access before user_ids, because user_ids= method depends on access value.
+      @org.access = params[:org][:access] if params[:org][:access]
+      @org.update_attributes(resource_params)
     end
   end
 

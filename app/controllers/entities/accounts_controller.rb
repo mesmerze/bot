@@ -46,6 +46,7 @@ class AccountsController < EntitiesController
   #----------------------------------------------------------------------------
   def edit
     @org = Org.new
+    @current_org = @account.org if @account.org
     if params[:previous].to_s =~ /(\d+)\z/
       @previous = Account.my.find_by_id(Regexp.last_match[1]) || Regexp.last_match[1].to_i
     end
