@@ -86,6 +86,13 @@ class AccountsController < EntitiesController
     end
   end
 
+  def lead
+    @account = Account.find(params[:id])
+    respond_to do |format|
+      format.js { render partial: 'lead' }
+    end
+  end
+
   # PUT /accounts/1/attach
   #----------------------------------------------------------------------------
   # Handled by EntitiesController :attach

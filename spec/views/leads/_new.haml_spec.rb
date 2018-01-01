@@ -19,6 +19,7 @@ describe "/leads/_new" do
   it "should render [create lead] form" do
     render
     expect(view).to render_template(partial: "leads/_top_section")
+    expect(view).to render_template(partial: "leads/_account")
     expect(view).to render_template(partial: "leads/_status")
     expect(view).to render_template(partial: "leads/_contact")
     expect(view).to render_template(partial: "leads/_web")
