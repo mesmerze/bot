@@ -38,6 +38,8 @@ class Account < ActiveRecord::Base
                      TT TN TR TM TC TV UG UA AE GB US UM UY UZ VU VE VN VG VI WF EH YE ZM ZW].freeze
   belongs_to :user
   belongs_to :assignee, class_name: "User", foreign_key: :assigned_to
+  has_one :org_account, dependent: :destroy
+  has_one :org, through: :org_account
   has_many :leads, dependent: :destroy
   has_many :account_contacts, dependent: :destroy
   has_many :contacts, -> { distinct }, through: :account_contacts
@@ -53,6 +55,7 @@ class Account < ActiveRecord::Base
 
   accepts_nested_attributes_for :billing_address,  allow_destroy: true, reject_if: proc { |attributes| Address.reject_address(attributes) }
   accepts_nested_attributes_for :shipping_address, allow_destroy: true, reject_if: proc { |attributes| Address.reject_address(attributes) }
+  accepts_nested_attributes_for :org, reject_if: proc { |attributes| attributes['id'].empty? }
 
   scope :state, ->(filters) {
     where('category IN (?)' + (filters.delete('other') ? ' OR category IS NULL' : ''), filters)
@@ -78,7 +81,7 @@ class Account < ActiveRecord::Base
   exportable
   sortable by: ["name ASC", "rating DESC", "created_at DESC", "updated_at DESC"], default: "created_at DESC"
 
-  has_ransackable_associations %w[contacts opportunities tags activities emails addresses comments tasks]
+  has_ransackable_associations %w[org contacts opportunities tags activities emails addresses comments tasks]
   ransack_can_autocomplete
 
   validates_presence_of :name, message: :missing_account_name
@@ -91,6 +94,11 @@ class Account < ActiveRecord::Base
   validates :account_type, inclusion: { in: %w[hotel restaurant other], message: :bad_account_type }, allow_blank: true
 
   before_save :nullify_blank_category
+
+  def org_attributes=(attributes)
+    self.org = Org.find(attributes[:id]) unless attributes[:id].empty?
+    super
+  end
 
   # Default values provided through class methods.
   #----------------------------------------------------------------------------

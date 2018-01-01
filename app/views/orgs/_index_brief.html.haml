@@ -1,0 +1,21 @@
+%li.highlight[org]
+  - if org.category
+    .strip{:class => org.category} #{t(org.category)}
+  - else
+    .strip{:style => "color: gray;"} #{t :other}
+
+  %ul.tools.org{style: 'float:left; visibility:visible; margin: 2px 5px 0 0;'}
+    = hook(:org_tools_before, self, org: org)
+
+    - if can?(:update, org)
+      %li= link_to_edit(org)
+
+    - if can?(:destroy, org)
+      %li= link_to_delete(org)
+
+  .indent
+    = link_to(org.name, org)
+    &ndash;
+    = revenue(org)
+
+    = hook(:org_bottom, self, org: org)

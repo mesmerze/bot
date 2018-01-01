@@ -1,5 +1,6 @@
 config/*.yml
 config/deploy.rb
+!settings.yml
 
 .rspec
 spec/reports

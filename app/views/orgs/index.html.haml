@@ -1,0 +1,18 @@
+= styles_for :orgs
+
+= render 'entities/title_bar'
+
+.remote#create_org{ hidden }
+
+= render 'search'
+
+.remote#options{ hidden }
+
+.list#orgs
+  - if @orgs.any?
+    = render @orgs
+  - else
+    = render "shared/empty"
+
+#paginate= render "shared/paginate_with_per_page"
+#export= render "shared/export"

@@ -74,6 +74,7 @@ end
 gem 'puma', '~> 3.0'
 gem 'sass-rails'
 gem 'coffee-rails'
+gem 'cocoon'
 gem 'uglifier'
 gem 'execjs'
 gem 'therubyracer', platform: :ruby unless ENV["CI"]

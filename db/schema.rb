@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171222135041) do
+ActiveRecord::Schema.define(version: 20171228095218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -307,6 +307,33 @@ ActiveRecord::Schema.define(version: 20171222135041) do
     t.text "subscribed_users"
     t.index ["assigned_to"], name: "index_opportunities_on_assigned_to"
     t.index ["user_id", "name", "deleted_at"], name: "id_name_deleted", unique: true
+  end
+
+  create_table "org_accounts", force: :cascade do |t|
+    t.bigint "account_id"
+    t.bigint "org_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_org_accounts_on_account_id"
+    t.index ["org_id"], name: "index_org_accounts_on_org_id"
+  end
+
+  create_table "orgs", force: :cascade do |t|
+    t.string "name"
+    t.string "category"
+    t.string "business_scope", default: "country"
+    t.string "access", default: "Public"
+    t.text "subscribed_users"
+    t.integer "assigned_to"
+    t.bigint "org_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assigned_to"], name: "index_orgs_on_assigned_to"
+    t.index ["org_id"], name: "index_orgs_on_org_id"
+    t.index ["user_id", "name", "org_id"], name: "index_orgs_on_user_id_and_name_and_org_id"
+    t.index ["user_id"], name: "index_orgs_on_user_id"
   end
 
   create_table "permissions", id: :serial, force: :cascade do |t|

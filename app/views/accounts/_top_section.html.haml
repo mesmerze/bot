@@ -17,6 +17,11 @@
         %td
           .label #{t :rating}:
           = rating_select "account[rating]", { :id => :account_rating, :selected => @account.rating, :style => "width:160px" }
+      %tr
+        %td
+          .label #{t :select_org}:
+          = f.fields_for :org, @org do |o|
+            = o.select :id, @orgs.map{|a| [a.name, a.id]}, :selected => @current_org, :include_blank => t(:account_select)
 
       - if Setting.background_info && Setting.background_info.include?(:account)
         %tr

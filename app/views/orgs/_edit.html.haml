@@ -1,0 +1,21 @@
+.remote
+  = simple_form_for(@org, :html => one_submit_only, :remote => true) do |f|
+    = link_to_close edit_org_path(@org)
+    = f.hidden_field :user_id
+
+    = f.error_messages :object_name => t('org')
+
+    = render "orgs/top_section",  :f => f, :edit => true
+    = render "orgs/accounts",     :f => f, :edit => true
+    = render "shared/add_comment", :f => f, :edit => true
+    = render "entities/permissions",  :f => f, :edit => true, :entity => @org
+
+    = hook(:entity_form, self, {f: f, entity: @org})
+
+    .buttonbar
+      - if Setting.compound_address
+        = f.submit t(:save_org), :onclick => "crm.clear_all_hints()"
+      - else
+        = f.submit t(:save_org)
+      #{t :or}
+      = link_to_cancel edit_org_path(@org)

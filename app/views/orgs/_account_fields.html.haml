@@ -1,0 +1,10 @@
+.nested-fields
+  .field
+    %table
+      %tr
+        %td
+          = link_to_remove_association "", f, class: "ui-icon ui-icon-minus",
+                                              style: 'display:flex; margin:0.5rem 0 0;'
+        %td= spacer
+        %td
+          = f.select :id, @accs.map{|a| [a.name, a.id]}

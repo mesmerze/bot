@@ -127,6 +127,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :orgs, id: /\d+/ do
+    collection do
+      get :redraw
+      get :field_group
+    end
+  end
+
   resources :tasks, id: /\d+/ do
     collection do
       post :filter

@@ -26,6 +26,7 @@ en-US:
   tab_contacts: Contacts
   tab_opportunities: Opportunities
   tab_team: Team
+  tab_orgs: Orgs
   admin_tab_groups: Groups
   admin_tab_users: Users
   admin_tab_fields: Custom Fields
@@ -85,6 +86,8 @@ en-US:
   completed_last_month: Last month
   restaurant: Restaurant
   hotel: Hotel
+  regional: Regional
+  global: Global
 
   # Models/Activity.
   #----------------------------------------------------------------------------
@@ -149,6 +152,12 @@ en-US:
               missing_opportunity_name: ^Please specify opportunity name.
             access:
               share_opportunity: ^Please specify users to share the opportunity with.
+        org:
+          attributes:
+            name:
+              missing_name: ^Please specify org name.
+            access:
+              share_org: ^Please specify users to share the org with.
         task:
           attributes:
             name:
@@ -511,6 +520,16 @@ en-US:
   stage: Stage
   total_opportunities: Total Opportunities
   weighted_amount: Weighted amount
+
+  # Views -> Orgs.
+  #----------------------------------------------------------------------------
+  orgs: Orgs
+  create_org: Create Org
+  business_scope: Business Scope
+  org_account_small: account
+  account_select: Select Account
+  select_org: Select Org
+  save_org: Save Org
 
   # Views -> Tasks.
   #----------------------------------------------------------------------------

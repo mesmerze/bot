@@ -26,6 +26,7 @@ ru:
   tab_contacts: Контакты
   tab_opportunities: Возможности
   tab_team: Команда
+  tab_orgs: Организации
   admin_tab_groups: Группы
   admin_tab_users: Пользователи
   admin_tab_fields: Custom Fields
@@ -85,6 +86,8 @@ ru:
   completed_last_month: В прошлом месяце
   restaurant: Ресторан
   hotel: Отель
+  regional: Региональный
+  global: Глобальный
 
   # Models/Activity.
   #----------------------------------------------------------------------------
@@ -149,6 +152,12 @@ ru:
               missing_opportunity_name: ^Пожалуйста введите название возможности.
             access:
               share_opportunity: ^Пожалуйста укажите пользователей которым разрешен доступ к данной возможности.
+        org:
+          attributes:
+            name:
+              missing_name: ^Пожалуйста введите имя.
+            access:
+              share_org: ^Пожалуйста укажите пользователей которым разрешен доступ к данному Оргу.
         task:
           attributes:
             name:
@@ -516,6 +525,16 @@ ru:
   stage: Стадия
   total_opportunities: Всего возможностей
   weighted_amount: Взвешенная сумма
+
+  # Views -> Orgs.
+  #----------------------------------------------------------------------------
+  orgs: Орг
+  create_org: Создать Орг
+  business_scope: Бизнес область
+  org_account_small: контрагента
+  account_select: Выберите контрагента
+  select_org: Выберите Организацию
+  save_org: Сохранить
 
   # Views -> Tasks.
   #----------------------------------------------------------------------------
