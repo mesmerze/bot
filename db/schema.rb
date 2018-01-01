@@ -50,6 +50,9 @@ ActiveRecord::Schema.define(version: 20171228095218) do
     t.integer "rating", default: 0, null: false
     t.string "category", limit: 32
     t.text "subscribed_users"
+    t.string "account_type"
+    t.string "country"
+    t.decimal "online_review", precision: 3, scale: 2
     t.index ["assigned_to"], name: "index_accounts_on_assigned_to"
     t.index ["user_id", "name", "deleted_at"], name: "index_accounts_on_user_id_and_name_and_deleted_at", unique: true
   end
@@ -269,6 +272,9 @@ ActiveRecord::Schema.define(version: 20171228095218) do
     t.string "background_info"
     t.string "skype", limit: 128
     t.text "subscribed_users"
+    t.bigint "account_id"
+    t.date "last_contact_date"
+    t.index ["account_id"], name: "index_leads_on_account_id"
     t.index ["assigned_to"], name: "index_leads_on_assigned_to"
     t.index ["user_id", "last_name", "deleted_at"], name: "index_leads_on_user_id_and_last_name_and_deleted_at", unique: true
   end
@@ -460,4 +466,5 @@ ActiveRecord::Schema.define(version: 20171228095218) do
     t.index ["whodunnit"], name: "index_versions_on_whodunnit"
   end
 
+  add_foreign_key "leads", "accounts"
 end

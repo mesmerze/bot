@@ -115,6 +115,12 @@ ru:
               missing_account_name: ^Пожалуйста введите название контрагента.
             access:
               share_account: ^Пожалуйста укажите пользователей которым разрешен доступ к данному контрагенту.
+            country:
+              bad_country_code: ^Пожалуйста искользуйте ISO кодировку, например 'JP', 'US', 'KR'.
+            account_type:
+              bad_account_type: ^Пожалуйста введите 'hotel', 'restaurant' или 'other'.
+            online_review:
+              bad_online_review: ^Пожалуйста введите число от 0 до 5.0, например 3.75'.
         campaign:
           attributes:
             name:
@@ -333,6 +339,8 @@ ru:
   accounts_options: Свойства списка контрагентов
   account_categories: Категории контрагентов
   accounts_small: контрагенты
+  account_type: Контрагент
+  online_review: Онлайн рецензия
   assigned_to: Поручен
   billing_address: Адрес плательщика
   create_account: Создать контрагента
@@ -482,6 +490,7 @@ ru:
   total_leads: Всего потенциальных клиентов
   show_status_info_small: Показать статус этого потенциального клиента.
   show_contact_info_small: Показать контактную информацию для этого потенциального клиента.
+  last_contact_date: Дата последнего контакта
 
   # Views -> Opportunities.
   #----------------------------------------------------------------------------

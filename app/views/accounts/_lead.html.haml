@@ -1,0 +1,13 @@
+%table
+  %tr
+    %td
+      = hidden_field_tag 'lead[account_attributes][id]', @account.id
+      .label #{t :country}:
+      = select_tag 'lead[account_attributes][country]',  options_for_select(Setting.unroll(:countries), @account.country), { :style => "width:160px" }
+    %td
+      .label #{t :account_type}:
+      = select_tag 'lead[account_attributes][account_type]',  options_for_select(Setting.unroll(:account_type), @account.account_type), { :style => "width:160px" }
+    %td= spacer
+    %td
+      .label #{t :online_review}:
+      = text_field_tag 'lead[account_attributes][online_review]', @account.online_review  ,{ style: "width:60px" }

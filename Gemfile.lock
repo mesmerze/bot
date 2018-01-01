@@ -440,7 +440,7 @@ DEPENDENCIES
   pg
   premailer
   pry-rails
-  puma
+  puma (~> 3.0)
   rails (~> 5.1.0)
   rails-controller-testing
   rails-i18n

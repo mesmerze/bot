@@ -34,3 +34,8 @@
             = collection_select :lead, :campaign_id, @campaigns, :id, :name, { :selected => @campaign.id }, { :style => "width:100%", :disabled => true }
           - else
             = collection_select :lead, :campaign_id, @campaigns, :id, :name, { :selected => @lead.campaign_id, :include_blank => t(:select_none) }, { :style => "width:100%", :onchange => "crm.flip_campaign_permissions(this.value)" }
+      %tr
+        %td
+          .label #{t :last_contact_date}:
+          = f.text_field :last_contact_date, :style => "width:110px;", :autocomplete => :off, :class => 'date'
+

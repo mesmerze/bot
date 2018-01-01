@@ -32,7 +32,6 @@ remove 'fat_free_crm'
 group :development do
   # don't load these gems in travis
   unless ENV["CI"]
-    gem 'puma'
     gem 'capistrano'
     gem 'capistrano-bundler'
     gem 'capistrano-rails'
@@ -72,6 +71,7 @@ group :heroku do
   gem 'rails_12factor'
 end
 
+gem 'puma', '~> 3.0'
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'cocoon'

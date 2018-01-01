@@ -11,12 +11,15 @@ echo "Preparing build directory..."
 rm -rf $ARTIFACT_BUILD_PATH
 cp -R /code /tmp/build
 rm -rf /tmp/build/vendor/bundle
+rm -rf /tmp/build/vendor/cache
 cp -R /bundle /tmp/build/vendor/bundle
-pushd /tmp/build
+pushd /tmp/build >/dev/null
 
-echo "Installing dependencies..."
-bundle install --without development test --deployment
-bundle package --all
+echo "Checking for missing dependencies..."
+export BUNDLE_IGNORE_CONFIG="1"
+export BUNDLE_PATH="/tmp/build/vendor/bundle/ruby/2.3.0"
+export BUNDLE_WITHOUT="development:test"
+bundle check || bundle install --without development test --deployment --path "/bundle" && rm -rf ./vendor/bundle && cp -R /bundle /tmp/build/vendor/bundle
 
 echo "Pre-compiling assets..."
 bundle exec rake assets:precompile

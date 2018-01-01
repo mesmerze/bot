@@ -9,8 +9,7 @@
 #
 #  id              :integer         not null, primary key
 #  user_id         :integer
-#  campaign_id     :integer
-#  assigned_to     :integer
+#  campaign_id     :integer #  assigned_to     :integer
 #  first_name      :string(64)      default(""), not null
 #  last_name       :string(64)      default(""), not null
 #  access          :string(8)       default("Public")
@@ -40,6 +39,7 @@ class Lead < ActiveRecord::Base
   belongs_to :user
   belongs_to :campaign
   belongs_to :assignee, class_name: "User", foreign_key: :assigned_to
+  belongs_to :account
   has_one :contact, dependent: :nullify # On destroy keep the contact, but nullify its lead_id
   has_many :tasks, as: :asset, dependent: :destroy # , :order => 'created_at DESC'
   has_one :business_address, -> { where "address_type='Business'" }, dependent: :destroy, as: :addressable, class_name: "Address"
@@ -49,6 +49,7 @@ class Lead < ActiveRecord::Base
   serialize :subscribed_users, Set
 
   accepts_nested_attributes_for :business_address, allow_destroy: true
+  accepts_nested_attributes_for :account, reject_if: proc { |attributes| attributes['id'].empty? }
 
   scope :state, ->(filters) {
     where(['status IN (?)' + (filters.delete('other') ? ' OR status IS NULL' : ''), filters])
@@ -79,6 +80,13 @@ class Lead < ActiveRecord::Base
 
   after_create :increment_leads_count
   after_destroy :decrement_leads_count
+
+  def account_attributes=(attributes)
+    if attributes['id'].present?
+      self.account = Account.find(attributes['id'])
+    end
+    super
+  end
 
   # Default values provided through class methods.
   #----------------------------------------------------------------------------
@@ -131,7 +139,7 @@ class Lead < ActiveRecord::Base
     account_params = params[:account] ? params[:account] : {}
     opportunity_params = params[:opportunity] ? params[:opportunity] : {}
 
-    account     = Account.create_or_select_for(self, account_params)
+    account = self.account ? self.account : Account.create_or_select_for(self, account_params)
     opportunity = Opportunity.create_for(self, account, opportunity_params)
     contact     = Contact.create_for(self, account, opportunity, params)
 

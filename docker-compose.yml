@@ -48,7 +48,10 @@ services:
       - TS_CRM_DATABASE_HOST=db
       - TS_CRM_DATABASE_USER=postgres
   artifact:
-    build: .
+    build:
+      context: .
+      args:
+        BUNDLE_INSTALL_OPTS: --without development test --deployment --path /bundle
     image: app
     command: ./scripts/build.sh
     volumes:
