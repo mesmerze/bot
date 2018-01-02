@@ -80,5 +80,5 @@ gem 'execjs'
 gem 'therubyracer', platform: :ruby unless ENV["CI"]
 gem 'nokogiri', '>= 1.8.1'
 gem 'activemodel-serializers-xml'
-gem 'bootsnap', require: false
+gem 'bootsnap', require: false, github: 'Shopify/bootsnap', ref: 'a73b40c5f3e548476014b9eef71b0948edea2250'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

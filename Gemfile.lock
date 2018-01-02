@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/Shopify/bootsnap.git
+  revision: a73b40c5f3e548476014b9eef71b0948edea2250
+  ref: a73b40c5f3e548476014b9eef71b0948edea2250
+  specs:
+    bootsnap (1.1.7)
+      msgpack (~> 1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -63,8 +71,6 @@ GEM
       activesupport (>= 3.2, < 5.2)
       request_store (~> 1.0)
       scrypt (>= 1.2, < 4.0)
-    bootsnap (1.1.7)
-      msgpack (~> 1.0)
     builder (3.2.3)
     byebug (9.1.0)
     cancancan (2.1.2)
@@ -405,7 +411,7 @@ DEPENDENCIES
   acts_as_fu
   acts_as_list
   authlogic (>= 3.4.4)
-  bootsnap
+  bootsnap!
   byebug
   cancancan
   capistrano
