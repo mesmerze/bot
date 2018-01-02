@@ -63,6 +63,10 @@ class OrgsController < EntitiesController
 
   alias get_orgs get_list_of_records
 
+  def list_includes
+    %i[tags].freeze
+  end
+
   def set_account
     @accs = Account.my.order('name')
   end
