@@ -1,0 +1,11 @@
+<%
+  for i in (1 .. 20) do
+    random = rand(20)
+%>
+org_accounts<%= i %>:
+  id: <%= i %>
+  org_id: <%= i if random < 15 %>
+  account_id: <%= (i + random) if random < 15 %>
+  created_at: <%= starts = Date.today - rand(15).days %>
+  updated_at: <%= starts + rand(5).days %>
+<% end %>

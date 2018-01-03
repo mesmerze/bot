@@ -1,0 +1,21 @@
+<%
+  require "ffaker"
+  puts "Loading orgs..."
+
+  category = %w(hotel restaurant other)
+  business_scope = %w(global regional country)
+
+  for i in (1 .. rand(20) + 10) do
+%>
+org<%= i %>:
+  id          : <%= i %>
+  user_id     : <%= rand(8) + 1 %>
+  assigned_to : <%= rand(8) + 1 %>
+  name        : <%= name = FFaker::Company.name %>
+  access      : Public
+  category    : <%= category.sample %>
+  business_scope: <%= business_scope.sample %>
+
+  created_at  : <%= created_at = (rand(60) + 2).days.ago + rand(600).minutes; created_at.to_s(:db) %>
+  updated_at  : <%= (created_at + rand(36_000).seconds).to_s(:db) %>
+<% end %>
