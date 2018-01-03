@@ -156,7 +156,7 @@ cs:
   msg_cant_do: Nelze %{action} na %{asset} pokud tento již není dostupný.
   msg_email_not_found: Uživatel s tímto emailem není v sytému zadán.
   msg_enter_new_password: Zadejte heslo.
-  msg_goodbye: Byl jste odhlášen. Díky za použití Fat Free CRM!
+  msg_goodbye: Byl jste odhlášen. Díky za použití TableSolution CRM!
   msg_invalid_password: ^Zadejte správne aktální heslo
   msg_invalig_login: Špatné jméno nebo heslo.
   msg_last_login: Váše poslední přihlášení bylo %{value}.
@@ -168,8 +168,8 @@ cs:
   msg_pwd_instructions_sent: Instrukce pro přenastavení hesla vám byly zaslány na
     email.
   msg_require_admin: Pro přístup k této stránce musíte být přihlášen jako administrátor.
-  msg_successful_signup: Registrace byla úspěšná. Vítejte ve Fat Free CRM!
-  msg_welcome: Vítejte ve Fat Free CRM!
+  msg_successful_signup: Registrace byla úspěšná. Vítejte ve TableSolution CRM!
+  msg_welcome: Vítejte ve TableSolution CRM!
   option_amount*probability: hodnota zvýhodnění
   activity_options: Zobraz %{models} %{action_type} uživatelem %{user} za období %{period}.
   all_users: všichni uživatelé
@@ -515,12 +515,12 @@ cs:
   about: O webu
   about_dev_group: Diskuzní skupina pro vývojáře
   about_features: Vlastnosti a chyby
-  about_ffc: O Fat Free CRM
-  about_ffc_resources: Fat Free CRM zdroje (odkaz otevře nové okno)
-  about_ffc_version: verze Fat Free CRM
+  about_ffc: O TableSolution CRM
+  about_ffc_resources: TableSolution CRM zdroje (odkaz otevře nové okno)
+  about_ffc_version: verze TableSolution CRM
   about_home_page: Domácí stránka
   about_project_page: Stránka projektu
-  about_thank_you: Díky že používíte Fat Free CRM! Vážímwe si vašeho businesu a doufáme
+  about_thank_you: Díky že používíte TableSolution CRM! Vážímwe si vašeho businesu a doufáme
     že jste spokojeni s naším software.
   about_twitter: Zprávy z Twitteru
   about_user_group: Diskutní skupina pro uživatele
@@ -536,8 +536,8 @@ cs:
     hesla.
   reset_password: Obnovit heslo
   update_password_and_login: Aktualizujte přihlašovací jméno a heslo
-  back_to_crm: Zpět na Fat Free CRM
-  crm_admin_page: Fat Free CRM Administrace
+  back_to_crm: Zpět na TableSolution CRM
+  crm_admin_page: TableSolution CRM Administrace
   approve: Schválit
   create_user: Vytvořit uživatele
   last_logged_in: last logged in %{value}

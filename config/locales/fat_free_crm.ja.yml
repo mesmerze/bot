@@ -152,7 +152,7 @@ ja:
   msg_cant_do: Can't %{action} the %{asset} since it's no longer available.
   msg_email_not_found: そのEメールアドレスを持つユーザが見つかりませんでした。
   msg_enter_new_password: 新しいパスワードを入力してください。
-  msg_goodbye: ログアウトしました。 Fat Free CRM をご利用いただき、ありがとうございます!
+  msg_goodbye: ログアウトしました。 TableSolution CRM をご利用いただき、ありがとうございます!
   msg_invalid_password: ^Please specify valid current password
   msg_invalig_login: ユーザ名かパスワードが不正です。
   msg_last_login: あなたの最終ログインは %{value} です。
@@ -163,8 +163,8 @@ ja:
   msg_password_updated: パスワードの更新が成功しました。
   msg_pwd_instructions_sent: あなたのパスワードのリセット手順を送信しました。 Eメールを確認して下さい。
   msg_require_admin: このページへのアクセスは管理者でなければなりません。
-  msg_successful_signup: サインアップ成功です。 Fat Free CRM へようこそ!
-  msg_welcome: Fat Free CRM へようこそ!
+  msg_successful_signup: サインアップ成功です。 TableSolution CRM へようこそ!
+  msg_welcome: TableSolution CRM へようこそ!
   option_amount*probability: weighted amount
   activity_options: Show %{models} activities performed by %{user} in the past %{period}.
   all_users: 全ユーザ
@@ -484,12 +484,12 @@ ja:
   about: About
   about_dev_group: 開発者のためのディスカッショングループ
   about_features: Features and bugs
-  about_ffc: Fat Free CRM について
-  about_ffc_resources: Fat Free CRM resources (links open a new window)
-  about_ffc_version: Fat Free CRM バージョン
+  about_ffc: TableSolution CRM について
+  about_ffc_resources: TableSolution CRM resources (links open a new window)
+  about_ffc_version: TableSolution CRM バージョン
   about_home_page: Home page
   about_project_page: プロジェクトページ
-  about_thank_you: Thank you for using Fat Free CRM! We appreciate your business and
+  about_thank_you: Thank you for using TableSolution CRM! We appreciate your business and
     hope you enjoy using the software.
   about_twitter: Twitter commit updates
   about_user_group: ユーザのためのディスカッショングループ
@@ -505,8 +505,8 @@ ja:
     your password will be sent to you.
   reset_password: Reset Password
   update_password_and_login: Update Password and Login
-  back_to_crm: Fat Free CRM に戻る
-  crm_admin_page: Fat Free CRM 管理
+  back_to_crm: TableSolution CRM に戻る
+  crm_admin_page: TableSolution CRM 管理
   approve: Approve
   create_user: ユーザを作成
   last_logged_in: last logged in %{value}
