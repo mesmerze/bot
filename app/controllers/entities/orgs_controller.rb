@@ -64,7 +64,7 @@ class OrgsController < EntitiesController
   alias get_orgs get_list_of_records
 
   def list_includes
-    %i[tags].freeze
+    [:tags, accounts: [:opportunities]]
   end
 
   def set_account

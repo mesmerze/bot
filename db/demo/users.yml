@@ -243,3 +243,29 @@ heather:
   deleted_at:
   created_at: <%= login - rand(5).days %>
   updated_at: <%= login + rand(5).days %>
+
+shields:
+  id: 9
+  username: shields
+  email: shields@kkvesper.jp
+  first_name: John
+  last_name: Shields
+  title: Admin
+  company: Example International
+  alt_email:
+  phone: (800)555-1220
+  mobile: (800)555-1221
+  admin: true
+  password_hash: 6c5f1bbbbc6c1eaca96fad6f09796dda9597370771da790ada1702eb59f7ccdc1838236c9cb2f014eb7847e8fca8b06c818b07d9efbffb4efbb14ccb37c227e1
+  password_salt: TKfx36TiMFglOgsUkB
+  persistence_token: f358dab0621f42641c5f59762a18b08892b7bb68ae75a990e4395eb0a1b588e73a06e1cc61dc3d00250ac6da6f66162e0c5956e21102264cb4350b63cf080fcf
+  perishable_token: UrNG87piQ0UtyiYmWlw3
+  single_access_token: IsM4M9B6udw12y7VsMU
+  last_login_at: <%= login = Date.today - rand(15).days %>
+  current_login_at:
+  last_login_ip: 127.0.0.1
+  current_login_ip: 127.0.0.1
+  login_count: <%= 1 + rand(100) %>
+  deleted_at:
+  created_at: <%= login - rand(5).days %>
+  updated_at: <%= login + rand(5).days %>
