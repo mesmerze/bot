@@ -1,22 +1,16 @@
 version: "3.2"
 services:
   db:
-    image: postgres
+    image: postgres:9.6-alpine
     volumes:
-      - type: volume
-        source: dbdata
-        target: /var/lib/postgresql/data
+      - dbdata:/var/lib/postgresql/data
   web:
     build: .
     image: app
     command: ./scripts/start.sh
     volumes:
-      - type: bind
-        source: .
-        target: /code
-      - type: volume
-        source: bundle
-        target: /bundle
+      - .:/code
+      - bundle-dev:/bundle
     ports:
       - "3000:3000"
     links:
@@ -25,6 +19,8 @@ services:
       - db
     environment:
       - RAILS_ENV=development
+      - BUNDLE_PATH=/bundle
+      - BUNDLE_JOBS=4
       - TS_CRM_DATABASE_HOST=db
       - TS_CRM_DATABASE_USER=postgres
   test:
@@ -32,40 +28,33 @@ services:
     image: app
     command: ./scripts/test.sh
     volumes:
-      - type: bind
-        source: .
-        target: /code
-      - type: volume
-        source: bundle
-        target: /bundle
+      - bundle-dev:/bundle
     links:
       - db
     depends_on:
       - db
     environment:
       - RAILS_ENV=test
-      - DB=postgres
+      - BUNDLE_PATH=/bundle
+      - BUNDLE_JOBS=4
       - TS_CRM_DATABASE_HOST=db
       - TS_CRM_DATABASE_USER=postgres
   artifact:
     build:
       context: .
-      args:
-        BUNDLE_INSTALL_OPTS: --without development test --deployment --path /bundle
     image: app
     command: ./scripts/build.sh
     volumes:
-      - type: bind
-        source: .
-        target: /code
-      - type: volume
-        source: bundle
-        target: /bundle
+      - bundle-build:/bundle
+      - ./dist:/dist
     environment:
       - RAILS_ENV=production
+      - BUNDLE_PATH=/bundle
+      - BUNDLE_JOBS=4
       - HOST_USER_ID
       - HOST_USER_GID
 
 volumes:
-  bundle:
+  bundle-build:
+  bundle-dev:
   dbdata:
