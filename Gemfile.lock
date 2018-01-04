@@ -76,6 +76,7 @@ GEM
       mail (> 2.2.5)
       mime-types
       xml-simple
+    bugsnag (5.4.1)
     builder (3.2.3)
     byebug (9.1.0)
     cancancan (2.1.2)
@@ -441,6 +442,7 @@ DEPENDENCIES
   authlogic (>= 3.4.4)
   aws-ses (= 0.6.0)
   bootsnap!
+  bugsnag
   byebug
   cancancan
   capistrano
