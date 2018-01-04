@@ -85,3 +85,4 @@ gem 'bootsnap', require: false, github: 'Shopify/bootsnap', ref: 'a73b40c5f3e548
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'fog-aws'
 gem 'aws-ses', '0.6.0', require: 'aws/ses'
+gem 'okcomputer'
