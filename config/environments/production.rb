@@ -62,5 +62,8 @@ if defined?(FatFreeCRM::Application)
 
     # Do not dump schema after migrations.
     config.active_record.dump_schema_after_migration = false
+
+    config.action_mailer.delivery_method = :ses
+    config.action_mailer.default_url_options = { host: 'crm.tablesolution.com' }
   end
 end
