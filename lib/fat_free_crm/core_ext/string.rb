@@ -15,19 +15,11 @@ class String
   end
 
   def digitize
-    gsub(/[^\d]/, "")  # "$100,000".digitize # => 100000
+    gsub(/\D/, "")  # "$100,000".digitize # => 100000
   end
 
   def to_url
     match(/^https?:\/\//) ? self : "http://" << self
-  end
-
-  def true?
-    self == "true"
-  end
-
-  def false?
-    self == "false"
   end
 
   # Generates all permutations for first and last name, based on the order of parts
