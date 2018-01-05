@@ -11,3 +11,8 @@ business_scope:
   - :global
   - :regional
   - :country
+
+org_category_color:
+  :other        : Silver
+  :restaurant   : Turquoise
+  :hotel        : Gold

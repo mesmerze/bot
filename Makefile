@@ -25,12 +25,15 @@ destroy:
 
 # Runs DB migrations
 migrations:
+	docker-compose build web
 	docker-compose run web ./scripts/migrations.sh
 
 # Loads sample data for the CRM
 sample-data:
+	docker-compose build web
 	docker-compose run web bundle exec rake ffcrm:demo:load
 
 # Updates Gemfile.lock
 update-gemfile:
+	docker-compose build web
 	docker-compose run web bundle install --no-deployment

@@ -7,6 +7,12 @@ class OrgsController < EntitiesController
     respond_with @orgs
   end
 
+  def show
+    @comment = Comment.new
+    @timeline = timeline(@org)
+    respond_with(@org)
+  end
+
   def new
     @org.attributes = { user: current_user, access: Setting.default_access, assigned_to: nil }
     @org.accounts.build
@@ -35,6 +41,7 @@ class OrgsController < EntitiesController
     respond_with(@org) do |_format|
       if @org.save
         @org.add_comment_by_user(@comment_body, current_user)
+        @org = Org.find(@org.id)
         @orgs = get_orgs
       end
     end
@@ -61,6 +68,15 @@ class OrgsController < EntitiesController
 
   private
 
+  def order_by_attributes(scope, order)
+    case order
+    when 'orgs.revenue'
+      scope.order("revenue DESC NULLS LAST")
+    else
+      scope.order(order)
+    end
+  end
+
   alias get_orgs get_list_of_records
 
   def list_includes
@@ -68,6 +84,6 @@ class OrgsController < EntitiesController
   end
 
   def set_account
-    @accs = Account.my.order('name')
+    @accs = Account.accessible(@org.id).my.order('name')
   end
 end

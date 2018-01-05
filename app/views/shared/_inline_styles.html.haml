@@ -21,6 +21,10 @@
     - Setting.task_category_color.each do |key, value|
       li.task .#{key} { background:#{value}; }
 
+  - if models.include?(:org)
+    - Setting.org_category_color.each do |key, value|
+      li.org .#{key} { background:#{value}; }
+
   - if models.include?(:user)
     li.user .admin     { background: lightblue; }
     li.user .suspended { background: gainsboro; }

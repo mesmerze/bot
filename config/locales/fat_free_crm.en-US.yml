@@ -158,6 +158,8 @@ en-US:
               missing_name: ^Please specify org name.
             access:
               share_org: ^Please specify users to share the org with.
+            category:
+              bad_category: ^Please select category.
         task:
           attributes:
             name:
@@ -530,6 +532,7 @@ en-US:
   account_select: Select Account
   select_org: Select Org
   save_org: Save Org
+  org_summary: Org summary
 
   # Views -> Tasks.
   #----------------------------------------------------------------------------
