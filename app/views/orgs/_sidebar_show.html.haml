@@ -1,0 +1,11 @@
+.panel#summary
+  .caption #{t :org_summary}
+  %li
+    %dt= @org.category
+    %tt #{t :category}:
+  %li
+    %dt= @org.business_scope
+    %tt #{t :business_scope}:
+  %li.last
+    %dt= @org.assigned_to ? truncate(@org.assignee.full_name, :length => 16) : nil
+    %tt #{t :assigned_to}:

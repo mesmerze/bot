@@ -131,6 +131,7 @@ Rails.application.routes.draw do
     collection do
       get :redraw
       get :field_group
+      get :versions
     end
   end
 

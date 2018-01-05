@@ -11,12 +11,12 @@
           = user_select(:org, User.without(current_user), current_user)
         %td= spacer
         %td
-          .label #{t :category}:
-          = f.select :category, Setting.unroll(:org_category), { selected:  "other".to_sym }, { style: "width:160px" }
+          .label.req #{t :category}:
+          = f.select :category, Setting.unroll(:org_category), include_blank: true
         %td= spacer
         %td
           .label #{t :business_scope}:
-          = f.select :business_scope, Setting.unroll(:business_scope), { selected: "country".to_sym }, { style: 'width:160px' }
+          = f.select :business_scope, Setting.unroll(:business_scope)
 
       = render :partial => "/shared/tags", :locals => {:f => f, :span => 3}
 
