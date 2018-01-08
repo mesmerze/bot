@@ -1,4 +1,4 @@
-if Rails.env.production
+if Rails.env.production?
     bucket = ENV['AWS_S3_BUCKET_NAME']
     region = ENV.fetch('AWS_S3_REGION'){ 'ap-northeast-1' }
 
