@@ -26,7 +26,7 @@ describe UserMailer do
     end
 
     it "sets the subject" do
-      expect(mail.subject).to eq("Fat Free CRM: Password Reset Instructions")
+      expect(mail.subject).to eq("TS CRM: Password Reset Instructions")
     end
 
     it "includes password reset link in body" do
@@ -51,7 +51,7 @@ describe UserMailer do
       end
 
       it "sets the subject" do
-        expect(mail.subject).to eq("Fat Free CRM: You have been assigned Ghostbusters Account")
+        expect(mail.subject).to eq("TS CRM: You have been assigned Ghostbusters Account")
       end
 
       it "includes the name of the person who re-assigned the lead in the body" do
@@ -76,7 +76,7 @@ describe UserMailer do
       end
 
       it "sets the subject" do
-        expect(mail.subject).to eq("Fat Free CRM: You have been assigned Harold Ramis Contact")
+        expect(mail.subject).to eq("TS CRM: You have been assigned Harold Ramis Contact")
       end
 
       it "includes the name of the person who re-assigned the lead in the body" do
@@ -101,7 +101,7 @@ describe UserMailer do
       end
 
       it "sets the subject" do
-        expect(mail.subject).to eq("Fat Free CRM: You have been assigned Bill Murray Lead")
+        expect(mail.subject).to eq("TS CRM: You have been assigned Bill Murray Lead")
       end
 
       it "includes the name of the person who re-assigned the lead in the body" do
@@ -126,7 +126,7 @@ describe UserMailer do
       end
 
       it "sets the subject" do
-        expect(mail.subject).to eq("Fat Free CRM: You have been assigned Big Opportunity")
+        expect(mail.subject).to eq("TS CRM: You have been assigned Big Opportunity")
       end
 
       it "includes the name of the person who re-assigned the lead in the body" do
