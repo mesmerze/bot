@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -9,7 +11,6 @@ feature 'Opportunities Overview', "
   In order to keep track of my team's responsibilities
   As a user
   I want to see an overview of opportunities broken down by user
-
 " do
   background do
     @me = FactoryGirl.create(:user)

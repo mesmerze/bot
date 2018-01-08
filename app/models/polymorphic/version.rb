@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -44,7 +46,7 @@ class Version < PaperTrail::Version
       includes(:item, :related, :user)
         .where(({ item_type: options[:asset] } if options[:asset]))
         .where(({ event:     options[:event] } if options[:event]))
-        .where(({ whodunnit: options[:user].to_s }  if options[:user]))
+        .where(({ whodunnit: options[:user].to_s } if options[:user]))
         .where('versions.created_at >= ?', Time.zone.now - (options[:duration] || 2.days))
         .limit(options[:max])
         .default_order

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -9,7 +11,7 @@ describe CommentsController do
   COMMENTABLE = %i[account campaign contact lead opportunity].freeze
 
   before(:each) do
-    require_user
+    login
   end
 
   # GET /comments

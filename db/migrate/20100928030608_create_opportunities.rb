@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class CreateOpportunities < ActiveRecord::Migration[4.2]
   def self.up
     create_table :opportunities, force: true do |t|
-      t.string :uuid,     limit: 36
+      t.string :uuid, limit: 36
       t.references :user
       t.references :campaign
       t.integer :assigned_to

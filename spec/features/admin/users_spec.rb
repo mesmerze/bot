@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -9,13 +11,12 @@ feature 'Users tab', '
   In order to increase customer satisfaction
   As an administrator
   I want to manage users
-
 ' do
   before(:each) do
     do_login(first_name: 'Captain', last_name: 'Kirk', admin: true)
   end
 
-  scenario 'should create a new user', js: true  do
+  scenario 'should create a new user', js: true do
     FactoryGirl.create(:group, name: "Superheroes")
     visit admin_users_path
     click_link 'Create User'

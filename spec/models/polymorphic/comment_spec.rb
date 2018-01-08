@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -22,10 +24,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe Comment do
-  before(:each) do
-    login
-  end
-
   it "should create a new instance given valid attributes" do
     Comment.create!(comment: "Hello", user: FactoryGirl.create(:user), commentable: FactoryGirl.create(:lead))
   end

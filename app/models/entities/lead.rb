@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -193,7 +195,7 @@ class Lead < ActiveRecord::Base
   # Make sure at least one user has been selected if the lead is being shared.
   #----------------------------------------------------------------------------
   def users_for_shared_access
-    errors.add(:access, :share_lead) if self[:access] == "Shared" && !permissions.any?
+    errors.add(:access, :share_lead) if self[:access] == "Shared" && permissions.none?
   end
 
   ActiveSupport.run_load_hooks(:fat_free_crm_lead, self)

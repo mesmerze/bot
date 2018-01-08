@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -90,7 +92,7 @@ class Contact < ActiveRecord::Base
 
   has_fields
   exportable
-  sortable by: ["first_name ASC",  "last_name ASC", "created_at DESC", "updated_at DESC"], default: "created_at DESC"
+  sortable by: ["first_name ASC", "last_name ASC", "created_at DESC", "updated_at DESC"], default: "created_at DESC"
 
   validates_presence_of :first_name, message: :missing_first_name, if: -> { Setting.require_first_names }
   validates_presence_of :last_name,  message: :missing_last_name,  if: -> { Setting.require_last_names  }
@@ -198,18 +200,18 @@ class Contact < ActiveRecord::Base
   # Make sure at least one user has been selected if the contact is being shared.
   #----------------------------------------------------------------------------
   def users_for_shared_access
-    errors.add(:access, :share_contact) if self[:access] == "Shared" && !permissions.any?
+    errors.add(:access, :share_contact) if self[:access] == "Shared" && permissions.none?
   end
 
   # Handles the saving of related accounts
   #----------------------------------------------------------------------------
   def save_account(params)
     account_params = params[:account]
-    if !account_params || account_params[:id] == "" || account_params[:name] == ""
-      self.account = nil
-    else
-      self.account = Account.create_or_select_for(self, account_params)
-    end
+    self.account = if !account_params || account_params[:id] == "" || account_params[:name] == ""
+                     nil
+                   else
+                     Account.create_or_select_for(self, account_params)
+                   end
   end
 
   ActiveSupport.run_load_hooks(:fat_free_crm_contact, self)

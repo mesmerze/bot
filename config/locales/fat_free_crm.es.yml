@@ -156,6 +156,7 @@ es:
               email_in_use: ^Ya existe otro usuario con el mismo email.
         custom_field:
           required: ^%{field} no puede ser vacio.
+          minlength: ^%{field} es demasiado corto.
           maxlength: ^%{field} es demasiado largo.
           endbeforestart: ^%{field} no puede terminar antes de empezar.
     attribute_options:

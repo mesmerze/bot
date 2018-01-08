@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -7,7 +9,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
 
 describe "admin/users/suspend" do
   before do
-    login_and_assign(admin: true)
+    login_admin
     assign(:user, @user = FactoryGirl.build_stubbed(:user, suspended_at: nil))
   end
 

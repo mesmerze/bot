@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class CreateContacts < ActiveRecord::Migration[4.2]
   def self.up
     create_table :contacts, force: true do |t|
-      t.string :uuid,   limit: 36
+      t.string :uuid, limit: 36
       t.references :user
       t.references :lead
       t.integer :assigned_to

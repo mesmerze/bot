@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -21,14 +23,14 @@ class OpportunityObserver < ActiveRecord::Observer
   def after_update(item)
     original = @@opportunities.delete(item.id)
     if original
-      if original.stage != "won" && item.stage == "won"    # :other to :won -- add to total campaign revenue.
+      if original.stage != "won" && item.stage == "won" # :other to :won -- add to total campaign revenue.
         update_campaign_revenue(item.campaign, (item.amount || 0) - (item.discount || 0))
         item.update_attribute(:probability, 100) # Set probability to 100% if won
         return log_activity(item, :won)
       elsif original.stage == "won" && item.stage != "won" # :won to :other -- substract from total campaign revenue.
         update_campaign_revenue(original.campaign, -((original.amount || 0) - (original.discount || 0)))
       elsif original.stage != "lost" && item.stage == "lost"
-        item.update_attribute(:probability, 0)   # Set probability to 0% if lost
+        item.update_attribute(:probability, 0) # Set probability to 0% if lost
       end
     end
   end
@@ -40,7 +42,7 @@ class OpportunityObserver < ActiveRecord::Observer
   end
 
   def update_campaign_revenue(campaign, revenue)
-    campaign.update_attribute(:revenue, (campaign.revenue || 0) + revenue) if campaign
+    campaign&.update_attribute(:revenue, (campaign.revenue || 0) + revenue)
   end
 
   ActiveSupport.run_load_hooks(:fat_free_crm_opportunity_observer, self)

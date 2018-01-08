@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -9,7 +11,7 @@ describe "/users/upload_avatar" do
   include UsersHelper
 
   before do
-    login_and_assign
+    login
   end
 
   describe "no errors:" do
@@ -31,7 +33,7 @@ describe "/users/upload_avatar" do
     before do
       @avatar = FactoryGirl.build_stubbed(:avatar, entity: current_user)
       @avatar.errors.add(:image, "error")
-      allow(current_user).to receive(:avatar).and_return(@avatar)
+      allow_any_instance_of(User).to receive(:avatar).and_return(@avatar)
       assign(:user, @user = current_user)
     end
 

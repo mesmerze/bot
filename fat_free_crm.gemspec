@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 $LOAD_PATH.push File.expand_path('../vendor/gems/globby-0.1.2/lib', __FILE__)
 require 'globby'
 rules = File.read("#{File.expand_path('..', __FILE__)}/.gitignore").split("\n")
@@ -16,10 +18,10 @@ Gem::Specification.new do |gem|
   gem.email = ['mike@fatfreecrm.com', 'nathan@fatfreecrm.com', 'warp@fatfreecrm.com', 'steveyken@gmail.com', 'daniel.oconnor@gmail.com']
   gem.files = files
   gem.version = FatFreeCRM::VERSION::STRING
-  gem.required_ruby_version = '>= 2.0.0'
+  gem.required_ruby_version = '>= 2.3.0'
   gem.license = 'MIT'
 
-  gem.add_dependency 'rails',               '~> 5.1.0'
+  gem.add_dependency 'rails', '~> 5.1.0'
   gem.add_dependency 'rails-i18n'
   gem.add_dependency 'rails-observers'
   gem.add_dependency 'activemodel-serializers-xml'
@@ -42,7 +44,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'haml'
   gem.add_dependency 'sass'
   gem.add_dependency 'acts_as_list'
-  gem.add_dependency 'ffaker',              '>= 2'
+  gem.add_dependency 'ffaker', '>= 2'
   gem.add_dependency 'cancancan'
   gem.add_dependency 'font-awesome-rails'
   gem.add_dependency 'premailer'

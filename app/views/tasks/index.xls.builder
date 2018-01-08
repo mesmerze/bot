@@ -1,9 +1,20 @@
+# frozen_string_literal: true
+
 xml.Worksheet 'ss:Name' => I18n.t(:tab_tasks) do
   xml.Table do
     unless @tasks.empty?
       # Header.
       xml.Row do
-        heads = %w[id name due date_created date_updated completed user assigned_to category background_info]
+        heads = %w[id
+                   name
+                   due
+                   date_created
+                   date_updated
+                   completed
+                   user
+                   assigned_to
+                   category
+                   background_info]
 
         heads.each do |head|
           xml.Cell do
@@ -30,7 +41,7 @@ xml.Worksheet 'ss:Name' => I18n.t(:tab_tasks) do
           data.each do |value|
             xml.Cell do
               xml.Data value,
-                       'ss:Type' => "#{value.respond_to?(:abs) ? 'Number' : 'String'}"
+                       'ss:Type' => (value.respond_to?(:abs) ? 'Number' : 'String').to_s
             end
           end
         end

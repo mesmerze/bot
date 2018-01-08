@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -9,7 +11,7 @@ describe "/tasks/index" do
   include TasksHelper
 
   before do
-    login_and_assign
+    login
   end
 
   TASK_STATUSES.each do |status|
@@ -22,11 +24,11 @@ describe "/tasks/index" do
 
     it "should render list of #{status} tasks if list of tasks is not empty" do
       assign(:view, status)
-      assign(:tasks,  due_asap: [@due], completed_today: [@completed])
+      assign(:tasks, due_asap: [@due], completed_today: [@completed])
 
       render
 
-      expect(view).to render_template(partial: "_" << status, count: 1)
+      expect(view).to render_template(partial: "_#{status}", count: 1)
       expect(view).not_to render_template(partial: "_empty")
     end
   end
@@ -34,7 +36,7 @@ describe "/tasks/index" do
   TASK_STATUSES.each do |status|
     it "should render a message if there're no #{status} tasks" do
       assign(:view, status)
-      assign(:tasks,  due_asap: [], due_today: [])
+      assign(:tasks, due_asap: [], due_today: [])
 
       render
 

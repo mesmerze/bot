@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -28,7 +30,7 @@
 require 'spec_helper'
 
 describe Account do
-  before { login }
+  let(:current_user) { FactoryGirl.create(:user) }
 
   it "should create a new instance given valid attributes" do
     Account.create!(name: "Test Account", user: FactoryGirl.create(:user))

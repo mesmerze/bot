@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -7,7 +9,7 @@ require 'spec_helper'
 
 describe "/campaigns/destroy" do
   before do
-    login_and_assign
+    login
     assign(:campaign, @campaign = FactoryGirl.build_stubbed(:campaign, user: current_user))
     assign(:campaigns, [@campaign].paginate)
     assign(:campaign_status_total, Hash.new(1))

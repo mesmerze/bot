@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -7,7 +9,7 @@ require 'spec_helper'
 
 describe "/opportunities/update" do
   before do
-    login_and_assign
+    login
 
     assign(:opportunity, @opportunity = FactoryGirl.build_stubbed(:opportunity, user: current_user, assignee: FactoryGirl.build_stubbed(:user)))
     assign(:users, [current_user])
