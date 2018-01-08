@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -36,7 +38,7 @@ class LeadsController < EntitiesController
 
     if params[:related]
       model, id = params[:related].split('_')
-      if related = model.classify.constantize.my.find_by_id(id)
+      if related = model.classify.constantize.my(current_user).find_by_id(id)
         instance_variable_set("@#{model}", related)
       else
         respond_to_related_not_found(model) && return
@@ -52,7 +54,7 @@ class LeadsController < EntitiesController
     get_campaigns
 
     if params[:previous].to_s =~ /(\d+)\z/
-      @previous = Lead.my.find_by_id(Regexp.last_match[1]) || Regexp.last_match[1].to_i
+      @previous = Lead.my(current_user).find_by_id(Regexp.last_match[1]) || Regexp.last_match[1].to_i
     end
 
     respond_with(@lead)
@@ -86,7 +88,7 @@ class LeadsController < EntitiesController
       if @lead.update_with_lead_counters(resource_params)
         update_sidebar
       else
-        @campaigns = Campaign.my.order('name')
+        @campaigns = Campaign.my(current_user).order('name')
       end
     end
   end
@@ -106,11 +108,11 @@ class LeadsController < EntitiesController
   #----------------------------------------------------------------------------
   def convert
     @account = Account.new(user: current_user, name: @lead.company, access: "Lead")
-    @accounts = Account.my.order('name')
+    @accounts = Account.my(current_user).order('name')
     @opportunity = Opportunity.new(user: current_user, access: "Lead", stage: "prospecting", campaign: @lead.campaign, source: @lead.source)
 
     if params[:previous].to_s =~ /(\d+)\z/
-      @previous = Lead.my.find_by_id(Regexp.last_match[1]) || Regexp.last_match[1].to_i
+      @previous = Lead.my(current_user).find_by_id(Regexp.last_match[1]) || Regexp.last_match[1].to_i
     end
 
     respond_with(@lead)
@@ -120,7 +122,7 @@ class LeadsController < EntitiesController
   #----------------------------------------------------------------------------
   def promote
     @account, @opportunity, @contact = @lead.promote(params.permit!)
-    @accounts = Account.my.order('name')
+    @accounts = Account.my(current_user).order('name')
     @stage = Setting.unroll(:opportunity_stage)
 
     respond_with(@lead) do |format|
@@ -196,7 +198,7 @@ class LeadsController < EntitiesController
   private
 
   def set_accounts
-    @accs = Account.my.order('name')
+    @accs = Account.my(current_user).order('name')
     @account = Account.new
   end
 
@@ -210,7 +212,7 @@ class LeadsController < EntitiesController
 
   #----------------------------------------------------------------------------
   def get_campaigns
-    @campaigns = Campaign.my.order('name')
+    @campaigns = Campaign.my(current_user).order('name')
   end
 
   def set_options
@@ -249,11 +251,11 @@ class LeadsController < EntitiesController
       instance_variable_set("@#{related}", @lead.send(related)) if called_from_landing_page?(related.to_s.pluralize)
     else
       @lead_status_total = HashWithIndifferentAccess[
-                           all: Lead.my.count,
+                           all: Lead.my(current_user).count,
                            other: 0
       ]
       Setting.lead_status.each do |key|
-        @lead_status_total[key] = Lead.my.where(status: key.to_s).count
+        @lead_status_total[key] = Lead.my(current_user).where(status: key.to_s).count
         @lead_status_total[:other] -= @lead_status_total[key]
       end
       @lead_status_total[:other] += @lead_status_total[:all]

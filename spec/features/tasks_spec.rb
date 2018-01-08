@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -9,7 +11,6 @@ feature 'Tasks', '
   In order to increase keep track of things
   As a user
   I want to manage tasks
-
 ' do
   before :each do
     do_login_if_not_already(first_name: 'Bill', last_name: 'Murray')

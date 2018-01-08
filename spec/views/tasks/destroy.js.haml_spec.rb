@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -9,7 +11,7 @@ describe "/tasks/destroy" do
   include TasksHelper
 
   before do
-    login_and_assign
+    login
   end
 
   TASK_STATUSES.each do |status|

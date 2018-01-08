@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -24,11 +26,10 @@ module ApplicationHelper
   #----------------------------------------------------------------------------
   def show_flash(options = { sticky: false })
     %i[error warning info notice].each do |type|
-      if flash[type]
-        html = content_tag(:div, h(flash[type]), id: "flash")
-        flash[type] = nil
-        return html << content_tag(:script, "crm.flash('#{type}', #{options[:sticky]})".html_safe, type: "text/javascript")
-      end
+      next unless flash[type]
+      html = content_tag(:div, h(flash[type]), id: "flash")
+      flash[type] = nil
+      return html << content_tag(:script, "crm.flash('#{type}', #{options[:sticky]})".html_safe, type: "text/javascript")
     end
     content_tag(:p, nil, id: "flash", style: "display:none;")
   end
@@ -39,8 +40,7 @@ module ApplicationHelper
                 link_to("<small>#{hidden ? '&#9658;' : '&#9660;'}</small> #{sanitize text}".html_safe,
                         url_for(controller: :home, action: :toggle, id: id),
                         remote: true,
-                        onclick: "crm.flip_subtitle(this)"
-                ), class: "subtitle")
+                        onclick: "crm.flip_subtitle(this)"), class: "subtitle")
   end
 
   #----------------------------------------------------------------------------
@@ -77,7 +77,7 @@ module ApplicationHelper
   def rating_select(name, options = {})
     stars = Hash[(1..5).map { |star| [star, "&#9733;" * star] }].sort
     options_for_select = %(<option value="0"#{options[:selected].to_i == 0 ? ' selected="selected"' : ''}>#{t :select_none}</option>)
-    options_for_select << stars.map { |star| %(<option value="#{star.first}"#{options[:selected] == star.first ? ' selected="selected"' : ''}>#{star.last}</option>) }.join
+    options_for_select += stars.map { |star| %(<option value="#{star.first}"#{options[:selected] == star.first ? ' selected="selected"' : ''}>#{star.last}</option>) }.join
     select_tag name, options_for_select.html_safe, options
   end
 
@@ -91,8 +91,7 @@ module ApplicationHelper
             url + "#{url.include?('?') ? '&' : '?'}cancel=false" + related,
             remote: true,
             onclick: "this.href = this.href.replace(/cancel=(true|false)/,'cancel='+ ($('##{id}').css('display') != 'none'));",
-            class: options[:class]
-    )
+            class: options[:class])
   end
 
   #----------------------------------------------------------------------------
@@ -108,8 +107,7 @@ module ApplicationHelper
     link_to(t(:edit),
             options[:url] || polymorphic_url(record, action: :edit),
             remote:  true,
-            onclick: "this.href = this.href.split('?')[0] + '?previous='+crm.find_form('edit_#{h name}');".html_safe
-    )
+            onclick: "this.href = this.href.split('?')[0] + '?previous='+encodeURI(crm.find_form('edit_#{j name}'));".html_safe)
   end
 
   #----------------------------------------------------------------------------
@@ -121,8 +119,7 @@ module ApplicationHelper
             options[:url] || url_for(record),
             method: :delete,
             remote: true,
-            confirm: confirm
-    )
+            confirm: confirm)
   end
 
   #----------------------------------------------------------------------------
@@ -133,8 +130,7 @@ module ApplicationHelper
     link_to(t(:discard),
             url_for(controller: parent, action: :discard, id: parent_id, attachment: object.class.name, attachment_id: object.id),
             method:  :post,
-            remote:  true
-    )
+            remote:  true)
   end
 
   #----------------------------------------------------------------------------
@@ -142,8 +138,7 @@ module ApplicationHelper
     url = params[:url] if params[:url]
     link_to(t(:cancel),
             url + "#{url.include?('?') ? '&' : '?'}cancel=true",
-            remote: true
-    )
+            remote: true)
   end
 
   #----------------------------------------------------------------------------
@@ -151,19 +146,19 @@ module ApplicationHelper
     link_to("x", url + "#{url.include?('?') ? '&' : '?'}cancel=true",
             remote: true,
             class: "close",
-            title: t(:close_form)
-    )
+            title: t(:close_form))
   end
 
   # Bcc: to dropbox address if the dropbox has been set up.
   #----------------------------------------------------------------------------
   def link_to_email(email, length = nil, &_block)
     name = (length ? truncate(email, length: length) : email)
-    if Setting.email_dropbox && Setting.email_dropbox[:address].present?
-      mailto = "#{email}?bcc=#{Setting.email_dropbox[:address]}"
-    else
-      mailto = email
-    end
+    bcc = Setting&.email_dropbox
+    mailto = if bcc && bcc[:address].present?
+               "#{email}?bcc=#{bcc[:address]}"
+             else
+               email
+             end
     if block_given?
       link_to("mailto:#{mailto}", title: email) do
         yield
@@ -225,7 +220,7 @@ module ApplicationHelper
     yes = link_to(t(:yes_button), params[:url] || model, method: :delete)
     no = link_to_function(t(:no_button), "$('#menu').html($('#confirm').html());")
     text = "$('#confirm').html( $('#menu').html() );\n"
-    text << "$('#menu').html('#{question} #{yes} : #{no}');"
+    text += "$('#menu').html('#{question} #{yes} : #{no}');"
     text.html_safe
   end
 
@@ -244,8 +239,8 @@ module ApplicationHelper
   #----------------------------------------------------------------------------
   def refresh_sidebar_for(view, action = nil, shake = nil)
     text = ""
-    text << "$('#sidebar').html('#{j render(partial: 'layouts/sidebar', locals: { view: view, action: action })}');"
-    text << "$('##{j shake.to_s}').effect('shake', { duration:200, distance: 3 });" if shake
+    text += "$('#sidebar').html('#{j render(partial: 'layouts/sidebar', locals: { view: view, action: action })}');"
+    text += "$('##{j shake.to_s}').effect('shake', { duration:200, distance: 3 });" if shake
     text.html_safe
   end
 
@@ -254,14 +249,13 @@ module ApplicationHelper
   def web_presence_icons(person)
     %i[blog linkedin facebook twitter skype].map do |site|
       url = person.send(site)
-      unless url.blank?
-        if site == :skype
-          url = "callto:" << url
-        else
-          url = "http://" << url unless url =~ /^https?:\/\//
-        end
-        link_to(image_tag("#{site}.gif", size: "15x15"), h(url), "data-popup": true, title: t(:open_in_window, h(url)))
+      next if url.blank?
+      if site == :skype
+        url = "callto:" + url
+      else
+        url = "http://" + url unless url =~ /^https?:\/\//
       end
+      link_to(image_tag("#{site}.gif", size: "15x15"), h(url), "data-popup": true, title: t(:open_in_window, h(url)))
     end.compact.join("\n").html_safe
   end
 
@@ -273,10 +267,10 @@ module ApplicationHelper
       value = value.last
     end
     %{
-      if ($('##{option}').html() != '#{value}') {
-        $('##{option}').html('#{value}');
+      if ($('##{option}').html() != '#{j value}') {
+        $('##{option}').html('#{j value}');
         $('#loading').show();
-        $.post('#{url}', {#{option}: '#{param || value}'}, function () {
+        $.post('#{url}', {#{option}: '#{j(param || value)}'}, function () {
           $('#loading').hide();
         });
       }
@@ -286,10 +280,10 @@ module ApplicationHelper
   #----------------------------------------------------------------------------
   def options_menu_item(option, key, url = send("redraw_#{controller.controller_name}_path"))
     name = t("option_#{key}")
-    "{ name: \"#{name.titleize}\", on_select: function() {" +
+    "{ name: \"#{j name.titleize}\", on_select: function() {" +
       %{
-        if ($('##{option}').html() != '#{name}') {
-          $('##{option}').html('#{name}');
+        if ($('##{option}').html() != '#{j name}') {
+          $('##{option}').html('#{j name}');
           $('#loading').show();
           $.get('#{url}', {#{option}: '#{key}', query: $('#query').val()}, function () {
             $('#loading').hide();
@@ -337,13 +331,11 @@ module ApplicationHelper
     if object.send(attribute).blank?
       form.text_field(attribute,
                       style:   "margin-top: 6px; #{extra_styles}",
-                      placeholder: hint
-      )
+                      placeholder: hint)
     else
       form.text_field(attribute,
                       style:   "margin-top: 6px; #{extra_styles}",
-                      placeholder: hint
-      )
+                      placeholder: hint)
     end
   end
 
@@ -443,8 +435,7 @@ module ApplicationHelper
       content = link_to("<small>#{hidden ? '&#9658;' : '&#9660;'}</small> #{sanitize text}".html_safe,
                         url_for(controller: :home, action: :toggle, id: id),
                         remote:  true,
-                        onclick: "crm.flip_subtitle(this)"
-      )
+                        onclick: "crm.flip_subtitle(this)")
       content << content_tag("small", info_text.to_s, class: "subtitle_inline_info", id: "#{id}_intro", style: hidden ? "" : "display:none;")
     end
   end
@@ -517,7 +508,7 @@ module ApplicationHelper
 
   #----------------------------------------------------------------------------
   # Ajaxification FTW!
-  # e.g. collection = Opportunity.my.scope
+  # e.g. collection = Opportunity.my(current_user).scope
   #         options = { renderer: {...} , params: {...}
   def paginate(options = {})
     collection = options.delete(:collection)

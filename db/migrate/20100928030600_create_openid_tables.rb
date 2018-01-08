@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateOpenidTables < ActiveRecord::Migration[4.2]
   def self.up
     create_table :open_id_authentication_associations, force: true do |t|
@@ -10,7 +12,7 @@ class CreateOpenidTables < ActiveRecord::Migration[4.2]
     end
 
     create_table :open_id_authentication_nonces, force: true do |t|
-      t.integer :timestamp,  null: false
+      t.integer :timestamp, null: false
       t.string :server_url, null: true
       t.string :salt,       null: false
     end

@@ -29,7 +29,7 @@ class OrgsController < EntitiesController
     @accounts = @org.accounts
 
     if params[:previous].to_s =~ /(\d+)\z/
-      @previous = Org.my.find_by_id(Regexp.last_match[1]) || Regexp.last_match[1].to_i
+      @previous = Org.my(current_user).find_by_id(Regexp.last_match[1]) || Regexp.last_match[1].to_i
     end
 
     respond_with(@org)
@@ -84,6 +84,6 @@ class OrgsController < EntitiesController
   end
 
   def set_account
-    @accs = Account.accessible(@org.id).my.order('name')
+    @accs = Account.accessible(@org.id).my(current_user).order('name')
   end
 end

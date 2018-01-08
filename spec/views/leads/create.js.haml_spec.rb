@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -8,7 +10,7 @@ require 'spec_helper'
 describe "/leads/create" do
   before do
     controller.controller_path = 'leads'
-    login_and_assign
+    login
     assign(:campaigns, [FactoryGirl.build_stubbed(:campaign)])
   end
 

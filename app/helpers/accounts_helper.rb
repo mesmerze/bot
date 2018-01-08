@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -17,16 +19,15 @@ module AccountsHelper
      t(:added_by, time_ago: time_ago_in_words(account.created_at), user: account.user_id_full_name),
      t('pluralize.contact', account.contacts_count),
      t('pluralize.opportunity', account.opportunities_count),
-     t('pluralize.comment', account.comments.count)
-    ].join(', ')
+     t('pluralize.comment', account.comments.count)].join(', ')
   end
 
   # Generates a select list with the first 25 accounts
   # and prepends the currently selected account, if any.
   #----------------------------------------------------------------------------
   def account_select(options = {})
-    options[:selected] = (@account && @account.id) || 0
-    accounts = ([@account] + Account.my.order(:name).limit(25)).compact.uniq
+    options[:selected] = (@account&.id) || 0
+    accounts = ([@account] + Account.my(current_user).order(:name).limit(25)).compact.uniq
     collection_select :account, :id, accounts, :id, :name, options,
                       "data-placeholder": t(:select_an_account),
                       "data-url": auto_complete_accounts_path(format: 'json'),
@@ -42,18 +43,14 @@ module AccountsHelper
 
     content_tag(:div, class: 'label') do
       t(:account).html_safe +
-
         content_tag(:span, id: 'account_create_title') do
           "(#{t :create_new} #{t :or} <a href='#' onclick='crm.select_account(); return false;'>#{t :select_existing}</a>):".html_safe
         end +
-
         content_tag(:span, id: 'account_select_title') do
           "(<a href='#' onclick='crm.create_account(); return false;'>#{t :create_new}</a> #{t :or} #{t :select_existing}):".html_safe
         end +
-
         content_tag(:span, ':', id: 'account_disabled_title')
     end +
-
       account_select(options) +
       form.text_field(:name, style: 'width:324px; display:none;')
   end
@@ -79,7 +76,7 @@ module AccountsHelper
            else
              ""
       end
-    text << t(:department_small, h(contact.department)) unless contact.department.blank?
+    text += t(:department_small, h(contact.department)) unless contact.department.blank?
     text
   end
 
@@ -94,7 +91,7 @@ module AccountsHelper
     account_text = ""
     account_text = link_to_if(can?(:read, account), h(account.name), account_path(account)) if account.present?
 
-    text << if title.present? && department.present?
+    text += if title.present? && department.present?
               t(:account_with_title_department, title: h(title), department: h(department), account: account_text)
             elsif title.present?
               t(:account_with_title, title: h(title), account: account_text)

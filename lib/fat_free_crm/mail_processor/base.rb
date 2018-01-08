@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -25,7 +27,7 @@ module FatFreeCRM
       #--------------------------------------------------------------------------------------
       def setup
         log "connecting to #{@settings[:server]}..."
-        connect!(setup: true) or return nil
+        connect!(setup: true) || (return nil)
         log "logged in to #{@settings[:server]}, checking folders..."
         folders = [@settings[:scan_folder]]
         folders << @settings[:move_to_folder] unless @settings[:move_to_folder].blank?
@@ -41,7 +43,7 @@ module FatFreeCRM
           end
         end
       rescue Exception => e
-        $stderr.puts "setup error #{e.inspect}"
+        warn "setup error #{e.inspect}"
       ensure
         disconnect!
       end
@@ -51,7 +53,7 @@ module FatFreeCRM
         if @dry_run = dry_run
           log "Not discarding or archiving any new messages..."
         end
-        connect! or return nil
+        connect! || (return nil)
         with_new_emails do |uid, email|
           # Subclasses must define a #process method that takes arguments: uid, email
           process(uid, email)
@@ -165,8 +167,9 @@ module FatFreeCRM
       #------------------------------------------------------------------------------
       def find_sender(email_address)
         if @sender = User.find_by(
-            '(lower(email) = :email OR lower(alt_email) = :email) AND suspended_at IS NULL',
-            email: email_address.downcase)
+          '(lower(email) = :email OR lower(alt_email) = :email) AND suspended_at IS NULL',
+          email: email_address.downcase
+        )
           # Set the PaperTrail user for versions (if user is found)
           PaperTrail.whodunnit = @sender.id.to_s
         end

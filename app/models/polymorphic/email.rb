@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -47,7 +49,7 @@ class Email < ActiveRecord::Base
   end
 
   def body_inline
-    body.to_s.gsub("\n", " ")
+    body.to_s.tr("\n", " ")
   end
 
   ActiveSupport.run_load_hooks(:fat_free_crm_email, self)

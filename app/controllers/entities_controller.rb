@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -114,7 +116,7 @@ class EntitiesController < ApplicationController
 
   #----------------------------------------------------------------------------
   def entities
-    instance_variable_get("@#{controller_name}") || klass.my
+    instance_variable_get("@#{controller_name}") || klass.my(current_user)
   end
 
   def set_options
@@ -176,9 +178,7 @@ class EntitiesController < ApplicationController
       scope = scope.paginate(page: current_page, per_page: per_page)
     end
 
-    if respond_to?(:list_includes, true)
-      scope = scope.includes(*list_includes)
-    end
+    scope = scope.includes(*list_includes) if respond_to?(:list_includes, true)
 
     scope
   end

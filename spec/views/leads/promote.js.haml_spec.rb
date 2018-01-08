@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -7,7 +9,7 @@ require 'spec_helper'
 
 describe "/leads/promote" do
   before do
-    login_and_assign
+    login
     assign(:users, [current_user])
     assign(:account, @account = FactoryGirl.build_stubbed(:account))
     assign(:accounts, [@account])

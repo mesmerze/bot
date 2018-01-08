@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -60,6 +62,6 @@ class PasswordsController < ApplicationController
   #----------------------------------------------------------------------------
   def empty_password?
     (params[:user][:password] == params[:user][:password_confirmation]) &&
-      params[:user][:password].blank?      # "   ".blank? == true
+      params[:user][:password].blank? # "   ".blank? == true
   end
 end

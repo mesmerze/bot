@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -9,7 +11,7 @@ describe "/campaigns/show" do
   include CampaignsHelper
 
   before do
-    login_and_assign
+    login
     @campaign = FactoryGirl.build_stubbed(:campaign, id: 42,
                                                      leads: [FactoryGirl.build_stubbed(:lead)],
                                                      opportunities: [FactoryGirl.build_stubbed(:opportunity)])
