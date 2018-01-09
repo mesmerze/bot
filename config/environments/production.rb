@@ -44,7 +44,7 @@ if defined?(FatFreeCRM::Application)
     config.log_level = :info
 
     # Use a different logger for distributed setups
-    # config.logger = SyslogLogger.new
+    config.logger = Logger.new(STDOUT)
 
     # Use a different cache store in production
     # config.cache_store = :mem_cache_store
@@ -65,15 +65,7 @@ if defined?(FatFreeCRM::Application)
     # Do not dump schema after migrations.
     config.active_record.dump_schema_after_migration = false
 
-    config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = {
-        :address => ENV['TS_CRM_SMTP_HOST'],
-        :port =>  ENV.fetch('TS_CRM_SMTP_PORT'){ '587' },
-        :user_name => ENV['TS_CRM_SMTP_USERNAME'],
-        :password => ENV['TS_CRM_SMTP_PASSWORD'],
-        :authentication => :login,
-        :enable_starttls_auto => true
-    }
-    config.action_mailer.default_url_options = { host: 'crm.tablesolution.com' }
+    config.action_mailer.delivery_method = :sendmail
+    config.action_mailer.default_url_options = { host: ENV['TS_CRM_HOST'] }
   end
 end
