@@ -11,7 +11,7 @@ if Rails.env.production?
             region: region,
             use_iam_profile: true
         },
-        fog_attributes: {
+        fog_options: {
             cache_control: 'max-age=315576000',
             encryption: 'AES256',
             acl: 'private'
