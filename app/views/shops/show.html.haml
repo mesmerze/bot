@@ -1,0 +1,21 @@
+- if (template = template_for_current_view)
+  = render(template, shop: @shop)
+- else
+
+  = styles_for :opportunity, :contact
+
+  = render 'shops/title_bar', shop: @shop
+
+  %div#edit_shop{ hidden }
+
+  = render partial: "shared/timeline", collection: @timeline
+
+  = hook(:show_shop_bottom, self, {entity: @shop}) do
+
+    = render "contacts/contacts", object: @shop
+
+    = render "opportunities/opportunities", object: @shop
+
+    = render "versions/versions", object: @shop
+
+    = load_select_popups_for(@shop, :contacts, :opportunities)

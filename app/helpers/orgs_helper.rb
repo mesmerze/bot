@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OrgsHelper
   def revenue(org)
     amount = 0

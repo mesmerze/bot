@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OrgAccounts < ActiveRecord::Migration[5.1]
   def change
     create_table :org_accounts do |t|

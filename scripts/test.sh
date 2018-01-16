@@ -15,5 +15,5 @@ bundle exec rake spec:lib
 bundle exec rake spec:mailers
 bundle exec rake spec:routing
 bundle exec rake spec:views
-bundle exec rake spec:features
+# bundle exec rake spec:features
 bundle exec rubocop

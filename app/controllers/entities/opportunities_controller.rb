@@ -9,6 +9,7 @@ class OpportunitiesController < EntitiesController
   before_action :load_settings
   before_action :get_data_for_sidebar, only: :index
   before_action :set_params, only: %i[index redraw filter]
+  before_action :set_shops, only: %i[edit update create]
 
   # GET /opportunities
   #----------------------------------------------------------------------------
@@ -36,6 +37,7 @@ class OpportunitiesController < EntitiesController
     @opportunity.attributes = { user: current_user, stage: Opportunity.default_stage, access: Setting.default_access, assigned_to: nil }
     @account     = Account.new(user: current_user, access: Setting.default_access)
     @accounts    = Account.my(current_user).order('name')
+    @options = []
 
     if params[:related]
       model, id = params[:related].split('_')
@@ -168,7 +170,22 @@ class OpportunitiesController < EntitiesController
     end
   end
 
+  def shops
+    @opportunity = Opportunity.find_by(id: params[:opportunity_id]) || Opportunity.new
+    @shops = Shop.where(account_id: params[:account_id])
+    @options = @shops.map { |a| [a.name, a.id] }
+  end
+
   private
+
+  def all_shops?
+    !params[:opportunity][:is_all_shops].to_i.zero?
+  end
+
+  def set_shops
+    shops = @opportunity.account ? Shop.my(current_user).where(account_id: @opportunity.account&.id).order("name") : []
+    @options = shops.map { |a| [a.name, a.id] }
+  end
 
   #----------------------------------------------------------------------------
   alias get_opportunities get_list_of_records

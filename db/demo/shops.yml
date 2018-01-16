@@ -1,0 +1,18 @@
+<%
+  require "ffaker"
+  puts "Loading shops..."
+
+  category = %w(affiliate competitor customer partner reseller vendor) << nil
+
+  for i in (1 .. rand(20) + 100) do
+%>
+account<%= i %>:
+  id               : <%= i %>
+  assigned_to      : <%= rand(8) + 1 %>
+  name             : <%= FFaker::Company.name %>
+  num_seats        : <%= rand(1..999) %>
+  access           : Public
+
+  created_at       : <%= created_at = (rand(60) + 2).days.ago + rand(600).minutes; created_at.to_s(:db) %>
+  updated_at       : <%= (created_at + rand(36_000).seconds).to_s(:db) %>
+<% end %>

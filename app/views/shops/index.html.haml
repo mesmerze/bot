@@ -1,0 +1,18 @@
+= styles_for :shop
+
+= render 'entities/title_bar'
+
+.remote#create_shop{ hidden }
+
+= render 'search'
+
+.remote#options{ hidden }
+
+.list#shops
+  - if @shops.any?
+    = render @shops
+  - else
+    = render "shared/empty"
+
+#paginate= render "shared/paginate_with_per_page"
+#export= render "shared/export"

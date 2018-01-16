@@ -7,6 +7,7 @@
 #------------------------------------------------------------------------------
 class ContactsController < EntitiesController
   before_action :get_accounts, only: %i[new create edit update]
+  before_action :set_shops, only: %i[edit update create]
 
   # GET /contacts
   #----------------------------------------------------------------------------
@@ -34,6 +35,7 @@ class ContactsController < EntitiesController
   def new
     @contact.attributes = { user: current_user, access: Setting.default_access, assigned_to: nil }
     @account = Account.new(user: current_user)
+    @options = []
 
     if params[:related]
       model, id = params[:related].split('_')
@@ -145,6 +147,12 @@ class ContactsController < EntitiesController
     end
   end
 
+  def shops
+    @contact = Contact.find_by(id: params[:opportunity_id]) || Contact.new
+    @shops = Shop.where(account_id: params[:account_id])
+    @options = @shops.map { |a| [a.name, a.id] }
+  end
+
   private
 
   #----------------------------------------------------------------------------
@@ -158,6 +166,11 @@ class ContactsController < EntitiesController
   #----------------------------------------------------------------------------
   def get_accounts
     @accounts = Account.my(current_user).order('name')
+  end
+
+  def set_shops
+    shops = @contact.account ? Shop.my(current_user).where(account_id: @contact.account&.id).order("name") : []
+    @options = shops.map { |a| [a.name, a.id] }
   end
 
   def set_options

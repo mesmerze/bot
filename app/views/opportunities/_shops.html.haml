@@ -1,0 +1,24 @@
+- edit ||= false
+- collapsed = session[:account_shop].nil?
+= subtitle :account_shop, collapsed, t(:shops)
+
+.section
+  %small#account_shop_intro{ hidden_if(!collapsed) }
+    = t(:intro, t(:account_shops_small)) unless edit
+  #shops{ hidden_if(collapsed) }
+    .shops_selection
+      %table
+        %tr
+          %td= spacer(15)
+          %td{style: 'width: 200px;'}
+            .label.top.req #{t :name}:
+          %td= spacer
+          %td
+            .label.top{style: 'width: 100px;'} #{t :shop_seats}:
+      #shops_partial
+        .shop_rows
+          = render partial: 'shop_fields', collection: @opportunity.shops, as: :s, locals: { options: @options, disabled: false }
+        #shop_row_form{style: "display: none;"}
+          = render partial: 'shop_fields', locals: { options: @options, s: Shop.new, disabled: true }
+        .links{ hidden_if(@opportunity.shops.empty?)}
+          .ui-icon.ui-icon-plus{style: "cursor: pointer;"}

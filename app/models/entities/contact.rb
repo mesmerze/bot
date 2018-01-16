@@ -51,6 +51,8 @@ class Contact < ActiveRecord::Base
   has_one :business_address, -> { where(address_type: "Business") }, dependent: :destroy, as: :addressable, class_name: "Address"
   has_many :addresses, dependent: :destroy, as: :addressable, class_name: "Address" # advanced search uses this
   has_many :emails, as: :mediator
+  has_many :shops_contacts
+  has_many :shops, through: :shops_contacts
 
   delegate :campaign, to: :lead, allow_nil: true
 
@@ -60,6 +62,7 @@ class Contact < ActiveRecord::Base
   serialize :subscribed_users, Set
 
   accepts_nested_attributes_for :business_address, allow_destroy: true, reject_if: proc { |attributes| Address.reject_address(attributes) }
+  accepts_nested_attributes_for :shops, allow_destroy: true
 
   scope :created_by,  ->(user) { where(user_id: user.id) }
   scope :assigned_to, ->(user) { where(assigned_to: user.id) }
@@ -98,6 +101,13 @@ class Contact < ActiveRecord::Base
   validates_presence_of :last_name,  message: :missing_last_name,  if: -> { Setting.require_last_names  }
   validate :users_for_shared_access
 
+  def shops_attributes=(attributes)
+    shops.delete_all # remove old associations
+    collection = attributes.map { |s| Shop.find_by(id: s[:id]) } # get collection of shops from params
+    shops << collection.uniq # associate shops
+    super
+  end
+
   # Default values provided through class methods.
   #----------------------------------------------------------------------------
   def self.per_page
@@ -134,6 +144,7 @@ class Contact < ActiveRecord::Base
     # Must set access before user_ids, because user_ids= method depends on access value.
     self.access = params[:contact][:access] if params[:contact][:access]
     self.attributes = params[:contact]
+    shops.delete_all if params[:contact][:shops_attributes].nil?
     save
   end
 

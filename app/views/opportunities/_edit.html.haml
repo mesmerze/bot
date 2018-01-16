@@ -1,4 +1,5 @@
 .remote
+  = hidden_field_tag 'opportunity_id', @opportunity.id
   = simple_form_for(@opportunity, html: one_submit_only, remote: true) do |f|
     = link_to_close edit_opportunity_path(@opportunity)
     = f.hidden_field :user_id
@@ -9,6 +10,7 @@
     = render "opportunities/top_section", f: f, edit: true
     = render "fields/edit_custom_field_group", f: f, edit: true
     = render "fields/groups",             f: f, edit: true
+    = render "opportunities/shops", f: f, edit: true
     = render "entities/permissions",      f: f, edit: true, entity: @opportunity
     = hook(:entity_form, self, {f: f, entity: @opportunity})
 

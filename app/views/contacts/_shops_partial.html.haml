@@ -1,0 +1,6 @@
+.shop_rows
+  = render partial: 'shop_fields', collection: @shops, as: :s, locals: { options: @options, disabled: false }
+#shop_row_form{style: "display: none;"}
+  = render partial: 'shop_fields', locals: { options: @options, s: Shop.new, disabled: true }
+.links{ hidden_if(@shops.empty?)}
+  .ui-icon.ui-icon-plus{style: "cursor: pointer;"}

@@ -8,6 +8,7 @@
 class AccountsController < EntitiesController
   before_action :get_data_for_sidebar, only: :index
   before_action :set_orgs, only: %i[new edit create]
+  before_action :set_shops, only: %i[new edit create]
 
   # GET /accounts
   #----------------------------------------------------------------------------
@@ -140,12 +141,16 @@ class AccountsController < EntitiesController
     @orgs = Org.my(current_user).order('name')
   end
 
+  def set_shops
+    @shops = Shop.my(current_user).order('name')
+  end
+
   #----------------------------------------------------------------------------
   alias get_accounts get_list_of_records
 
   #----------------------------------------------------------------------------
   def list_includes
-    %i[pipeline_opportunities user tags].freeze
+    %i[pipeline_opportunities user tags shops].freeze
   end
 
   #----------------------------------------------------------------------------

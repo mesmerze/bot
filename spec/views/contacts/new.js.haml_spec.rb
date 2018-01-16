@@ -17,6 +17,8 @@ describe "/contacts/new" do
     assign(:users, [current_user])
     assign(:account, @account)
     assign(:accounts, [@account])
+    assign(:shop, @shop = FactoryGirl.build_stubbed(:shop))
+    assign(:options, [[@shop.id, @shop.name]])
   end
 
   it "should toggle empty message div if it exists" do

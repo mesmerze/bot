@@ -213,6 +213,11 @@
   :url:
     :controller: opportunities
 - :active: false
+  :text: :tab_shops
+  :icon: :fa-shopping-basket
+  :url:
+    :controller: shops
+- :active: false
   :text: :tab_accounts
   :icon: :fa-users
   :url:

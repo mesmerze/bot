@@ -1,0 +1,11 @@
+.panel#summary
+  .caption #{t :shop_summary}
+  %li
+    %dt= @shop.name
+    %tt #{t :name}:
+  %li
+    %dt= @shop.num_seats
+    %tt #{t :shop_seats}:
+  %li.last
+    %dt= @shop.assigned_to ? truncate(@shop.assignee.full_name, :length => 16) : nil
+    %tt #{t :assigned_to}:

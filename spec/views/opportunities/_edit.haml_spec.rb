@@ -14,6 +14,9 @@ describe "/opportunities/_edit" do
     login
     assign(:account, @account = FactoryGirl.build_stubbed(:account))
     assign(:accounts, [@account])
+    assign(:shop, @shop = FactoryGirl.build_stubbed(:shop))
+    assign(:shops, [@shop])
+    assign(:options, [[@shop.id, @shop.name]])
     assign(:stage, Setting.unroll(:opportunity_stage))
   end
 

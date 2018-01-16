@@ -37,8 +37,12 @@ class Opportunity < ActiveRecord::Base
   has_many :contacts, -> { order("contacts.id DESC").distinct }, through: :contact_opportunities
   has_many :tasks, as: :asset, dependent: :destroy # , :order => 'created_at DESC'
   has_many :emails, as: :mediator
+  has_many :shops_opportunities
+  has_many :shops, through: :shops_opportunities
 
   serialize :subscribed_users, Set
+
+  accepts_nested_attributes_for :shops, allow_destroy: true
 
   scope :state, ->(filters) {
     where('stage IN (?)' + (filters.delete('other') ? ' OR stage IS NULL' : ''), filters)
@@ -53,11 +57,14 @@ class Opportunity < ActiveRecord::Base
 
   # Search by name OR id
   scope :text_search, ->(query) {
-    if query =~ /\A\d+\z/
-      where('upper(name) LIKE upper(:name) OR opportunities.id = :id', name: "%#{query}%", id: query)
-    else
-      ransack('name_cont' => query).result
-    end
+    ids = Shop.ransack('name_cont' => query).result.map(&:id) # select needed shops
+    ids = Opportunity.joins(:shops).where('shops.id IN (?)', ids).ids # select needed opportunities separately coz or() dont work with joins(:shops)
+    result = if query =~ /\A\d+\z/
+               where('upper(name) LIKE upper(:name) OR opportunities.id = :id', name: "%#{query}%", id: query)
+             else
+               ransack('name_cont' => query).result
+             end
+    result.or(Opportunity.where('id IN (?)', ids))
   }
 
   scope :visible_on_dashboard, ->(user) {
@@ -87,6 +94,13 @@ class Opportunity < ActiveRecord::Base
 
   after_create :increment_opportunities_count
   after_destroy :decrement_opportunities_count
+
+  def shops_attributes=(attributes)
+    shops.delete_all # remove old associations
+    collection = attributes.map { |s| Shop.find_by(id: s[:id]) }
+    shops << collection.uniq
+    super
+  end
 
   # Default values provided through class methods.
   #----------------------------------------------------------------------------
@@ -128,6 +142,7 @@ class Opportunity < ActiveRecord::Base
     # Must set access before user_ids, because user_ids= method depends on access value.
     self.access = params[:opportunity][:access] if params[:opportunity][:access]
     self.attributes = params[:opportunity]
+    shops.delete_all if params[:opportunity][:shops_attributes].nil?
     save
   end
 

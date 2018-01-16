@@ -1,0 +1,15 @@
+= simple_form_for(@shop, :html => one_submit_only, :remote => true) do |f|
+  = link_to_close new_shop_path
+  = f.hidden_field :user_id
+
+  = f.error_messages :object_name => t('shop')
+
+  = render "shops/top_section",  :f => f
+  = render "entities/permissions",  :f => f, :entity => @shop
+
+  = hook(:entity_form, self, {f: f, entity: @shop})
+
+  .buttonbar
+    = f.submit t(:create_shop)
+    #{t :or}
+    = link_to_cancel new_shop_path

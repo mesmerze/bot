@@ -81,6 +81,11 @@ class EntitiesController < ApplicationController
   def orgs
   end
 
+  # GET /entities/shops
+  #----------------------------------------------------------------------------
+  def shops
+  end
+
   # GET /entities/versions                                                 AJAX
   #----------------------------------------------------------------------------
   def versions
@@ -152,10 +157,7 @@ class EntitiesController < ApplicationController
     scope = entities.merge(ransack_search.result(distinct: true))
 
     # Get filter from session, unless running an advanced search
-    unless advanced_search
-      filter = session[:"#{controller_name}_filter"].to_s.split(',')
-      scope = scope.state(filter) if filter.present?
-    end
+    scope = filter_out(scope) unless advanced_search
 
     scope = scope.text_search(query)              if query.present?
     scope = scope.tagged_with(tags, on: :tags) if tags.present?
@@ -181,6 +183,12 @@ class EntitiesController < ApplicationController
     scope = scope.includes(*list_includes) if respond_to?(:list_includes, true)
 
     scope
+  end
+
+  #----------------------------------------------------------------------------
+  def filter_out(scope)
+    filter = session[:"#{controller_name}_filter"].to_s.split(',')
+    filter.present? ? scope.state(filter) : scope
   end
 
   #----------------------------------------------------------------------------

@@ -17,6 +17,8 @@ describe "/opportunities/new" do
     assign(:users, [current_user])
     assign(:account, @account)
     assign(:accounts, [@account])
+    assign(:shop, @shop = FactoryGirl.build_stubbed(:shop))
+    assign(:options, [[@shop.id, @shop.name]])
     assign(:stage, Setting.unroll(:opportunity_stage))
   end
 

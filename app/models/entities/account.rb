@@ -43,12 +43,14 @@ class Account < ActiveRecord::Base
   has_one :shipping_address, -> { where(address_type: "Shipping") }, dependent: :destroy, as: :addressable, class_name: "Address"
   has_many :addresses, dependent: :destroy, as: :addressable, class_name: "Address" # advanced search uses this
   has_many :emails, as: :mediator
+  has_many :shops
 
   serialize :subscribed_users, Set
 
   accepts_nested_attributes_for :billing_address,  allow_destroy: true, reject_if: proc { |attributes| Address.reject_address(attributes) }
   accepts_nested_attributes_for :shipping_address, allow_destroy: true, reject_if: proc { |attributes| Address.reject_address(attributes) }
   accepts_nested_attributes_for :org, reject_if: proc { |attributes| attributes['id'].empty? }
+  accepts_nested_attributes_for :shops, allow_destroy: true
 
   scope :state, ->(filters) {
     where('category IN (?)' + (filters.delete('other') ? ' OR category IS NULL' : ''), filters)
@@ -56,7 +58,10 @@ class Account < ActiveRecord::Base
   scope :created_by,  ->(user) { where(user_id: user.id) }
   scope :assigned_to, ->(user) { where(assigned_to: user.id) }
 
-  scope :text_search, ->(query) { ransack('name_or_email_cont' => query).result }
+  scope :text_search, ->(query) do
+    ids = Shop.ransack('name_cont' => query).result.map(&:account_id)
+    ransack('name_cont' => query).result.or(Account.where(id: [ids]))
+  end
 
   scope :visible_on_dashboard, ->(user) {
     # Show accounts which either belong to the user and are unassigned, or are assigned to the user
@@ -99,6 +104,11 @@ class Account < ActiveRecord::Base
 
   def org_attributes=(attributes)
     self.org = Org.find(attributes[:id]) unless attributes[:id].empty?
+    super
+  end
+
+  def shops_attributes=(attributes)
+    attributes = attributes.invert.invert.with_indifferent_access # Remove duplications
     super
   end
 

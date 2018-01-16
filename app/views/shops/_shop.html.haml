@@ -1,0 +1,4 @@
+- if (params['controller'] == 'shops') and (template = template_for_current_view).present?
+  = render(template, shop: shop)
+- else
+  = render 'shops/index_brief', shop: shop

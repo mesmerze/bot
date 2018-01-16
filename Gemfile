@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'pg'
+gem 'pg', '~> 0.21.0'
 
 # Removes a gem dependency
 def remove(name)

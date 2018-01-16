@@ -14,6 +14,9 @@ describe "/contacts/_edit" do
     login
     assign(:account, @account = FactoryGirl.create(:account))
     assign(:accounts, [@account])
+    assign(:shop, @shop = FactoryGirl.build_stubbed(:shop))
+    assign(:shops, [@shop])
+    assign(:options, [[@shop.id, @shop.name]])
   end
 
   it "should render [edit contact] form" do

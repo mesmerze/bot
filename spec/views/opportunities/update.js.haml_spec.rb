@@ -15,6 +15,9 @@ describe "/opportunities/update" do
     assign(:users, [current_user])
     assign(:account, @account = FactoryGirl.build_stubbed(:account))
     assign(:accounts, [@account])
+    assign(:shop, @shop = FactoryGirl.build_stubbed(:shop))
+    assign(:shops, [@shop])
+    assign(:options, [[@shop.id, @shop.name]])
     assign(:stage, Setting.unroll(:opportunity_stage))
     assign(:opportunity_stage_total, Hash.new(1))
   end

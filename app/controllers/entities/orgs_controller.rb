@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OrgsController < EntitiesController
   before_action :set_account, only: %i[new edit create]
 

@@ -77,6 +77,8 @@ describe "/opportunities/create" do
       assign(:users, [FactoryGirl.build_stubbed(:user)])
       assign(:account, @account)
       assign(:accounts, [@account])
+      assign(:shop, @shop = FactoryGirl.build_stubbed(:shop))
+      assign(:options, [[@shop.id, @shop.name]])
 
       render
 

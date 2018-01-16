@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -21,9 +23,8 @@
 class String
   def to_bool
     case self
-      when /\A(true|t|yes|y|1)\z/i then true
-      when /\A(false|f|no|n|0)\z/i then false
-      else nil
+    when /\A(true|t|yes|y|1)\z/i then true
+    when /\A(false|f|no|n|0)\z/i then false
     end
   end
 
@@ -49,9 +50,8 @@ end
 class Numeric
   def to_bool
     case self
-      when 1 then true
-      when 0 then false
-      else nil
+    when 1 then true
+    when 0 then false
     end
   end
 

@@ -78,6 +78,7 @@ Rails.application.routes.draw do
       match :auto_complete, via: %i[get post]
       get :redraw
       get :versions
+      get :shops
     end
     member do
       put :attach
@@ -119,6 +120,7 @@ Rails.application.routes.draw do
       match :auto_complete, via: %i[get post]
       get :redraw
       get :versions
+      get :shops
     end
     member do
       put :attach
@@ -134,6 +136,18 @@ Rails.application.routes.draw do
       get :redraw
       get :field_group
       get :versions
+    end
+  end
+
+  resources :shops, id: /\d+/ do
+    collection do
+      get :advanced_search
+      match :auto_complete, via: %i[get post]
+      get :redraw
+    end
+    member do
+      put :attach
+      post :discard
     end
   end
 

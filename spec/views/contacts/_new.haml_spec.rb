@@ -17,6 +17,9 @@ describe "/contacts/_new" do
     assign(:users, [current_user])
     assign(:account, @account)
     assign(:accounts, [@account])
+    assign(:shop, @shop = FactoryGirl.build_stubbed(:shop))
+    assign(:shops, [@shop])
+    assign(:options, [[@shop.id, @shop.name]])
   end
 
   it "should render [create contact] form" do

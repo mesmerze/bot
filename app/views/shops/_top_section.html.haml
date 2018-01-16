@@ -1,0 +1,17 @@
+= hook(:shop_top_section, self, :f => f) do
+  .section
+    %table
+      %tr
+        %td(colspan="5")
+          .label.top.req #{t :name}:
+          = f.text_field :name, :autofocus => true, :style => "width:300px"
+      %tr
+        %td
+          .label #{t :assigned_to}:
+          = user_select(:shop, User.without(current_user), current_user)
+        %td= spacer
+        %td{style: "width:300px"}
+          .label #{t :shop_seats}:
+          = f.number_field :num_seats, in: 1...1000, :style => "width:100px"
+
+      = hook(:shop_top_section_bottom, self, :f => f)

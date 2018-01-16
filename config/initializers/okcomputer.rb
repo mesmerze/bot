@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class VersionCheck < OkComputer::Check
   def check
     FatFreeCRM::Application::VERSION

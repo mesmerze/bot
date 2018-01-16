@@ -1,0 +1,17 @@
+%li.highlight[shop]
+
+  %ul.tools.shop{style: 'float:left; visibility:visible; margin: 2px 5px 0 0;'}
+    = hook(:shop_tools_before, self, shop: shop)
+
+    - if can?(:update, shop)
+      %li= link_to_edit(shop)
+
+    - if can?(:destroy, shop)
+      %li= link_to_delete(shop)
+
+  .indent
+    = link_to(shop.name, shop)
+    &ndash;
+    = pluralize(shop.num_seats, 'seat', 'seats')
+
+    = hook(:shop_bottom, self, shop: shop)

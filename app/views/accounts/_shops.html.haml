@@ -1,0 +1,21 @@
+- edit ||= false
+- collapsed = session[:account_shop].nil?
+= subtitle :account_shop, collapsed, t(:shops)
+
+.section
+  %small#account_shop_intro{ hidden_if(!collapsed) }
+    = t(:intro, t(:account_shops_small)) unless edit
+  #shops{ hidden_if(collapsed) }
+    %table
+      %tr
+        %td= spacer(15)
+        %td{style: 'width: 200px;'}
+          .label.top.req #{t :name}:
+        %td= spacer(12)
+        %td
+          .label.top{style: 'width: 100px;'} #{t :shop_seats}:
+    = f.simple_fields_for :shops do |shop|
+      = render 'shop_fields', f: shop
+    .links
+      = link_to_add_association '', f, :shops, class: 'ui-icon ui-icon-plus',
+                                               style: 'display:flex; margin:0.5rem 0 0;'

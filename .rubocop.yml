@@ -68,3 +68,7 @@ Style/WordArray:
 
 Style/SymbolArray:
   EnforcedStyle: percent
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - 'db/schema.rb'

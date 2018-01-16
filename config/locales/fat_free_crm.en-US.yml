@@ -27,6 +27,7 @@ en-US:
   tab_opportunities: Opportunities
   tab_team: Team
   tab_orgs: Orgs
+  tab_shops: Shops
   admin_tab_groups: Groups
   admin_tab_users: Users
   admin_tab_fields: Custom Fields
@@ -160,6 +161,12 @@ en-US:
               share_org: ^Please specify users to share the org with.
             category:
               bad_category: ^Please select category.
+        shop:
+          attributes:
+            name:
+              missing_name: ^Please specify shop name.
+            access:
+              share_shop: ^Please specify users to share the shop with.
         task:
           attributes:
             name:
@@ -523,6 +530,7 @@ en-US:
   stage: Stage
   total_opportunities: Total Opportunities
   weighted_amount: Weighted amount
+  all_shops: All Shops
 
   # Views -> Orgs.
   #----------------------------------------------------------------------------
@@ -534,6 +542,17 @@ en-US:
   select_org: Select Org
   save_org: Save Org
   org_summary: Org summary
+
+  # View -> Shops.
+  #----------------------------------------------------------------------------
+  shops: Shops
+  account_shops_small: shops
+  shop_select: Select shop
+  shop_seats: Shop seats
+  shop_country: Country
+  save_shop: Save shop
+  create_shop: Create shop
+  shop_summary: Shop Summary
 
   # Views -> Tasks.
   #----------------------------------------------------------------------------

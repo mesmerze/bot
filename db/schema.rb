@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180103223439) do
+ActiveRecord::Schema.define(version: 20180113105744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -375,6 +375,40 @@ ActiveRecord::Schema.define(version: 20180103223439) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["name"], name: "index_settings_on_name"
+  end
+
+  create_table "shops", force: :cascade do |t|
+    t.string "name"
+    t.integer "num_seats"
+    t.string "access", default: "Public"
+    t.text "subscribed_users"
+    t.integer "assigned_to"
+    t.bigint "account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["account_id"], name: "index_shops_on_account_id"
+    t.index ["user_id"], name: "index_shops_on_user_id"
+  end
+
+  create_table "shops_contacts", force: :cascade do |t|
+    t.bigint "shop_id"
+    t.bigint "contact_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_id"], name: "index_shops_contacts_on_contact_id"
+    t.index ["shop_id"], name: "index_shops_contacts_on_shop_id"
+  end
+
+  create_table "shops_opportunities", force: :cascade do |t|
+    t.bigint "shop_id"
+    t.bigint "opportunity_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["opportunity_id"], name: "index_shops_opportunities_on_opportunity_id"
+    t.index ["shop_id"], name: "index_shops_opportunities_on_shop_id"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|

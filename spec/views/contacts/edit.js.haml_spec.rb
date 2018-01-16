@@ -16,6 +16,9 @@ describe "/contacts/edit" do
     assign(:users, [current_user])
     assign(:account, @account = FactoryGirl.build_stubbed(:account))
     assign(:accounts, [@account])
+    assign(:shop, @shop = FactoryGirl.build_stubbed(:shop))
+    assign(:shops, [@shop])
+    assign(:options, [[@shop.id, @shop.name]])
   end
 
   it "cancel from contact index page: should replace [Edit Contact] form with contact partial" do
