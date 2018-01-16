@@ -6,6 +6,9 @@
     - if can?(:update, shop)
       %li= link_to_edit(shop)
 
+    - if shown_on_landing_page?
+      %li= link_to_discard(shop)
+
     - if can?(:destroy, shop)
       %li= link_to_delete(shop)
 

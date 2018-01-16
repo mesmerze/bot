@@ -547,8 +547,8 @@ en-US:
   #----------------------------------------------------------------------------
   shops: Shops
   account_shops_small: shops
-  shop_select: Select shop
-  shop_seats: Shop seats
+  select_shop: Select Shop
+  shop_seats: '# Seats'
   shop_country: Country
   save_shop: Save shop
   create_shop: Create shop

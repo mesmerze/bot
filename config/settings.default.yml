@@ -213,11 +213,6 @@
   :url:
     :controller: opportunities
 - :active: false
-  :text: :tab_shops
-  :icon: :fa-shopping-basket
-  :url:
-    :controller: shops
-- :active: false
   :text: :tab_accounts
   :icon: :fa-users
   :url:
@@ -242,6 +237,11 @@
   :icon: :fa-check-square-o
   :url:
     :controller: tasks
+- :active: false
+  :text: :tab_shops
+  :icon: :fa-shopping-basket
+  :url:
+    :controller: shops
 - :active: false
   :text: :tab_team
   :icon: :fa-globe

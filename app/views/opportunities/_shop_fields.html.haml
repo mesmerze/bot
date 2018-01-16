@@ -5,4 +5,4 @@
     %td
       = select_tag 'opportunity[shops_attributes][][id]', options_for_select(options, s.id), disabled: disabled, class: "shop_id", style: "width: 200px;"
     %td{style: "width: 250px;"}
-      = number_field_tag 'opportunity[shops_attributes][][num_seats]', s.num_seats, in: 1...1000, disabled: disabled, class: "shop_num_seats", style: "width: 100px;"
+      = number_field_tag 'opportunity[shops_attributes][][num_seats]', s.num_seats, in: 1..999, disabled: true, class: "shop_num_seats", style: "width: 100px;"
