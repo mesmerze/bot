@@ -25,6 +25,8 @@ class Org < ActiveRecord::Base
   has_ransackable_associations %w[accounts emails]
   ransack_can_autocomplete
 
+  scope :text_search, ->(query) { ransack('name_cont' => query).result }
+
   validates_presence_of :name, message: :missing_name
   validates_uniqueness_of :name
   validates_inclusion_of :category, in: Setting.org_category.map(&:to_s), message: :bad_category

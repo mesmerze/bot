@@ -57,6 +57,15 @@ class OrgsController < EntitiesController
     end
   end
 
+  def destroy
+    @org.destroy
+
+    respond_with(@org) do |format|
+      format.html { respond_to_destroy(:html) }
+      format.js   { respond_to_destroy(:ajax) }
+    end
+  end
+
   def redraw
     current_user.pref[:orgs_per_page] = params[:per_page] if params[:per_page]
     current_user.pref[:orgs_sort_by]  = Org.sort_by_map[params[:sort_by]] if params[:sort_by]
@@ -87,5 +96,19 @@ class OrgsController < EntitiesController
 
   def set_account
     @accs = Account.accessible(@org.id).my(current_user).order('name')
+  end
+
+  def respond_to_destroy(method)
+    if method == :ajax
+      @orgs = get_orgs
+      if @orgs.empty?
+        @orgs = get_orgs(page: current_page - 1) if current_page > 1
+        render(:index) && return
+      end
+    else
+      self.current_page = 1
+      flash[:notice] = t(:msg_asset_deleted, @org.name)
+      redirect_to orgs_path
+    end
   end
 end
