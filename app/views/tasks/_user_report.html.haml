@@ -1,0 +1,6 @@
+%ul{id: dom_id(user)}
+  .title
+    %span#title
+      = user.full_name
+  .log#tasks
+    = render partial: 'teammates_tasks', locals: { teammate_tasks: user.tasks_for_view(@view), user: user, buckets: buckets }

@@ -4,10 +4,11 @@
   - else
     .strip.white #{t :other}
 
-  .tools
-    = link_to_task_edit(assigned, bucket) + " | "
-    = link_to_discard(assigned) + " | " if shown_on_landing_page?
-    = link_to_task_delete(assigned, bucket)
+  - if assigned.user.id == current_user.id || assigned.assignee&.id  == current_user.id
+    .tools
+      = link_to_task_edit(assigned, bucket) + " | "
+      = link_to_discard(assigned) + " | " if shown_on_landing_page?
+      = link_to_task_delete(assigned, bucket)
 
   .indent
     = link_to(assigned.assignee.full_name, user_path(assigned.assignee)) + ": "

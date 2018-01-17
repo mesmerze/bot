@@ -21,6 +21,7 @@ describe "/tasks/edit" do
     it "cancel for #{view} view: should replace [Edit Task] form with the task partial" do
       params[:cancel] = "true"
       @task = stub_task(view)
+      @task.assignee = current_user if view == 'pending'
       assign(:view, view)
       assign(:task, @task)
 

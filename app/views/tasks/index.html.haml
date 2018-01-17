@@ -17,4 +17,8 @@
   - if @tasks.values.flatten.blank?
     = render "empty"
 
+- if @users_with_tasks.any?
+  %ul
+    = render partial: "user_report", collection: @users_with_tasks, as: :user, locals: { buckets: buckets }
+
 #export= render "shared/export"

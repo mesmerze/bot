@@ -15,6 +15,7 @@ class TasksController < ApplicationController
   def index
     @view = view
     @tasks = Task.find_all_grouped(current_user, @view)
+    @users_with_tasks = User.have_assigned_tasks
 
     respond_with @tasks do |format|
       format.xls { render layout: 'header' }

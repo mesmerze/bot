@@ -74,6 +74,8 @@ class User < ActiveRecord::Base
       .select('DISTINCT(users.id), users.*')
   }
 
+  scope :have_assigned_tasks, -> { joins("INNER JOIN tasks ON users.id = tasks.assigned_to").select('DISTINCT(users.id), users.*') }
+
   acts_as_authentic do |c|
     c.session_class = Authentication
     c.validates_uniqueness_of_login_field_options = { case_sensitive: false, message: :username_taken }
@@ -169,6 +171,10 @@ class User < ActiveRecord::Base
       asset != "Comment" && klass.assigned_to(self).exists? || klass.created_by(self).exists?
     end
     !sum.nil?
+  end
+
+  def tasks_for_view(view)
+    Task.find_all_grouped(self, view)
   end
 
   private
