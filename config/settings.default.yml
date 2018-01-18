@@ -427,3 +427,49 @@ org_category_color:
   :other        : Silver
   :restaurant   : Turquoise
   :hotel        : Gold
+
+shop_stage:
+  - :not_started
+  - :prospecting
+  - :analysis
+  - :presentation
+  - :proposal
+  - :negotiation
+  - :final_review
+  - :won
+  - :lost
+  - :setup_queued
+  - :setup_ongoing
+  - :setup_training
+  - :live_pending
+  - :live_trial
+  - :live
+  - :inactive
+  - :inactive_temporary
+  - :inactive_seasonal
+  - :cancelled_closure
+  - :cancelled_switched
+  - :cancelled_unhappy
+
+shop_stage_color:
+  :prospecting        : Silver
+  :analysis           : PaleGoldenRod
+  :presentation       : Salmon
+  :proposal           : Gold
+  :negotiation        : Orchid
+  :final_review       : Turquoise
+  :won                : Lime
+  :lost               : OrangeRed
+  :not_started        : Silver
+  :setup_queued       : CornflowerBlue
+  :setup_ongoing      : LavenderBlush
+  :setup_training     : LawnGreen
+  :live_pending       : MediumOrchid
+  :live_trial         : MidnightBlue
+  :live               : SpringGreen
+  :inactive           : Violet
+  :inactive_temporary : PaleVioletRed
+  :inactive_seasonal  : MediumSpringGreen
+  :cancelled_closure  : Navy
+  :cancelled_switched : LightCoral
+  :cancelled_unhappy  : OrangeRed

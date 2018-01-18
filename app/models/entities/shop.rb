@@ -22,6 +22,8 @@ class Shop < ActiveRecord::Base
   validates_numericality_of :num_seats, allow_blank: true,
                                         greater_than_or_equal_to: 1,
                                         less_than_or_equal_to: 999
+  validates_inclusion_of :country, in: Setting.countries.map(&:to_s), message: :bad_country_code, allow_blank: true
+  validates_inclusion_of :stage, in: Setting.shop_stage.map(&:to_s), message: :bad_shop_stage
 
   def attach!(attachment)
     return unless account

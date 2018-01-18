@@ -64,6 +64,19 @@ ru:
   final_review: Утверждение
   won: Выиграли
   lost: Проиграли
+  not_started: Не начат
+  setup_queued: Организация в порядке очереди
+  setup_ongoing: Организация в процессе
+  setup_training: Организация обучения
+  live_pending: Существующий в ожидании
+  live_trial: Испытания существующего
+  live: Существующий
+  inactive: Неактивен
+  inactive_temporary: Неактивен временно
+  inactive_seasonal: Неактивен сезонно
+  cancelled_closure: Отменен по окончании
+  cancelled_switched: Отменен из-за изменений
+  cancelled_unhappy: Неудачно отменен
   call: Звонок
   email: E-mail
   follow_up: Доработка
@@ -166,6 +179,10 @@ ru:
               missing_name: ^Пожалуйста введите имя.
             access:
               share_shop: ^Пожалуйста укажите пользователей которым разрешен доступ к данному магазину.
+            country:
+              bad_country_code: ^Пожалуйста искользуйте ISO кодировку, например 'JP', 'US', 'KR'.
+            stage:
+              bad_shop_stage: ^Пожалуйста выберите стадию из предложенного списка.
         task:
           attributes:
             name:
@@ -557,6 +574,7 @@ ru:
   save_shop: Сохранить магазин
   create_shop: Создать магазин
   shop_summary: Сводка
+  closed_date: Дата закрытия
 
   # Views -> Tasks.
   #----------------------------------------------------------------------------

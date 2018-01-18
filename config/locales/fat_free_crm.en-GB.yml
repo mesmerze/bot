@@ -64,6 +64,19 @@ en-GB:
   final_review: Final Review
   won: Closed/Won
   lost: Closed/Lost
+  not_started: Not Started
+  setup_queued: Setup Queued
+  setup_ongoing: Setup Ongoing
+  setup_training: Setup Training
+  live_pending: Live Pending
+  live_trial: Live Trial
+  live: Live
+  inactive: Inactive
+  inactive_temporary: Inactive Temporary
+  inactive_seasonal: Inactive Seasonal
+  cancelled_closure: Cancelled Closure
+  cancelled_switched: Cancelled Switched
+  cancelled_unhappy: Cancelled Unhappy
   call: Call
   email: Email
   follow_up: Follow-up
@@ -166,6 +179,10 @@ en-GB:
               missing_name: ^Please specify shop name.
             access:
               share_shop: ^Please specify users to share the shop with.
+            country:
+              bad_country_code: ^Please select ISO code, e.g. 'JP', 'US', 'KR'.
+            stage:
+              bad_shop_stage: ^Please select a stage from the given list.
         task:
           attributes:
             name:
@@ -552,6 +569,7 @@ en-GB:
   save_shop: Save shop
   create_shop: Create shop
   shop_summary: Shop Summary
+  closed_date: Closed Date
 
   # Views -> Tasks.
   #----------------------------------------------------------------------------

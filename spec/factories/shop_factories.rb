@@ -11,6 +11,7 @@ FactoryGirl.define do
     assigned_to nil
     name                { FFaker::Company.name + rand(100).to_s }
     num_seats           { FFaker::Random.rand(1..999) }
+    stage               { Setting.shop_stage.map(&:to_s).sample }
     access "Public"
     updated_at          { FactoryGirl.generate(:time) }
     created_at          { FactoryGirl.generate(:time) }

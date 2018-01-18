@@ -1,4 +1,8 @@
 %li.highlight[shop]
+  - if shop.stage
+    .strip{class: shop.stage} #{t(shop.stage)}
+  - else
+    .strip{:style => "color: gray;"} #{t :other}
 
   %ul.tools.shop{style: 'float:left; visibility:visible; margin: 2px 5px 0 0;'}
     = hook(:shop_tools_before, self, shop: shop)
@@ -13,8 +17,16 @@
       %li= link_to_delete(shop)
 
   .indent
+    - if shop.country
+      = shop.country
+      = " : ".html_safe
+
     = link_to(shop.name, shop)
     &ndash;
     = pluralize(shop.num_seats, 'seat', 'seats')
+
+    - if shop.closed_date
+      = ' | Closed date: '
+      = time_tag shop.closed_date
 
     = hook(:shop_bottom, self, shop: shop)

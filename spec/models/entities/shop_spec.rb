@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe Shop do
   it "should create a new instance given valid attributes" do
-    Shop.create!(name: "Shop")
+    Shop.create!(name: "Shop", stage: 'inactive_seasonal')
   end
 
   context 'attach opportunity and contact to shop' do

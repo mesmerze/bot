@@ -22,6 +22,16 @@
           .label #{t :select_org}:
           = f.fields_for :org, @org do |o|
             = o.select :id, @orgs.map{|a| [a.name, a.id]}, :selected => @account.org&.id, :include_blank => t(:select_org)
+        %td= spacer
+        %td
+          .label{ style: "display:inline-block" } #{t :country}:
+          .label{ style: "display:inline-block" } #{t :online_review}:
+          = f.select :country, Setting.unroll(:countries), {:include_blank => 'None'}, { :style => "display:inline-block; width:60px;" }
+          = f.text_field :online_review, { style: "display:inline-block; width:60px;" }
+        %td= spacer
+        %td
+          .label #{t :account_type}:
+          = f.select :account_type, Setting.unroll(:account_type), {:include_blank => 'None Specified'}, { :style => "width:160px" }
 
       - if Setting.background_info && Setting.background_info.include?(:account)
         %tr

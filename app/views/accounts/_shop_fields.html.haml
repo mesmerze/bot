@@ -1,12 +1,21 @@
 .nested-fields
   .field
-    %table
+    %table{ border: 0, width: 500, cellpadding: 0, cellspacing: 0 }
       %tr
-        %td{style: "width: 30px;"}
+        %td
           = link_to_remove_association "", f, class: "ui-icon ui-icon-minus",
                                               style: 'display:flex; margin:0.5rem 0 0;'
-        %td{style: 'width: 200px'}
-          = f.text_field :name, style: "width:200px;"
+        %td
+          = f.text_field :name, style: "width:150px;"
         %td= spacer
         %td
-          = f.number_field :num_seats, in: 1..999, style: "width:100px;"
+          = f.number_field :num_seats, in: 1..999, style: "width:50px;"
+        %td= spacer
+        %td
+          = f.select :country, Setting.unroll(:countries), {:include_blank => 'None'}, { :style => "width:60px" }
+        %td= spacer
+        %td
+          = f.text_field :closed_date, style: "width:100px;", autocomplete: :off, class: 'date'
+        %td= spacer
+        %td
+          = f.select :stage, Setting.unroll(:shop_stage), {:include_blank => 'None'}, { :style => "width:150px" }

@@ -6,14 +6,18 @@
   %small#account_shop_intro{ hidden_if(!collapsed) }
     = t(:intro, t(:account_shops_small)) unless edit
   #shops{ hidden_if(collapsed) }
-    %table
+    %table{ style: "table-layout: fixed;" }
       %tr
-        %td= spacer(15)
-        %td{style: 'width: 200px;'}
+        %td{ style: "width: 100px; padding: 0 65px 0 16px;" }
           .label.top.req #{t :name}:
-        %td= spacer(12)
+        %td{ style: "width: 70px;" }
+          .label.top{style: "padding:0px;"} #{t :shop_seats}:
+        %td{ style: "width: 70px;" }
+          .label.top{style: "padding:0px;"} #{t :country}:
+        %td{ style: "width: 115px;" }
+          .label.top{style: "padding:0px;"} #{t :closed_date}:
         %td
-          .label.top{style: 'width: 100px;'} #{t :shop_seats}:
+          .label.top.req #{t :stage}:
     = f.simple_fields_for :shops do |shop|
       = render 'shop_fields', f: shop
     .links

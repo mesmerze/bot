@@ -1,6 +1,6 @@
 (($) ->
 
-  # handle account chenge in edit form
+  # handle account change in edit form
   $(document).on 'change', "#account_id", ->
     selected_account = $("option:selected", this).val()
     current_opportunity = $("#opportunity_id").val()
@@ -49,6 +49,9 @@
         dataType: 'json'
         success: (data, textStatus, jqXHR) ->
           $(".shop_rows").find(".shop_num_seats").last().val(data.shop.num_seats)
+          $(".shop_rows").find(".shop_country").last().val(data.shop.country)
+          $(".shop_rows").find(".shop_closed_date").last().val(data.shop.closed_date)
+          $(".shop_rows").find(".shop_stage").last().val(data.shop.stage)
 
   # checkbox
   $(document).on 'change', "input[type='checkbox'].all_shops", ->
@@ -62,11 +65,17 @@
   $(document).on 'change', '.shop_id', ->
     selected_shop = $("option:selected", this).val()
     num_to_be_filled = $(this).parent().parent().find(".shop_num_seats")
+    country_to_be_selected = $(this).parent().parent().find(".shop_country")
+    date_to_be_filled = $(this).parent().parent().find(".shop_closed_date")
+    stage_to_be_selected = $(this).parent().parent().find(".shop_stage")
     $.ajax "/shops/#{selected_shop}",
       type: 'GET'
       contentType: "application/json"
       dataType: 'json'
       success: (data, textStatus, jqXHR) ->
         num_to_be_filled.val(data.shop.num_seats)
+        country_to_be_selected.val(data.shop.country)
+        date_to_be_filled.val(data.shop.closed_date)
+        stage_to_be_selected.val(data.shop.stage)
 
 ) jQuery

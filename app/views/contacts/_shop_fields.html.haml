@@ -1,8 +1,18 @@
-%table.shop_row
+%table.shop_row{ border: 0, width: 500, cellpadding: 0, cellspacing: 0 }
   %tr
     %td
-      .ui-icon.ui-icon-minus{ style: 'display:flex; margin:0.5rem 1rem 0 0; cursor: pointer;' }
+      .ui-icon.ui-icon-minus{ style: 'display:flex; margin:0.5rem 0 0; cursor: pointer;' }
     %td
-      = select_tag 'contact[shops_attributes][][id]', options_for_select(options, s.id), disabled: disabled, class: "shop_id", style: "width: 200px;"
-    %td{style: "width: 250px;"}
-      = number_field_tag 'contact[shops_attributes][][num_seats]', s.num_seats, in: 1..999, disabled: true, class: "shop_num_seats", style: "width: 100px;"
+      = select_tag 'contact[shops_attributes][][id]', options_for_select(options, s.id), disabled: disabled, class: "shop_id", style: "width: 150px;"
+    %td= spacer
+    %td
+      = number_field_tag 'contact[shops_attributes][][num_seats]', s.num_seats, in: 1..999, class: "shop_num_seats", disabled: true, readonly: true, style: "width: 50px;"
+    %td= spacer
+    %td
+      = select_tag 'contact[shops_attributes][][country]', options_for_select(Setting.unroll(:countries), s.country), include_blank: 'None', class: "shop_country", disabled: true, style: "width:60px"
+    %td= spacer
+    %td
+      = text_field_tag 'contact[shops_attributes][][closed_date]', s.closed_date, style: "width:100px;", autocomplete: :off, class: 'shop_closed_date', disabled: true
+    %td= spacer
+    %td
+      = select_tag 'contact[shops_attributes][][stage]', options_for_select(Setting.unroll(:shop_stage), s.stage), include_blank: 'None', class: "shop_stage", disabled: true, :style => "width:150px"
