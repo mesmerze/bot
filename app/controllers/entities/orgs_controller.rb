@@ -50,8 +50,11 @@ class OrgsController < EntitiesController
   end
 
   def update
+    @comment_body = params[:comment_body]
+
     respond_with(@org) do |_format|
       # Must set access before user_ids, because user_ids= method depends on access value.
+      @org.add_comment_by_user(@comment_body, current_user)
       @org.access = params[:org][:access] if params[:org][:access]
       @org.update_attributes(resource_params)
     end

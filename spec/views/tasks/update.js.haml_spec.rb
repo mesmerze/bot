@@ -16,8 +16,8 @@ describe "/tasks/update" do
 
   describe "Changing due date" do
     before do
-      assign(:task_before_update, FactoryGirl.build_stubbed(:task, bucket: "due_asap"))
-      assign(:task, @task = FactoryGirl.build_stubbed(:task, bucket: "due_tomorrow"))
+      assign(:task_before_update, FactoryGirl.build_stubbed(:task, assignee: current_user, bucket: "due_asap"))
+      assign(:task, @task = FactoryGirl.build_stubbed(:task, assignee: current_user, bucket: "due_tomorrow"))
       assign(:view, "pending")
       assign(:task_total, stub_task_total("pending"))
     end

@@ -9,7 +9,7 @@
   - buckets = Setting.unroll(:task_bucket)
   = render "title"
 
-.log#tasks
+#tasks.log.my
   - buckets.each do |value, key|
     %div{ hidden_if(filtered_out?(@view, key)), id: "list_#{key}" }
       %h3{class: key}= t(value)
@@ -18,7 +18,7 @@
     = render "empty"
 
 - if @users_with_tasks.any?
-  %ul
+  %ul#teammates
     = render partial: "user_report", collection: @users_with_tasks, as: :user, locals: { buckets: buckets }
 
 #export= render "shared/export"

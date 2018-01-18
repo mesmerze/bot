@@ -7,7 +7,7 @@
 
     = render "orgs/top_section",  :f => f, :edit => true
     = render "orgs/accounts",     :f => f, :edit => true
-    = render "shared/add_comment", :f => f, :edit => true
+    = render "shared/add_comment", :f => f
     = render "entities/permissions",  :f => f, :edit => true, :entity => @org
 
     = hook(:entity_form, self, {f: f, entity: @org})

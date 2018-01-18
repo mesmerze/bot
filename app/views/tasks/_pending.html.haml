@@ -4,7 +4,7 @@
   - else
     .strip.white #{t :other}
 
-  - if pending.user.id == current_user.id || pending.assignee&.id  == current_user.id
+  - if can_manage?(pending)
     .tools
       = link_to_task_edit(pending, bucket) + " | "
       = link_to_discard(pending) + " | " if shown_on_landing_page?

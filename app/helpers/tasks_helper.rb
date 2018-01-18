@@ -103,9 +103,16 @@ module TasksHelper
   #----------------------------------------------------------------------------
   def insert_content(task, bucket, view)
     html = render(partial: view, collection: [task], locals: { bucket: bucket })
-    text = "$('#list_#{bucket}').show();\n"
-    text += "$('##{h bucket.to_s}').prepend('#{j html}');\n"
-    text += "$('##{dom_id(task)}').effect('highlight', { duration:1500 });\n"
+    if task.tracked_by?(current_user)
+      text = "$('#list_#{bucket}').show();\n"
+      text += "$('##{h bucket.to_s}').prepend('#{j html}');\n"
+      text += "$('##{dom_id(task)}').effect('highlight', { duration:1500 });\n"
+    else
+      id = task.assignee&.id || task.user&.id
+      text = "$('#user_#{id} #list_#{bucket}').show();\n"
+      text += "$('#user_#{id} ##{h bucket.to_s}').prepend('#{j html}');\n"
+      text += "$('#user_#{id} ##{dom_id(task)}').effect('highlight', { duration:1500 });\n"
+    end
     text.html_safe
   end
 
@@ -138,5 +145,9 @@ module TasksHelper
     text += insert_content(task, task.bucket, @view)
     text += refresh_sidebar(:index, :filters)
     text
+  end
+
+  def can_manage?(task)
+    task.tracked_by?(current_user) || current_user.admin
   end
 end

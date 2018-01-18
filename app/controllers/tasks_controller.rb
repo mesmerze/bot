@@ -15,7 +15,7 @@ class TasksController < ApplicationController
   def index
     @view = view
     @tasks = Task.find_all_grouped(current_user, @view)
-    @users_with_tasks = User.have_assigned_tasks
+    @users_with_tasks = User.have_assigned_tasks.where.not(id: current_user.id)
 
     respond_with @tasks do |format|
       format.xls { render layout: 'header' }
@@ -55,7 +55,7 @@ class TasksController < ApplicationController
   #----------------------------------------------------------------------------
   def edit
     @view = view
-    @task = Task.tracked_by(current_user).find(params[:id])
+    @task = current_user.admin ? Task.find_by(id: params[:id]) : Task.tracked_by(current_user).find(params[:id])
     @bucket = Setting.unroll(:task_bucket)[1..-1] << [t(:due_specific_date, default: 'On Specific Date...'), :specific_time]
     @category = Setting.unroll(:task_category)
     @asset = @task.asset if @task.asset_id?
@@ -84,7 +84,7 @@ class TasksController < ApplicationController
   #----------------------------------------------------------------------------
   def update
     @view = view
-    @task = Task.tracked_by(current_user).find(params[:id])
+    @task = current_user.admin ? Task.find_by(id: params[:id]) : Task.tracked_by(current_user).find(params[:id])
     @task_before_update = @task.dup
 
     @task_before_update.bucket = if @task.due_at && (@task.due_at < Date.today.to_time)
@@ -110,7 +110,7 @@ class TasksController < ApplicationController
   #----------------------------------------------------------------------------
   def destroy
     @view = view
-    @task = Task.tracked_by(current_user).find(params[:id])
+    @task = current_user.admin ? Task.find_by(id: params[:id]) : Task.tracked_by(current_user).find(params[:id])
     @task.destroy
 
     # Make sure bucket's div gets hidden if we're deleting last task in the bucket.
@@ -125,7 +125,7 @@ class TasksController < ApplicationController
   # PUT /tasks/1/complete
   #----------------------------------------------------------------------------
   def complete
-    @task = Task.tracked_by(current_user).find(params[:id])
+    @task = current_user.admin ? Task.find_by(id: params[:id]) : Task.tracked_by(current_user).find(params[:id])
     @task&.update_attributes(completed_at: Time.now, completed_by: current_user.id)
 
     # Make sure bucket's div gets hidden if it's the last completed task in the bucket.
@@ -140,7 +140,7 @@ class TasksController < ApplicationController
   # PUT /tasks/1/uncomplete
   #----------------------------------------------------------------------------
   def uncomplete
-    @task = Task.tracked_by(current_user).find(params[:id])
+    @task = current_user.admin ? Task.find_by(id: params[:id]) : Task.tracked_by(current_user).find(params[:id])
     @task&.update_attributes(completed_at: nil, completed_by: nil)
 
     # Make sure bucket's div gets hidden if we're deleting last task in the bucket.

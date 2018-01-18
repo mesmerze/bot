@@ -4,7 +4,7 @@
   - else
     .strip.white #{t :other}
 
-  - if assigned.user.id == current_user.id || assigned.assignee&.id  == current_user.id
+  - if can_manage?(assigned)
     .tools
       = link_to_task_edit(assigned, bucket) + " | "
       = link_to_discard(assigned) + " | " if shown_on_landing_page?

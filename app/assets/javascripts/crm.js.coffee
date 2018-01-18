@@ -421,6 +421,10 @@
         when "opportunities" then "fa-money"
         when "team" then "fa-globe"
 
+    hide_teammates: ->
+      $('ul[id^="user_"]').each (e, user)->
+        $(user).css("display", "block")
+        $(user).toggle($(user).find('.bucket:visible').children().length > 0)
 
   $ ->
     crm.focus_on_first_field()
