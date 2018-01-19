@@ -12,7 +12,7 @@ class ContactsController < EntitiesController
   # GET /contacts
   #----------------------------------------------------------------------------
   def index
-    @contacts = get_contacts(page: params[:page], per_page: params[:per_page])
+    @contacts = get_contacts(page: page_param, per_page: per_page_param)
 
     respond_with @contacts do |format|
       format.xls { render layout: 'header' }
@@ -125,7 +125,7 @@ class ContactsController < EntitiesController
   # GET /contacts/redraw                                                   AJAX
   #----------------------------------------------------------------------------
   def redraw
-    current_user.pref[:contacts_per_page] = params[:per_page] if params[:per_page]
+    current_user.pref[:contacts_per_page] = per_page_param if per_page_param
 
     # Sorting and naming only: set the same option for Leads if the hasn't been set yet.
     if params[:sort_by]
@@ -139,7 +139,7 @@ class ContactsController < EntitiesController
       current_user.pref[:leads_naming] ||= params[:naming]
     end
 
-    @contacts = get_contacts(page: 1, per_page: params[:per_page]) # Start on the first page.
+    @contacts = get_contacts(page: 1, per_page: per_page_param) # Start on the first page.
     set_options # Refresh options
 
     respond_with(@contacts) do |format|

@@ -21,7 +21,7 @@ class String
   end
 
   def to_url
-    match(/^https?:\/\//) ? self : "http://#{self}"
+    match?(/^https?:\/\//) ? self : "http://#{self}"
   end
 
   # Generates all permutations for first and last name, based on the order of parts

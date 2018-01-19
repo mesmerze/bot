@@ -45,6 +45,7 @@ group :development do
     gem 'rb-fsevent', require: false
     gem 'rb-fchange', require: false
     gem 'rb-readline', platforms: %i[mingw mswin x64_mingw jruby]
+    gem 'brakeman', require: false
   end
 end
 
