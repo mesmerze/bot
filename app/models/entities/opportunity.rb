@@ -59,7 +59,7 @@ class Opportunity < ActiveRecord::Base
   scope :text_search, ->(query) {
     ids = Shop.ransack('name_cont' => query).result.map(&:id) # select needed shops
     ids = Opportunity.joins(:shops).where('shops.id IN (?)', ids).ids # select needed opportunities separately coz or() dont work with joins(:shops)
-    result = if query =~ /\A\d+\z/
+    result = if query.match?(/\A\d+\z/)
                where('upper(name) LIKE upper(:name) OR opportunities.id = :id', name: "%#{query}%", id: query)
              else
                ransack('name_cont' => query).result
