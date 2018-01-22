@@ -24,7 +24,7 @@
   require "ffaker"
   puts "Loading accounts..."
 
-  category = %w(affiliate competitor customer partner reseller vendor) << nil
+  category = %w(customer_hotel customer_restaurant customer_other) << nil
 
   for i in (1 .. rand(20) + 100) do
 %>

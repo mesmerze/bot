@@ -288,20 +288,14 @@
 #
 #------------------------------------------------------------------------------
 account_category:
-  - :affiliate
-  - :competitor
-  - :customer
-  - :partner
-  - :reseller
-  - :vendor
+  - :customer_restaurant
+  - :customer_hotel
+  - :customer_other
 
 account_category_color:
-  :affiliate   : lavender
-  :competitor  : paleturquoise
-  :customer    : pink
-  :partner     : bisque
-  :reseller    : thistle
-  :vendor      : skyblue
+  :customer_restaurant : PaleVioletRed
+  :customer_hotel      : MediumSpringGreen
+  :customer_other      : Turquoise
 
 # Campaign Status. To add custom status use string value, for example:
 #

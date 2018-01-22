@@ -40,14 +40,14 @@ describe AccountsController do
     end
 
     it "should filter out accounts by category" do
-      categories = %w[customer vendor]
+      categories = %w[customer_restaurant customer_other]
       controller.session[:accounts_filter] = categories.join(',')
       @accounts = [
         FactoryGirl.create(:account, user: current_user, category: categories.first),
         FactoryGirl.create(:account, user: current_user, category: categories.last)
       ]
       # This one should be filtered out.
-      FactoryGirl.create(:account, user: current_user, category: "competitor")
+      FactoryGirl.create(:account, user: current_user, category: "customer_hotel")
 
       get :index
       expect(assigns[:accounts]).to eq(@accounts)
@@ -590,16 +590,16 @@ describe AccountsController do
   describe "responding to POST filter" do
     it "should expose filtered accounts as @accounts and render [index] template" do
       session[:accounts_filter] = "customer,vendor"
-      @accounts = [FactoryGirl.create(:account, category: "partner", user: current_user)]
+      @accounts = [FactoryGirl.create(:account, category: "customer_hotel", user: current_user)]
 
-      post :filter, params: { category: "partner" }, xhr: true
+      post :filter, params: { category: "customer_hotel" }, xhr: true
       expect(assigns(:accounts)).to eq(@accounts)
       expect(response).to render_template("accounts/index")
     end
 
     it "should reset current page to 1" do
       @accounts = []
-      post :filter, params: { category: "partner" }, xhr: true
+      post :filter, params: { category: "partner_reseller" }, xhr: true
 
       expect(session[:accounts_current_page]).to eq(1)
     end

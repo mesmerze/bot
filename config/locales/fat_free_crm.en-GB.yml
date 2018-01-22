@@ -39,6 +39,10 @@ en-GB:
   partner: Partner
   reseller: Reseller
   vendor: Vendor
+  customer_restaurant: Customer/Restaurant
+  customer_hotel: Customer/Hotel
+  customer_other: Customer/Other
+  none_specified: None Specified
   planned: Planned
   started: Started
   on_hold: On Hold

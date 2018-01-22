@@ -15,8 +15,8 @@
               .label #{t :country}:
               = a.select :country, Setting.unroll(:countries), {:include_blank => 'None Specified'}, { :style => "width:60px" }
             %td
-              .label #{t :account_type}:
-              = a.select :account_type, Setting.unroll(:account_type), {:include_blank => 'None Specified'}, { :style => "width:160px" }
+              .label #{t :category}:
+              = a.select :category, Setting.unroll(:account_category), {:include_blank => 'None Specified'}, { :style => "width:160px" }
             %td= spacer
             %td
               .label #{t :online_review}:

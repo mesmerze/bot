@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180117104524) do
+ActiveRecord::Schema.define(version: 20180121125754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,7 +50,6 @@ ActiveRecord::Schema.define(version: 20180117104524) do
     t.integer "rating", default: 0, null: false
     t.string "category", limit: 32
     t.text "subscribed_users"
-    t.string "account_type"
     t.string "country"
     t.decimal "online_review", precision: 3, scale: 2
     t.integer "contacts_count", default: 0

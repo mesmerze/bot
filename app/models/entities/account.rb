@@ -98,7 +98,6 @@ class Account < ActiveRecord::Base
                                             greater_than_or_equal_to: 0,
                                             less_than_or_equal_to: 5
   validates_inclusion_of :country, in: Setting.countries.map(&:to_s), message: :bad_country_code, allow_blank: true
-  validates_inclusion_of :account_type, in: Setting.account_type.map(&:to_s), message: :bad_account_type, allow_blank: true
 
   before_save :nullify_blank_category
 

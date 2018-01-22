@@ -1,9 +1,9 @@
 - amount = account.pipeline_opportunities.map(&:weighted_amount).sum
 %li.highlight[account]
   - if account.category
-    .strip{class: account.category} #{t(account.category)}
+    .strip{class: account.category, style: "width:115px;"} #{t(account.category)}
   - else
-    .strip{style: "color: gray;"} #{t :other}
+    .strip{style: "color: gray; width:115px;"} #{t :none_specified }
 
   %ul.tools
     = hook(:account_tools_before, self, account: account)
