@@ -235,6 +235,7 @@ class OpportunitiesController < EntitiesController
   #----------------------------------------------------------------------------
   def load_settings
     @stage = Setting.unroll(:opportunity_stage)
+    @category = Setting.opportunity_category.map { |key| [I18n.t(['opportunity_categories', key].join('.')), key.to_sym] }
   end
 
   #----------------------------------------------------------------------------

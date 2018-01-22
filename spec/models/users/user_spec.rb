@@ -129,16 +129,18 @@ describe User do
   context "scopes" do
     describe "have_assigned_opportunities" do
       before do
+        @account = FactoryGirl.create(:account)
+
         @user1 = FactoryGirl.create(:user)
-        FactoryGirl.create(:opportunity, assignee: @user1, stage: 'analysis', account: nil, campaign: nil, user: nil)
+        FactoryGirl.create(:opportunity, assignee: @user1, stage: 'analysis', account: @account, campaign: nil, user: nil)
 
         @user2 = FactoryGirl.create(:user)
 
         @user3 = FactoryGirl.create(:user)
-        FactoryGirl.create(:opportunity, assignee: @user3, stage: 'won', account: nil, campaign: nil, user: nil)
+        FactoryGirl.create(:opportunity, assignee: @user3, stage: 'won', account: @account, campaign: nil, user: nil)
 
         @user4 = FactoryGirl.create(:user)
-        FactoryGirl.create(:opportunity, assignee: @user4, stage: 'lost', account: nil, campaign: nil, user: nil)
+        FactoryGirl.create(:opportunity, assignee: @user4, stage: 'lost', account: @account, campaign: nil, user: nil)
 
         @result = User.have_assigned_opportunities
       end
@@ -161,10 +163,11 @@ describe User do
   context "instance methods" do
     describe "assigned_opportunities" do
       before do
+        @account = FactoryGirl.create(:account)
         @user = FactoryGirl.create(:user)
 
-        @opportunity1 = FactoryGirl.create(:opportunity, assignee: @user, account: nil, campaign: nil, user: nil)
-        @opportunity2 = FactoryGirl.create(:opportunity, assignee: FactoryGirl.create(:user), account: nil, campaign: nil, user: nil)
+        @opportunity1 = FactoryGirl.create(:opportunity, assignee: @user, account: @account, campaign: nil, user: nil)
+        @opportunity2 = FactoryGirl.create(:opportunity, assignee: FactoryGirl.create(:user), account: @account, campaign: nil, user: nil)
 
         @result = @user.assigned_opportunities
       end

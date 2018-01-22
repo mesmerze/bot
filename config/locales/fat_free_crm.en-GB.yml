@@ -169,6 +169,8 @@ en-GB:
               missing_opportunity_name: ^Please specify opportunity name.
             access:
               share_opportunity: ^Please specify users with whom to share the opportunity.
+            account:
+              missing_account: ^Please select account.
         org:
           attributes:
             name:

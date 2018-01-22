@@ -20,6 +20,7 @@ describe "/opportunities/_new" do
     assign(:shop, @shop = FactoryGirl.build_stubbed(:shop))
     assign(:options, [[@shop.id, @shop.name]])
     assign(:stage, Setting.unroll(:opportunity_stage))
+    assign(:category, Setting.unroll(:opportunity_category))
   end
 
   it "should render [create opportunity] form" do

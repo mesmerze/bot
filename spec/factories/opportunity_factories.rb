@@ -26,6 +26,7 @@ FactoryGirl.define do
     probability         { rand(50) }
     amount              { rand(1000) }
     discount            { rand(100) }
+    category            { Setting.opportunity_category.map(&:to_s).sample }
     closes_on           { FactoryGirl.generate(:date) }
     background_info     { FFaker::Lorem.paragraph[0, 255] }
     deleted_at nil

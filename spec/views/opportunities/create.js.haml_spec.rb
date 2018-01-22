@@ -11,6 +11,7 @@ describe "/opportunities/create" do
   before do
     login
     assign(:stage, Setting.unroll(:opportunity_stage))
+    assign(:category, Setting.unroll(:opportunity_category))
   end
 
   describe "create success" do

@@ -21,6 +21,7 @@ describe "/opportunities/edit" do
     assign(:shops, [@shop])
     assign(:options, [[@shop.id, @shop.name]])
     assign(:stage, Setting.unroll(:opportunity_stage))
+    assign(:category, Setting.unroll(:opportunity_category))
   end
 
   it "cancel from opportunity index page: should replace [Edit Opportunity] form with opportunity partial" do

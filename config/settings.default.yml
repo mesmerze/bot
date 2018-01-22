@@ -467,3 +467,7 @@ shop_stage_color:
   :cancelled_closure  : Navy
   :cancelled_switched : LightCoral
   :cancelled_unhappy  : OrangeRed
+
+opportunity_category:
+  - :new
+  - :upsell

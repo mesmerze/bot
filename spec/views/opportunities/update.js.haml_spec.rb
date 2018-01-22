@@ -19,6 +19,7 @@ describe "/opportunities/update" do
     assign(:shops, [@shop])
     assign(:options, [[@shop.id, @shop.name]])
     assign(:stage, Setting.unroll(:opportunity_stage))
+    assign(:category, Setting.unroll(:opportunity_category))
     assign(:opportunity_stage_total, Hash.new(1))
   end
 

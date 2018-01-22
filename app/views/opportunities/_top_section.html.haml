@@ -7,6 +7,10 @@
           = f.text_field :name, autofocus: true, style: "width:325px"
         %td= spacer
         %td
+          .label.req.top #{t :category}:
+          = f.select :category, @category, { selected: @opportunity.category ? @opportunity.category.to_sym : nil }, { style: "width:100px" }
+        %td= spacer
+        %td
           .label.req.top #{t :stage}:
           = f.select :stage, @stage, { selected: @opportunity.stage ? @opportunity.stage.to_sym : nil }, { style: "width:160px", class: 'select2' }
 
@@ -38,6 +42,7 @@
             != account_select_or_create(a) do |options|
               -# Add [-- None --] account choice when editing existing opportunity that has an account.
               - options[:selected] = @account.id || 0
+              - options[:label] = 'req'
 
           %td= spacer
           %td

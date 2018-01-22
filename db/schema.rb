@@ -307,6 +307,7 @@ ActiveRecord::Schema.define(version: 20180121125754) do
     t.datetime "updated_at"
     t.string "background_info"
     t.text "subscribed_users"
+    t.string "category"
     t.index ["assigned_to"], name: "index_opportunities_on_assigned_to"
     t.index ["user_id", "name", "deleted_at"], name: "id_name_deleted", unique: true
   end

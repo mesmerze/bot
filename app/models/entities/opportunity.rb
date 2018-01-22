@@ -87,18 +87,35 @@ class Opportunity < ActiveRecord::Base
   has_ransackable_associations %w[account contacts tags campaign activities emails comments]
   ransack_can_autocomplete
 
+  validates_associated :account, message: :missing_account, on: :create
+  validates_presence_of :account, message: :missing_account, on: :create
   validates_presence_of :name, message: :missing_opportunity_name
   validates_numericality_of %i[probability amount discount], allow_nil: true
   validate :users_for_shared_access
   validates :stage, inclusion: { in: proc { Setting.unroll(:opportunity_stage).map { |s| s.last.to_s } } }, allow_blank: true
+  validates_inclusion_of :category, in: Setting.opportunity_category.map(&:to_s)
 
   after_create :increment_opportunities_count
   after_destroy :decrement_opportunities_count
 
   def shops_attributes=(attributes)
-    shops.delete_all # remove old associations
     collection = attributes.map { |s| Shop.find_by(id: s[:id]) }
-    shops << collection.uniq
+    remove = shops.ids - collection.map(&:id)
+
+    unless remove.empty?
+      remove.each do |id|
+        shop = shops.find(id)
+        if category == "new"
+          shop.update_attributes(stage: "not_started") unless shop.stage == "won"
+        end
+        shops.delete(id)
+      end
+    end
+
+    if category == "new"
+      collection.each { |sh| sh.update_attributes(stage: stage) unless sh.stage == "won" }
+    end
+    shops << collection.uniq - shops
     super
   end
 

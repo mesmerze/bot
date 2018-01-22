@@ -4,7 +4,7 @@
   $(document).on 'change', "#account_id", ->
     selected_account = $("option:selected", this).val()
     current_opportunity = $("#opportunity_id").val()
-    path = $(location).attr("pathname")
+    path = $(location).attr("pathname").replace(/\/\d+\z/, '') # HACK Find another solution
     $.ajax "#{path}/shops",
       type: 'GET'
       data: { account_id: selected_account, opportunity_id: current_opportunity  }

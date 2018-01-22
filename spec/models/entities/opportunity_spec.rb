@@ -31,7 +31,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe Opportunity do
   it "should create a new instance given valid attributes" do
-    Opportunity.create!(name: "Opportunity", stage: 'analysis')
+    @account = FactoryGirl.create(:account)
+    expect(Opportunity.create!(name: "Opportunity", stage: 'analysis', category: 'new', account: @account)).to be_valid
   end
 
   it "should be possible to create opportunity with the same name" do

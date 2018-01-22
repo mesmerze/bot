@@ -170,6 +170,8 @@ en-US:
               missing_opportunity_name: ^Please specify opportunity name.
             access:
               share_opportunity: ^Please specify users with whom to share the opportunity.
+            account:
+              missing_account: ^Please select account.
         org:
           attributes:
             name:
@@ -218,6 +220,8 @@ en-US:
           final_review: Final Review
           won: Closed/Won
           lost: Closed/Lost
+        category:
+
       account:
         rating:
           "0": "-"
@@ -553,6 +557,9 @@ en-US:
   total_opportunities: Total Opportunities
   weighted_amount: Weighted amount
   all_shops: All Shops
+  opportunity_categories:
+    new: New Rollout
+    upsell: Upsell
 
   # Views -> Orgs.
   #----------------------------------------------------------------------------
