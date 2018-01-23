@@ -125,6 +125,13 @@ describe Opportunity do
       opportunity.reload
       expect(opportunity.probability).to eq(100)
     end
+
+    it "should set close date of if opportunity has been won" do
+      opportunity = FactoryGirl.create(:opportunity, stage: "prospecting")
+      opportunity.update_attributes(stage: 'won')
+      opportunity.reload
+      expect(opportunity.closes_on).to eq(Date.current)
+    end
   end
 
   describe "Scopes" do
