@@ -13,11 +13,11 @@ describe "/contacts/update" do
   before do
     login
 
-    assign(:contact, @contact = FactoryGirl.build_stubbed(:contact, user: current_user))
+    assign(:contact, @contact = build_stubbed(:contact, user: current_user))
     assign(:users, [current_user])
-    assign(:account, @account = FactoryGirl.build_stubbed(:account))
+    assign(:account, @account = build_stubbed(:account))
     assign(:accounts, [@account])
-    assign(:shop, @shop = FactoryGirl.build_stubbed(:shop))
+    assign(:shop, @shop = build_stubbed(:shop))
     assign(:options, [[@shop.id, @shop.name]])
   end
 

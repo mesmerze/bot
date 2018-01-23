@@ -6,9 +6,7 @@
 # See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 #------------------------------------------------------------------------------
 class Admin::PluginsController < Admin::ApplicationController
-  before_action only: [:index] do
-    set_current_tab('admin/plugins')
-  end
+  before_action :setup_current_tab, only: [:index]
 
   # GET /admin/plugins
   # GET /admin/plugins.xml
@@ -17,5 +15,11 @@ class Admin::PluginsController < Admin::ApplicationController
     @plugins = FatFreeCRM::Plugin.list
 
     respond_with(@plugins)
+  end
+
+  protected
+
+  def setup_current_tab
+    set_current_tab('admin/plugins')
   end
 end

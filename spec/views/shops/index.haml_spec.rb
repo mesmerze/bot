@@ -12,13 +12,13 @@ describe '/shops/index' do
   end
 
   it 'should render shop name' do
-    assign(:shops, [FactoryGirl.build_stubbed(:shop, name: 'New test shop'), FactoryGirl.build_stubbed(:shop)].paginate)
+    assign(:shops, [build_stubbed(:shop, name: 'New test shop'), build_stubbed(:shop)].paginate)
     render
     expect(rendered).to have_tag('a', text: 'New test shop')
   end
 
   it 'should render list of shops if list of shops is not empty' do
-    assign(:shops, [FactoryGirl.build_stubbed(:shop), FactoryGirl.build_stubbed(:shop)].paginate)
+    assign(:shops, [build_stubbed(:shop), build_stubbed(:shop)].paginate)
 
     render
     expect(view).to render_template(partial: '_shop')

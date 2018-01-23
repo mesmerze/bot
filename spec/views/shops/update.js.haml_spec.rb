@@ -6,7 +6,7 @@ describe '/shops/update' do
   before do
     login
 
-    assign(:shop, @shop = FactoryGirl.build_stubbed(:shop, user: current_user))
+    assign(:shop, @shop = build_stubbed(:shop, user: current_user))
     assign(:users, [current_user])
   end
 

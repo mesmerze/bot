@@ -5,7 +5,7 @@
 # Fat Free CRM is freely distributable under the terms of MIT license.
 # See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 #------------------------------------------------------------------------------
-FactoryGirl.define do
+FactoryBot.define do
   factory :shop do
     account
     assigned_to nil
@@ -13,15 +13,15 @@ FactoryGirl.define do
     num_seats           { FFaker::Random.rand(1..999) }
     stage               { Setting.shop_stage.map(&:to_s).sample }
     access "Public"
-    updated_at          { FactoryGirl.generate(:time) }
-    created_at          { FactoryGirl.generate(:time) }
+    updated_at          { FactoryBot.generate(:time) }
+    created_at          { FactoryBot.generate(:time) }
   end
 
   factory :shop_opportunity do
     shop
     opportunity
     deleted_at nil
-    updated_at          { FactoryGirl.generate(:time) }
-    created_at          { FactoryGirl.generate(:time) }
+    updated_at          { FactoryBot.generate(:time) }
+    created_at          { FactoryBot.generate(:time) }
   end
 end

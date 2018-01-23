@@ -13,11 +13,11 @@ describe "/opportunities/edit" do
   before do
     login
 
-    assign(:opportunity, @opportunity = FactoryGirl.build_stubbed(:opportunity, user: current_user))
+    assign(:opportunity, @opportunity = build_stubbed(:opportunity, user: current_user))
     assign(:users, [current_user])
-    assign(:account, @account = FactoryGirl.build_stubbed(:account))
+    assign(:account, @account = build_stubbed(:account))
     assign(:accounts, [@account])
-    assign(:shop, @shop = FactoryGirl.build_stubbed(:shop))
+    assign(:shop, @shop = build_stubbed(:shop))
     assign(:shops, [@shop])
     assign(:options, [[@shop.id, @shop.name]])
     assign(:stage, Setting.unroll(:opportunity_stage))
@@ -41,7 +41,7 @@ describe "/opportunities/edit" do
 
   it "edit: should hide previously open [Edit Opportunity] for and replace it with opportunity partial" do
     params[:cancel] = nil
-    assign(:previous, previous = FactoryGirl.build_stubbed(:opportunity, user: current_user))
+    assign(:previous, previous = build_stubbed(:opportunity, user: current_user))
 
     render
     expect(rendered).to include("$('#opportunity_#{previous.id}').replaceWith")

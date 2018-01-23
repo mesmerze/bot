@@ -10,15 +10,15 @@ describe ShopsController do
 
   context 'responding to GET index' do
     it 'should expose all shops as @shops and render index' do
-      @shops = [FactoryGirl.create(:shop, user: current_user)]
+      @shops = [create(:shop, user: current_user)]
       get :index
       expect(assigns[:shops]).to eq(@shops)
       expect(response).to render_template('shops/index')
     end
 
     it 'should perform lookup using query string' do
-      @shop1 = FactoryGirl.create(:shop, user: current_user, name: 'Sirst')
-      @shop2 = FactoryGirl.create(:shop, user: current_user, name: 'Second')
+      @shop1 = create(:shop, user: current_user, name: 'Sirst')
+      @shop2 = create(:shop, user: current_user, name: 'Second')
 
       get :index, params: { query: 'Second' }
       expect(assigns[:shops]).to eq([@shop2])
@@ -28,7 +28,7 @@ describe ShopsController do
 
     describe 'AJAX pagination' do
       it 'should pick up page number from params' do
-        @shops = [FactoryGirl.create(:shop, user: current_user)]
+        @shops = [create(:shop, user: current_user)]
         get :index, params: { page: 42 }, xhr: true
 
         expect(assigns[:current_page].to_i).to eq(42)
@@ -39,7 +39,7 @@ describe ShopsController do
 
       it 'should pick up saved page number from session' do
         session[:shops_current_page] = 42
-        @shops = [FactoryGirl.create(:shop, user: current_user)]
+        @shops = [create(:shop, user: current_user)]
         get :index, xhr: true
 
         expect(assigns[:current_page]).to eq(42)
@@ -50,7 +50,7 @@ describe ShopsController do
       it 'should reset current_page when query is altered' do
         session[:shops_current_page] = 42
         session[:shops_current_query] = 'shop'
-        @shops = [FactoryGirl.create(:shop, user: current_user)]
+        @shops = [create(:shop, user: current_user)]
         get :index, xhr: true
 
         expect(assigns[:current_page]).to eq(1)
@@ -84,7 +84,7 @@ describe ShopsController do
 
   context 'responding to GET show' do
     describe 'with mime type of HTML' do
-      before { @shop = FactoryGirl.create(:shop, user: current_user) }
+      before { @shop = create(:shop, user: current_user) }
 
       it 'should expose the requested shop as @shop and render show' do
         get :show, params: { id: @shop.id }
@@ -100,7 +100,7 @@ describe ShopsController do
 
     describe 'with mime type of JSON/XML' do
       before do
-        @shop = FactoryGirl.create(:shop, user: current_user)
+        @shop = create(:shop, user: current_user)
         expect(Shop).to receive(:find).and_return(@shop)
       end
 
@@ -123,7 +123,7 @@ describe ShopsController do
 
     describe 'shop got deleted or otherwise unavailable' do
       it 'should redirect to shop index if the shop got deleted' do
-        @shop = FactoryGirl.create(:shop, user: current_user)
+        @shop = create(:shop, user: current_user)
         @shop.destroy
 
         get :show, params: { id: @shop.id }
@@ -132,7 +132,7 @@ describe ShopsController do
       end
 
       it 'should redirect to shop index if the shop is protected' do
-        @private = FactoryGirl.create(:shop, user: FactoryGirl.create(:user), access: 'Private')
+        @private = create(:shop, user: create(:user), access: 'Private')
 
         get :show, params: { id: @private.id }
         expect(flash[:warning]).not_to eq(nil)
@@ -140,7 +140,7 @@ describe ShopsController do
       end
 
       it 'should return 404 (Not Found) JSON error' do
-        @shop = FactoryGirl.create(:shop, user: current_user)
+        @shop = create(:shop, user: current_user)
         @shop.destroy
         request.env['HTTP_ACCEPT'] = 'application/json'
 
@@ -149,7 +149,7 @@ describe ShopsController do
       end
 
       it 'should return 404 (Not Found) XML error' do
-        @shop = FactoryGirl.create(:shop, user: current_user)
+        @shop = create(:shop, user: current_user)
         @shop.destroy
         request.env['HTTP_ACCEPT'] = 'application/xml'
 
@@ -171,7 +171,7 @@ describe ShopsController do
 
   context 'responding to GET edit' do
     it 'should expose the requested shop as @shop and render edit' do
-      @shop = FactoryGirl.create(:shop, id: 13, user: current_user)
+      @shop = create(:shop, id: 13, user: current_user)
 
       get :edit, params: { id: 13 }, xhr: true
       expect(assigns[:shop]).to eq(@shop)
@@ -180,8 +180,8 @@ describe ShopsController do
     end
 
     it 'should expose previous shop as @previous when necessary' do
-      @shop = FactoryGirl.create(:shop, id: 13)
-      @previous = FactoryGirl.create(:shop, id: 12)
+      @shop = create(:shop, id: 13)
+      @previous = create(:shop, id: 12)
 
       get :edit, params: { id: 13, previous: 12 }, xhr: true
       expect(assigns[:previous]).to eq(@previous)
@@ -189,7 +189,7 @@ describe ShopsController do
 
     describe 'shop got deleted or is otherwise unavailable' do
       it 'should reload current page with the flash message if the shop got deleted' do
-        @shop = FactoryGirl.create(:shop, user: current_user)
+        @shop = create(:shop, user: current_user)
         @shop.destroy
 
         get :edit, params: { id: @shop.id }, xhr: true
@@ -198,7 +198,7 @@ describe ShopsController do
       end
 
       it 'should reload current page with the flash message if the shop is protected' do
-        @private = FactoryGirl.create(:shop, user: FactoryGirl.create(:user), access: 'Private')
+        @private = create(:shop, user: create(:user), access: 'Private')
 
         get :edit, params: { id: @private.id }, xhr: true
         expect(flash[:warning]).not_to eq(nil)
@@ -208,8 +208,8 @@ describe ShopsController do
 
     describe 'previous shop got deleted or is otherwise unavailable' do
       before do
-        @shop = FactoryGirl.create(:shop, user: current_user)
-        @previous = FactoryGirl.create(:shop, user: FactoryGirl.create(:user))
+        @shop = create(:shop, user: current_user)
+        @previous = create(:shop, user: create(:user))
       end
 
       it 'should notify the view if previous shop got deleted' do
@@ -235,7 +235,7 @@ describe ShopsController do
   context 'responding to POST create' do
     describe 'with valid params' do
       it 'should expose a newly created shop as @shop and render create' do
-        @shop = FactoryGirl.build(:shop, name: 'TEST SHOP', user: current_user)
+        @shop = build(:shop, name: 'TEST SHOP', user: current_user)
         allow(Shop).to receive(:new).and_return(@shop)
 
         post :create, params: { shop: { name: 'TEST SHOP' } }, xhr: true
@@ -244,7 +244,7 @@ describe ShopsController do
       end
 
       it 'should reload shops to update pagination' do
-        @shop = FactoryGirl.build(:shop, user: current_user)
+        @shop = build(:shop, user: current_user)
         allow(Shop).to receive(:new).and_return(@shop)
 
         post :create, params: { shop: { name: 'TEST' } }, xhr: true
@@ -254,7 +254,7 @@ describe ShopsController do
 
     describe 'with invalid params' do
       it 'should expose a newly created but unsaved shop as @shop and still render create' do
-        @shop = FactoryGirl.build(:shop, name: nil, user: nil)
+        @shop = build(:shop, name: nil, user: nil)
         allow(Shop).to receive(:new).and_return(@shop)
 
         post :create, params: { shop: {} }, xhr: true
@@ -267,7 +267,7 @@ describe ShopsController do
   context 'responding to PUT update' do
     describe 'with valid params' do
       it 'should update the requested shop, and render update' do
-        @shop = FactoryGirl.create(:shop, id: 13, name: 'Hello people')
+        @shop = create(:shop, id: 13, name: 'Hello people')
 
         put :update, params: { id: 13, shop: { name: 'TEST' } }, xhr: true
         expect(@shop.reload.name).to eq('TEST')
@@ -276,7 +276,7 @@ describe ShopsController do
       end
 
       it 'should update shop permissions when sharing with specific users' do
-        @shop = FactoryGirl.create(:shop, id: 13, access: 'Public')
+        @shop = create(:shop, id: 13, access: 'Public')
 
         put :update, params: { id: 13, shop: { name: 'TEST', access: 'Shared', user_ids: [7, 8] } }, xhr: true
         expect(assigns[:shop].access).to eq('Shared')
@@ -286,7 +286,7 @@ describe ShopsController do
 
     describe 'shop got deleted or otherwise unavailable' do
       it 'should reload current page is the shop got deleted' do
-        @shop = FactoryGirl.create(:shop, user: current_user)
+        @shop = create(:shop, user: current_user)
         @shop.destroy
 
         put :update, params: { id: @shop.id }, xhr: true
@@ -295,7 +295,7 @@ describe ShopsController do
       end
 
       it 'should reload current page with the flash message if the shop is protected' do
-        @private = FactoryGirl.create(:shop, user: FactoryGirl.create(:user), access: 'Private')
+        @private = create(:shop, user: create(:user), access: 'Private')
 
         put :update, params: { id: @private.id }, xhr: true
         expect(flash[:warning]).not_to eq(nil)
@@ -305,7 +305,7 @@ describe ShopsController do
 
     describe 'with invalid params' do
       it 'should not update the requested shop but still expose the requested shop as @shop, and render update' do
-        @shop = FactoryGirl.create(:shop, id: 13, name: 'TEST')
+        @shop = create(:shop, id: 13, name: 'TEST')
 
         put :update, params: { id: 13, shop: { name: nil } }, xhr: true
         expect(assigns(:shop).reload.name).to eq('TEST')
@@ -317,12 +317,12 @@ describe ShopsController do
 
   context 'responding to DELETE destroy' do
     before do
-      @shop = FactoryGirl.create(:shop, user: current_user)
+      @shop = create(:shop, user: current_user)
     end
 
     describe 'AJAX request' do
       it 'should destroy the requested shop and render destroy' do
-        @another_shop = FactoryGirl.create(:shop, user: current_user)
+        @another_shop = create(:shop, user: current_user)
         delete :destroy, params: { id: @shop.id }, xhr: true
 
         expect { Shop.find(@shop.id) }.to raise_error(ActiveRecord::RecordNotFound)
@@ -348,7 +348,7 @@ describe ShopsController do
 
       context 'shop got deleted or otherwise unavailable' do
         it 'should reload current page is the shop got deleted' do
-          @shop = FactoryGirl.create(:shop, user: current_user)
+          @shop = create(:shop, user: current_user)
           @shop.destroy
 
           delete :destroy, params: { id: @shop.id }, xhr: true
@@ -357,7 +357,7 @@ describe ShopsController do
         end
 
         it 'should reload current page with the flash message if the shop is protected' do
-          @private = FactoryGirl.create(:shop, user: FactoryGirl.create(:user), access: 'Private')
+          @private = create(:shop, user: create(:user), access: 'Private')
 
           delete :destroy, params: { id: @private.id }, xhr: true
           expect(flash[:warning]).not_to eq(nil)
@@ -375,7 +375,7 @@ describe ShopsController do
       end
 
       it 'should redirect to shop index with the flash message is the shop got deleted' do
-        @shop = FactoryGirl.create(:shop, user: current_user)
+        @shop = create(:shop, user: current_user)
         @shop.destroy
 
         delete :destroy, params: { id: @shop.id }
@@ -384,7 +384,7 @@ describe ShopsController do
       end
 
       it 'should redirect to shop index with the flash message if the shop is protected' do
-        @private = FactoryGirl.create(:shop, user: FactoryGirl.create(:user), access: 'Private')
+        @private = create(:shop, user: create(:user), access: 'Private')
 
         delete :destroy, params: { id: @private.id }
         expect(flash[:warning]).not_to eq(nil)
@@ -396,16 +396,16 @@ describe ShopsController do
   context 'responding to PUT attach' do
     describe 'opportunities' do
       before do
-        @model = FactoryGirl.create(:shop)
-        @attachment = FactoryGirl.create(:opportunity, account: @model.account)
+        @model = create(:shop)
+        @attachment = create(:opportunity, account: @model.account)
       end
       it_should_behave_like('attach')
     end
 
     describe 'contacts' do
       before do
-        @model = FactoryGirl.create(:shop)
-        @attachment = FactoryGirl.create(:contact, account: @model.account)
+        @model = create(:shop)
+        @attachment = create(:contact, account: @model.account)
       end
       it_should_behave_like('attach')
     end
@@ -414,8 +414,8 @@ describe ShopsController do
   context 'responding to POST discard' do
     describe 'contacts' do
       before do
-        @attachment = FactoryGirl.create(:contact)
-        @model = FactoryGirl.create(:shop)
+        @attachment = create(:contact)
+        @model = create(:shop)
         @model.contacts << @attachment
       end
       it_should_behave_like('discard')
@@ -423,8 +423,8 @@ describe ShopsController do
 
     describe 'opportunities' do
       before do
-        @attachment = FactoryGirl.create(:opportunity)
-        @model = FactoryGirl.create(:shop)
+        @attachment = create(:opportunity)
+        @model = create(:shop)
         @model.opportunities << @attachment
       end
       it_should_behave_like('discard')
@@ -433,7 +433,7 @@ describe ShopsController do
 
   context 'responding to POST auto_complete' do
     before do
-      @auto_complete_matches = [FactoryGirl.create(:shop, name: 'Hello World', user: current_user)]
+      @auto_complete_matches = [create(:shop, name: 'Hello World', user: current_user)]
     end
 
     it_should_behave_like('auto complete')
@@ -454,8 +454,8 @@ describe ShopsController do
 
     it 'should select @shops and render index' do
       @shops = [
-        FactoryGirl.create(:shop, name: 'One', user: current_user),
-        FactoryGirl.create(:shop, name: 'Two', user: current_user)
+        create(:shop, name: 'One', user: current_user),
+        create(:shop, name: 'Two', user: current_user)
       ]
 
       get :redraw, params: { per_page: 1, sort_by: 'name' }, xhr: true

@@ -9,7 +9,7 @@ describe '/shops/create' do
 
   context 'create success' do
     before do
-      assign(:shop, @shop = FactoryGirl.build_stubbed(:shop))
+      assign(:shop, @shop = build_stubbed(:shop))
       assign(:shops, [@shop].paginate)
       render
     end
@@ -31,7 +31,7 @@ describe '/shops/create' do
 
   context 'create failure' do
     it 'should re-render create template' do
-      assign(:shop, FactoryGirl.build(:shop, name: nil))
+      assign(:shop, build(:shop, name: nil))
       assign(:users, [current_user])
       render
 

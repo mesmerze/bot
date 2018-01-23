@@ -12,12 +12,12 @@ describe "/opportunities/new" do
 
   before do
     login
-    @account = FactoryGirl.build_stubbed(:account)
+    @account = build_stubbed(:account)
     assign(:opportunity, Opportunity.new(user: current_user))
     assign(:users, [current_user])
     assign(:account, @account)
     assign(:accounts, [@account])
-    assign(:shop, @shop = FactoryGirl.build_stubbed(:shop))
+    assign(:shop, @shop = build_stubbed(:shop))
     assign(:options, [[@shop.id, @shop.name]])
     assign(:stage, Setting.unroll(:opportunity_stage))
     assign(:category, Setting.unroll(:opportunity_category))

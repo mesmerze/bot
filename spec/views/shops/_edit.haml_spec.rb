@@ -5,7 +5,7 @@ require 'spec_helper'
 describe '/shops/_edit' do
   before do
     login
-    assign(:shop, @shop = FactoryGirl.create(:shop))
+    assign(:shop, @shop = create(:shop))
   end
 
   it 'should render edit form' do

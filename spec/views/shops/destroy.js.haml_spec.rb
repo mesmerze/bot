@@ -5,7 +5,7 @@ require 'spec_helper'
 describe '/shops/destroy' do
   before do
     login
-    assign(:shop, @shop = FactoryGirl.build_stubbed(:shop))
+    assign(:shop, @shop = build_stubbed(:shop))
     assign(:shops, [@shop].paginate)
     render
   end

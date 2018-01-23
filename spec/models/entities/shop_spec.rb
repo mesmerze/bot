@@ -9,10 +9,10 @@ describe Shop do
 
   context 'attach opportunity and contact to shop' do
     before do
-      @account = FactoryGirl.create(:account)
-      @shop = FactoryGirl.create(:shop, account: @account, user: current_user)
-      @contact = FactoryGirl.create(:contact)
-      @opportunity = FactoryGirl.create(:opportunity)
+      @account = create(:account)
+      @shop = create(:shop, account: @account, user: current_user)
+      @contact = create(:contact)
+      @opportunity = create(:opportunity)
     end
 
     it 'should return asset when attaching asset which belongs to shop.account' do
@@ -37,9 +37,9 @@ describe Shop do
 
   context 'discard' do
     before do
-      @shop = FactoryGirl.create(:shop, user: current_user)
-      @contact = FactoryGirl.create(:contact)
-      @opportunity = FactoryGirl.create(:opportunity)
+      @shop = create(:shop, user: current_user)
+      @contact = create(:contact)
+      @opportunity = create(:opportunity)
       @shop.contacts << @contact
       @shop.opportunities << @opportunity
     end

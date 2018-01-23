@@ -6,10 +6,7 @@
 # See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 #------------------------------------------------------------------------------
 class Admin::FieldsController < Admin::ApplicationController
-  before_action only: [:index] do
-    set_current_tab('admin/fields')
-  end
-
+  before_action :setup_current_tab, only: [:index]
   load_resource except: %i[create subform]
 
   # GET /fields
@@ -118,5 +115,9 @@ class Admin::FieldsController < Admin::ApplicationController
 
   def field_params
     params[:field].permit!
+  end
+
+  def setup_current_tab
+    set_current_tab('admin/fields')
   end
 end

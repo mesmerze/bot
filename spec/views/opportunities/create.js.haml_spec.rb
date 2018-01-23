@@ -16,7 +16,7 @@ describe "/opportunities/create" do
 
   describe "create success" do
     before do
-      assign(:opportunity, @opportunity = FactoryGirl.build_stubbed(:opportunity))
+      assign(:opportunity, @opportunity = build_stubbed(:opportunity))
       assign(:opportunities, [@opportunities].paginate)
       assign(:opportunity_stage_total, Hash.new(1))
     end
@@ -45,7 +45,7 @@ describe "/opportunities/create" do
     end
 
     it "should update related account sidebar when called from related account" do
-      assign(:account, account = FactoryGirl.create(:account))
+      assign(:account, account = create(:account))
       controller.request.env["HTTP_REFERER"] = "http://localhost/accounts/#{account.id}"
       render
 
@@ -54,7 +54,7 @@ describe "/opportunities/create" do
     end
 
     it "should update related campaign sidebar when called from related campaign" do
-      assign(:campaign, campaign = FactoryGirl.create(:campaign))
+      assign(:campaign, campaign = create(:campaign))
       controller.request.env["HTTP_REFERER"] = "http://localhost/campaigns/#{campaign.id}"
       render
 
@@ -73,12 +73,12 @@ describe "/opportunities/create" do
 
   describe "create failure" do
     it "should re-render [create] template in :create_opportunity div" do
-      assign(:opportunity, FactoryGirl.build(:opportunity, name: nil)) # make it invalid
-      @account = FactoryGirl.build_stubbed(:account)
-      assign(:users, [FactoryGirl.build_stubbed(:user)])
+      assign(:opportunity, build(:opportunity, name: nil)) # make it invalid
+      @account = build_stubbed(:account)
+      assign(:users, [build_stubbed(:user)])
       assign(:account, @account)
       assign(:accounts, [@account])
-      assign(:shop, @shop = FactoryGirl.build_stubbed(:shop))
+      assign(:shop, @shop = build_stubbed(:shop))
       assign(:options, [[@shop.id, @shop.name]])
 
       render

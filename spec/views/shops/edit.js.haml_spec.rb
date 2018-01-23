@@ -5,7 +5,7 @@ require 'spec_helper'
 describe '/shops/edit' do
   before do
     login
-    assign(:shop, @shop = FactoryGirl.build_stubbed(:shop, user: current_user))
+    assign(:shop, @shop = build_stubbed(:shop, user: current_user))
     assign(:users, [current_user])
   end
 
@@ -26,7 +26,7 @@ describe '/shops/edit' do
 
   it 'should hide previously open edit shop for and replace it with shop partial' do
     params[:cancel] = nil
-    assign(:previous, previous = FactoryGirl.build_stubbed(:shop, user: current_user))
+    assign(:previous, previous = build_stubbed(:shop, user: current_user))
 
     render
     expect(rendered).to include("shop_#{previous.id}")

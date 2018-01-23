@@ -11,11 +11,11 @@ describe "/opportunities/update" do
   before do
     login
 
-    assign(:opportunity, @opportunity = FactoryGirl.build_stubbed(:opportunity, user: current_user, assignee: FactoryGirl.build_stubbed(:user)))
+    assign(:opportunity, @opportunity = build_stubbed(:opportunity, user: current_user, assignee: build_stubbed(:user)))
     assign(:users, [current_user])
-    assign(:account, @account = FactoryGirl.build_stubbed(:account))
+    assign(:account, @account = build_stubbed(:account))
     assign(:accounts, [@account])
-    assign(:shop, @shop = FactoryGirl.build_stubbed(:shop))
+    assign(:shop, @shop = build_stubbed(:shop))
     assign(:shops, [@shop])
     assign(:options, [[@shop.id, @shop.name]])
     assign(:stage, Setting.unroll(:opportunity_stage))
@@ -66,7 +66,7 @@ describe "/opportunities/update" do
 
     describe "on related asset page -" do
       it "should update account sidebar" do
-        assign(:account, account = FactoryGirl.build_stubbed(:account))
+        assign(:account, account = build_stubbed(:account))
         controller.request.env["HTTP_REFERER"] = "http://localhost/accounts/#{account.id}"
         render
 
@@ -76,7 +76,7 @@ describe "/opportunities/update" do
       end
 
       it "should update campaign sidebar" do
-        assign(:campaign, campaign = FactoryGirl.build_stubbed(:campaign))
+        assign(:campaign, campaign = build_stubbed(:campaign))
         controller.request.env["HTTP_REFERER"] = "http://localhost/campaigns/#{campaign.id}"
         render
 

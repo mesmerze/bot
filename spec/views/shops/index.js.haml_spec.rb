@@ -8,7 +8,7 @@ describe '/shops/index' do
   end
 
   it 'should render shops with @shops collection if there are shops' do
-    assign(:shops, [FactoryGirl.build_stubbed(:shop, id: 13)].paginate(page: 1, per_page: 20))
+    assign(:shops, [build_stubbed(:shop, id: 13)].paginate(page: 1, per_page: 20))
 
     render template: 'shops/index', formats: [:js]
 

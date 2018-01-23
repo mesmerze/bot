@@ -5,9 +5,9 @@ require 'spec_helper'
 describe '/shops/show' do
   before do
     login
-    @shop = FactoryGirl.create(:shop, id: 13,
-                                      contacts: [FactoryGirl.create(:contact)],
-                                      opportunities: [FactoryGirl.create(:opportunity)])
+    @shop = create(:shop, id: 13,
+                          contacts: [create(:contact)],
+                          opportunities: [create(:opportunity)])
     assign(:shop, @shop)
     assign(:users, [current_user])
   end
