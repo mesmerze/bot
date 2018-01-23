@@ -7,17 +7,17 @@
     = t(:intro, t(:account_small)) unless edit
   #lead_status{ hidden_if(collapsed) }
     = f.fields_for :account, @account do |a|
-      = a.select :id, @accs.map{|a| [a.name, a.id]}, {:include_blank => 'None Specified'}
+      = a.select :id, @accs.map{|a| [a.name, a.id]}, { selected: @lead.account&.id, include_blank: 'None Specified' }
       #lead
         %table
           %tr
             %td
               .label #{t :country}:
-              = a.select :country, Setting.unroll(:countries), {:include_blank => 'None Specified'}, { :style => "width:60px" }
+              = a.select :country, Setting.unroll(:countries), { selected: @lead.account&.country, include_blank: 'None Specified' }, { :style => "width:60px" }
             %td
               .label #{t :category}:
-              = a.select :category, Setting.unroll(:account_category), {:include_blank => 'None Specified'}, { :style => "width:160px" }
+              = a.select :category, Setting.unroll(:account_category), { selected: @lead.account&.category, include_blank: 'None Specified' }, { :style => "width:160px" }
             %td= spacer
             %td
               .label #{t :online_review}:
-              = a.text_field :online_review, { style: "width:60px" }
+              = a.text_field :online_review, { value: @lead.account&.online_review, style: "width:60px" }

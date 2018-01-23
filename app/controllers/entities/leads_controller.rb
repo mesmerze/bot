@@ -7,7 +7,7 @@
 #------------------------------------------------------------------------------
 class LeadsController < EntitiesController
   before_action :get_data_for_sidebar, only: :index
-  before_action :set_accounts, only: %i[new create]
+  before_action :set_accounts, only: %i[new edit create update]
   autocomplete :account, :name, full: true
 
   # GET /leads
