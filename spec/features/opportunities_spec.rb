@@ -43,7 +43,7 @@ feature 'Opportunities', '
       find('div#opportunities').click_link('My Awesome Opportunity')
       expect(page).to have_content('This is a very important opportunity.')
 
-      click_link "Dashboard"
+      click_link "My Dashboard"
       expect(page).to have_content("Bill Murray created opportunity My Awesome Opportunity")
       expect(page).to have_content("Bill Murray created comment on My Awesome Opportunity")
     end
@@ -74,7 +74,7 @@ feature 'Opportunities', '
       select 'Analysis', from: 'opportunity_stage'
       click_button 'Save Opportunity'
       expect(page).to have_content('An Even Cooler Opportunity')
-      click_link "Dashboard"
+      click_link "My Dashboard"
       expect(page).to have_content("Bill Murray updated opportunity An Even Cooler Opportunity")
     end
   end

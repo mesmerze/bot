@@ -21,7 +21,7 @@ feature 'Opportunities Overview', "
   scenario "Accessing Opportunity Overview via the nav" do
     visit homepage
     within ".tabs" do
-      click_link "Team"
+      click_link "Sales Dashboard"
     end
 
     expect(current_path).to eq(opportunity_overview_page)

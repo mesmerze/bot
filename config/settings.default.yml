@@ -203,6 +203,17 @@
   :url:
     :controller: home
 - :active: false
+  :text: :tab_team
+  :icon: :fa-globe
+  :url:
+    :controller: users
+    :action: opportunities_overview
+- :active: false
+  :text: :tab_tasks
+  :icon: :fa-check-square-o
+  :url:
+    :controller: tasks
+- :active: false
   :text: :tab_leads
   :icon: :fa-tasks
   :url:
@@ -213,41 +224,30 @@
   :url:
     :controller: opportunities
 - :active: false
-  :text: :tab_accounts
-  :icon: :fa-users
+  :text: :tab_campaigns
+  :icon: :fa-bar-chart-o
   :url:
-    :controller: accounts
+    :controller: campaigns
 - :active: false
   :text: :tab_orgs
   :icon: :fa-tasks
   :url:
     :controller: orgs
 - :active: false
-  :text: :tab_campaigns
-  :icon: :fa-bar-chart-o
+  :text: :tab_accounts
+  :icon: :fa-users
   :url:
-    :controller: campaigns
-- :active: false
-  :text: :tab_contacts
-  :icon: :fa-user
-  :url:
-    :controller: contacts
-- :active: false
-  :text: :tab_tasks
-  :icon: :fa-check-square-o
-  :url:
-    :controller: tasks
+    :controller: accounts
 - :active: false
   :text: :tab_shops
   :icon: :fa-shopping-basket
   :url:
     :controller: shops
 - :active: false
-  :text: :tab_team
-  :icon: :fa-globe
+  :text: :tab_contacts
+  :icon: :fa-user
   :url:
-    :controller: users
-    :action: opportunities_overview
+    :controller: contacts
 
 :admin_tabs:
 - :active: true

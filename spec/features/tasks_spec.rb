@@ -39,7 +39,7 @@ feature 'Tasks', '
       click_button 'Create Task'
       expect(page).to have_content('Task I Need To Do')
 
-      click_link 'Dashboard'
+      click_link 'My Dashboard'
       expect(page).to have_content('Bill Murray created task Task I Need To Do')
     end
   end
@@ -66,7 +66,7 @@ feature 'Tasks', '
       expect(find('#main')).to have_content('Task For Someone Else')
       expect(find('#main')).to have_content('Another User')
 
-      click_link 'Dashboard'
+      click_link 'My Dashboard'
       expect(page).to have_content('Bill Murray created task Task For Someone Else')
     end
   end
@@ -79,7 +79,7 @@ feature 'Tasks', '
       fill_in 'task_name', with: 'Updated Task'
       click_button 'Save Task'
       expect(page).to have_content('Updated Task')
-      click_link 'Dashboard'
+      click_link 'My Dashboard'
       expect(page).to have_content('Bill Murray updated task Updated Task')
     end
   end

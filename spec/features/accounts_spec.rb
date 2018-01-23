@@ -47,7 +47,7 @@ feature 'Accounts', '
       expect(page).to have_content('This account is very important')
       expect(page).to have_content('Customer/Hotel')
 
-      click_link "Dashboard"
+      click_link "My Dashboard"
       expect(page).to have_content("Bill Murray created account My new account")
       expect(page).to have_content("Bill Murray created comment on My new account")
     end
@@ -80,7 +80,7 @@ feature 'Accounts', '
       click_button 'Save Account'
       expect(page).to have_content('A new account *editted*')
 
-      click_link "Dashboard"
+      click_link "My Dashboard"
       expect(page).to have_content("Bill Murray updated account A new account *editted*")
     end
   end

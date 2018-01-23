@@ -52,7 +52,7 @@ feature 'Leads', '
       expect(summary_element).to have_content('+44 1234 567890')
       expect(main_element).to have_content('This is an important lead.')
 
-      click_link "Dashboard"
+      click_link "My Dashboard"
       expect(activities_element).to have_content("Bill Murray created lead Mr Lead")
       expect(activities_element).to have_content("Bill Murray created comment on Mr Lead")
     end
@@ -83,7 +83,7 @@ feature 'Leads', '
       click_button 'Save Lead'
       expect(summary_element).to have_content('Mrs Lead')
 
-      click_link "Dashboard"
+      click_link "My Dashboard"
       expect(activities_element).to have_content("Bill Murray updated lead Mrs Lead")
     end
   end

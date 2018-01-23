@@ -42,7 +42,7 @@ feature 'Campaigns', '
       find('div#campaigns').click_link 'Cool Campaign'
       expect(page).to have_content('This campaign is very important')
 
-      click_link "Dashboard"
+      click_link "My Dashboard"
       expect(page).to have_content("Bill Murray created campaign Cool Campaign")
       expect(page).to have_content("Bill Murray created comment on Cool Campaign")
     end
@@ -70,7 +70,7 @@ feature 'Campaigns', '
       click_button 'Save Campaign'
       expect(page).to have_content('My Even Cooler Campaign')
       expect(page).to have_content('My Even Cooler Campaign')
-      click_link 'Dashboard'
+      click_link 'My Dashboard'
       expect(page).to have_content("Bill Murray updated campaign My Even Cooler Campaign")
     end
   end

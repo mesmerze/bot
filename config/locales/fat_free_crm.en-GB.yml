@@ -18,14 +18,14 @@ en-GB:
 
   # Settings.
   #----------------------------------------------------------------------------
-  tab_dashboard: Dashboard
+  tab_dashboard: My Dashboard
   tab_tasks: Tasks
   tab_campaigns: Campaigns
   tab_leads: Leads
   tab_accounts: Accounts
   tab_contacts: Contacts
   tab_opportunities: Opportunities
-  tab_team: Team
+  tab_team: Sales Dashboard
   tab_orgs: Orgs
   admin_tab_groups: Groups
   admin_tab_users: Users

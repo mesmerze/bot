@@ -44,7 +44,7 @@ feature 'Contacts', '
       sleep(1) # avoid CI failure
       expect(main_element).to have_content('This is a very important person.')
 
-      click_link "Dashboard"
+      click_link "My Dashboard"
       expect(activities_element).to have_content('Bill Murray created contact Testy McTest')
       expect(activities_element).to have_content('Bill Murray created comment on Testy McTest')
     end
@@ -73,7 +73,7 @@ feature 'Contacts', '
       click_button 'Save Contact'
       expect(summary_element).to have_content('Test Subject')
 
-      click_link 'Dashboard'
+      click_link 'My Dashboard'
       expect(activities_element).to have_content("Bill Murray updated contact Test Subject")
     end
   end
