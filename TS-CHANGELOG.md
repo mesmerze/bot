@@ -1,5 +1,11 @@
 # TS Changelog
 
+### 0.1.1
+
+- Fix: Remove incorrect account categories (#79)
+- Fix:Change close_on on create (#78)
+- Fix:Fix revenue calculations (#80)
+
 ## 0.1.0
 
 - Update FFCRM to 0.17.1 (#77)
