@@ -271,9 +271,9 @@ describe Opportunity do
     end
 
     context "by_closes_on" do
-      let(:o1) { create(:opportunity, closes_on: 3.days.from_now) }
-      let(:o2) { create(:opportunity, closes_on: 7.days.from_now) }
-      let(:o3) { create(:opportunity, closes_on: 5.days.from_now) }
+      let(:o1) { create(:opportunity, category: 'new', closes_on: 3.days.from_now) }
+      let(:o2) { create(:opportunity, category: 'new', closes_on: 7.days.from_now) }
+      let(:o3) { create(:opportunity, category: 'new', closes_on: 5.days.from_now) }
 
       it "should show opportunities ordered by closes on" do
         expect(Opportunity.by_closes_on).to eq([o1, o3, o2])

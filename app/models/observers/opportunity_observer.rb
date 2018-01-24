@@ -14,6 +14,8 @@ class OpportunityObserver < ActiveRecord::Observer
     if item.campaign && item.stage == "won"
       update_campaign_revenue(item.campaign, (item.amount || 0) - (item.discount || 0))
     end
+    # Set close date to today if won or lost
+    item.update_attribute(:closes_on, Date.current) if item.stage == 'won' || item.stage == 'lost'
   end
 
   def before_update(item)
