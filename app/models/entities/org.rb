@@ -8,7 +8,11 @@ class Org < ActiveRecord::Base
   has_many :accounts, through: :org_accounts
   has_many :emails, as: :mediator
 
-  default_scope { Org.left_outer_joins(accounts: :opportunities).group("orgs.id").select("orgs.*, sum(opportunities.amount) as revenue") }
+  default_scope do
+    Org.left_outer_joins(accounts: :opportunities)
+       .group("orgs.id")
+       .select("orgs.*, sum(opportunities.amount*opportunities.probability*0.01*(CASE WHEN opportunities.stage IN ('lost','won') THEN 0 ELSE 1 END)) as revenue")
+  end
 
   serialize :subscribed_users, Set
   accepts_nested_attributes_for :accounts, allow_destroy: true
