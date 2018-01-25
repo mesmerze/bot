@@ -51,7 +51,7 @@ class Lead < ActiveRecord::Base
   serialize :subscribed_users, Set
 
   accepts_nested_attributes_for :business_address, allow_destroy: true
-  accepts_nested_attributes_for :account, reject_if: proc { |attributes| attributes['id'].empty? }
+  accepts_nested_attributes_for :account, reject_if: proc { |attributes| attributes['id'].nil? && attributes['name']&.empty? }
 
   scope :state, ->(filters) {
     where(['status IN (?)' + (filters.delete('other') ? ' OR status IS NULL' : ''), filters])
@@ -86,6 +86,10 @@ class Lead < ActiveRecord::Base
   def account_attributes=(attributes)
     if attributes['id'].present?
       self.account = Account.find(attributes['id'])
+    else
+      new_account = Account.new(attributes)
+      new_account.attributes = { access: Setting.default_access, user_id: user_id }
+      new_account.valid? ? self.account = new_account : errors.add(:base, new_account.errors.messages)
     end
     super
   end

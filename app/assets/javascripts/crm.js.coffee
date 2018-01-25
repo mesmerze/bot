@@ -140,6 +140,55 @@
       else
         @show_select_account() # accounts dropdown
 
+    show_create_lead_account: ->
+      $("#lead_account_disabled_title").hide()
+      $("#account_create_title").show()
+      $("#account_select_title").hide()
+      $("#lead_account_attributes_id").prop('disabled', true)
+      $("#lead_account_attributes_id").next(".select2-container").disable()
+      $("#lead_account_attributes_id").next(".select2-container").hide()
+      $("#lead_account_attributes_name").prop('disabled', false)
+      $("#lead_account_attributes_name").html ""
+      $("#lead_account_attributes_name").show()
+
+
+    # Hide create account edit field and show accounts dropdown instead.
+    #----------------------------------------------------------------------------
+    show_select_lead_account: ->
+      $("#lead_account_disabled_title").hide()
+      $("#account_create_title").hide()
+      $("#account_select_title").show()
+      $("#lead_account_attributes_name").hide()
+      $("#lead_account_attributes_name").prop('disabled', true)
+      $("#lead_account_attributes_id").prop('disabled', false)
+      $("#lead_account_attributes_id").next(".select2-container").enable()
+      $("#lead_account_attributes_id").next(".select2-container").show()
+
+
+    # Show accounts dropdown and disable it to prevent changing the account.
+    #----------------------------------------------------------------------------
+    show_disabled_select_lead_account: ->
+      $("#lead_account_disabled_title").show()
+      $("#account_create_title").hide()
+      $("#account_select_title").hide()
+      $("#lead_account_attributes_name").hide()
+      $("#lead_account_attributes_name").prop('disabled', true)
+
+      # Disable select2 account select but enable hidden
+      # account_id select so that value is POSTed
+      $("#lead_account_attributes_id").next(".select2-container").disable()
+      $("#lead_account_attributes_id").next(".select2-container").show()
+      $("#lead_account_attributes_id").prop('disabled', false)
+
+
+    #----------------------------------------------------------------------------
+    create_or_select_lead_account: (selector) ->
+      if selector isnt true and selector > 0
+        @show_disabled_select_lead_account() # disabled accounts dropdown
+      else if selector
+        @show_create_lead_account() # create account edit field
+      else
+        @show_select_lead_account() # accounts dropdown
 
     #----------------------------------------------------------------------------
     create_contact: ->

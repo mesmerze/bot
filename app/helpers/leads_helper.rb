@@ -83,4 +83,34 @@ module LeadsHelper
     summary << "#{t(:mobile_small)}: #{lead.mobile}" if lead.mobile.present?
     summary.join(', ')
   end
+
+  def lead_account_select(options = {})
+    options[:selected] = @account&.id || 0
+    accounts = ([@account.new_record? ? nil : @account] + Account.my(current_user).order(:name).limit(25)).compact.uniq
+    collection_select 'lead[account_attributes]', :id, accounts, :id, :name,
+                      { selected: options[:selected], include_blank: true },
+                      style: 'width:330px;', class: 'select2',
+                      placeholder: t(:select_an_account),
+                      "data-url": auto_complete_accounts_path(format: 'json')
+  end
+
+  # Select an existing account for current lead or create a new one.
+  #----------------------------------------------------------------------------
+  def lead_account_select_or_create(form, &_block)
+    options = {}
+    yield options if block_given?
+
+    content_tag(:div, class: "label #{options[:label]}") do
+      t(:account).html_safe +
+        content_tag(:span, id: 'account_create_title') do
+          " (#{t :create_new} #{t :or} <a href='#' onclick='crm.show_select_lead_account(); return false;'>#{t :select_existing}</a>):".html_safe
+        end +
+        content_tag(:span, id: 'account_select_title') do
+          " (<a href='#' onclick='crm.show_create_lead_account(); return false;'>#{t :create_new}</a> #{t :or} #{t :select_existing}):".html_safe
+        end +
+        content_tag(:span, ':', id: 'lead_account_disabled_title')
+    end +
+      lead_account_select(options) +
+      form.text_field(:name, style: 'width:324px; display:none;')
+  end
 end

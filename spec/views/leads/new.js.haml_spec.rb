@@ -14,6 +14,7 @@ describe "/leads/new" do
     login
     @campaign = build_stubbed(:campaign)
     assign(:lead, Lead.new(user: current_user))
+    assign(:account, build(:account))
     assign(:users, [current_user])
     assign(:campaign, @campaign)
     assign(:campaigns, [@campaign])

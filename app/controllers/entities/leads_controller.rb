@@ -198,8 +198,8 @@ class LeadsController < EntitiesController
   private
 
   def set_accounts
-    @accs = Account.my(current_user).order('name')
-    @account = Account.new
+    @accounts = Account.my(current_user).order('name')
+    @account = @lead.account || Account.new
   end
 
   #----------------------------------------------------------------------------

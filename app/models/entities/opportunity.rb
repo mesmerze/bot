@@ -143,6 +143,9 @@ class Opportunity < ActiveRecord::Base
     self.account_opportunity = AccountOpportunity.new(account: account, opportunity: self) unless account.id.blank?
     self.account = account
     self.campaign = Campaign.find(params[:campaign]) unless params[:campaign].blank?
+    # Set close date to today if won or lost
+    self.closes_on = Date.current if stage == 'won'
+    self.closes_on = Date.current if stage == 'lost'
     result = save
     contacts << Contact.find(params[:contact]) unless params[:contact].blank?
     result

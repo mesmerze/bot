@@ -20,6 +20,7 @@
 - else
   $('##{id}').html('#{ j render(partial: "edit") }');
   $('##{id}').effect("shake", { duration:250, distance: 6 });
+  crm.create_or_select_lead_account(#{ request.referer =~ /\/accounts\// || @account.id.blank? });
   - if @entity.errors[:first_name].blank? and entity.errors[:last_name].present?
     $('#lead_last_name').focus();
   - else
