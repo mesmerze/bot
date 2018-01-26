@@ -50,7 +50,7 @@ module UsersHelper
       });
       $('#loading').show();
       $('#overlay').show();
-      $.post('#{url}', {groups: values.join(','), users: users.join(',')}, function () {
+      $.post('#{url}', {groups: values.join(','), users: users.join(','), sort: $('#opportunities_sort').val()}, function () {
         $('#loading').hide();
         $('#overlay').hide();
       });
@@ -72,7 +72,7 @@ module UsersHelper
       });
       $('#loading').show();
       $('#overlay').show();
-      $.post('#{url}', {groups: groups.join(','), users: users.join(',')}, function () {
+      $.post('#{url}', {groups: groups.join(','), users: users.join(','), sort: $('#opportunities_sort').val()}, function () {
         $('#loading').hide();
         $('#overlay').hide();
       });

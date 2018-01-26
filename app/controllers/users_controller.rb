@@ -7,6 +7,7 @@
 #------------------------------------------------------------------------------
 class UsersController < ApplicationController
   before_action :set_current_tab, only: %i[show opportunities_overview] # Don't hightlight any tabs.
+  before_action :set_sort_options, only: %i[opportunities_overview filter]
 
   check_authorization
   load_and_authorize_resource # handles all security
@@ -130,22 +131,33 @@ class UsersController < ApplicationController
   # GET /users/opportunities_overview
   #----------------------------------------------------------------------------
   def opportunities_overview
-    @groups = Group.all
-    @users_with_opportunities = User.joins(:groups).where('groups.id IN (?)', @groups.ids).have_assigned_opportunities.select('groups.id as group_id').order(:first_name).group_by(&:group_id)
+    @groups = Group.all.order("name")
+    @users_with_opportunities = User.joins(:groups)
+                                    .where('groups.id IN (?)', @groups.ids)
+                                    .have_assigned_opportunities.select('groups.id as group_id, groups.name as group_name')
+                                    .order('groups.name, users.first_name').group_by(&:group_id)
     @unassigned_opportunities = Opportunity.my(current_user).unassigned.pipeline.order(:stage).includes(:account, :user, :tags)
   end
 
   def filter
     group_ids = params[:groups].split(',').map(&:to_i)
     user_ids =  params[:users].split(',').map(&:to_i)
-    @users_with_opportunities = User.joins(:groups).where('groups.id IN (?) AND users.id IN (?)', group_ids, user_ids).have_assigned_opportunities.select('groups.id as group_id').order(:first_name).includes(:opportunities).group_by(&:group_id)
-    @groups = Group.where(id: group_ids)
+    @users_with_opportunities = User.joins(:groups)
+                                    .where('groups.id IN (?) AND users.id IN (?)', group_ids, user_ids)
+                                    .have_assigned_opportunities.select('groups.id as group_id, groups.name as group_name')
+                                    .order('groups.name, users.first_name').includes(:opportunities).group_by(&:group_id)
+    @groups = Group.where(id: group_ids).order("name")
     respond_to do |format|
       format.js
     end
   end
 
   protected
+
+  def set_sort_options
+    @options_for_sort = Opportunity.sort_by_map.map { |k, v| [t("option_#{k}".to_sym), v] }
+    @sort = params[:sort] || "opportunities.amount*opportunities.probability DESC"
+  end
 
   def user_params
     return {} unless params[:user]

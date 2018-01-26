@@ -1,7 +1,6 @@
-- cache user_report do
-  %li{id: dom_id(user_report)}
-    .title
-      %span#title
-        = user_report.full_name
-    %ul.list#opportunities
-      = render partial: "opportunities/opportunity", collection: user_report.assigned_opportunities.pipeline.order("opportunities.amount DESC")
+%li{id: dom_id(user_report)}
+  .title
+    %span#title
+      = user_report.full_name
+  %ul.list#opportunities
+    = render partial: "opportunities/opportunity", collection: user_report.assigned_opportunities.pipeline.order(@sort), cached: true
