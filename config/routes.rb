@@ -173,6 +173,7 @@ Rails.application.routes.draw do
     collection do
       match :auto_complete, via: %i[get post]
       get :opportunities_overview
+      post :filter
     end
   end
 

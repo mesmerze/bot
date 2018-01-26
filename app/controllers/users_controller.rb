@@ -130,8 +130,19 @@ class UsersController < ApplicationController
   # GET /users/opportunities_overview
   #----------------------------------------------------------------------------
   def opportunities_overview
-    @users_with_opportunities = User.have_assigned_opportunities.order(:first_name)
+    @groups = Group.all
+    @users_with_opportunities = User.joins(:groups).where('groups.id IN (?)', @groups.ids).have_assigned_opportunities.select('groups.id as group_id').order(:first_name).group_by(&:group_id)
     @unassigned_opportunities = Opportunity.my(current_user).unassigned.pipeline.order(:stage).includes(:account, :user, :tags)
+  end
+
+  def filter
+    group_ids = params[:groups].split(',').map(&:to_i)
+    user_ids =  params[:users].split(',').map(&:to_i)
+    @users_with_opportunities = User.joins(:groups).where('groups.id IN (?) AND users.id IN (?)', group_ids, user_ids).have_assigned_opportunities.select('groups.id as group_id').order(:first_name).includes(:opportunities).group_by(&:group_id)
+    @groups = Group.where(id: group_ids)
+    respond_to do |format|
+      format.js
+    end
   end
 
   protected

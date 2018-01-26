@@ -1,0 +1,7 @@
+<%
+  for i in (1 .. 9) do
+%>
+groups_users<%= i %>:
+  group_id: <%= rand(1..3) %>
+  user_id: <%= i %>
+<% end %>

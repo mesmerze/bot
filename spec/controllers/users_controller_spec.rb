@@ -369,27 +369,28 @@ describe UsersController do
     before(:each) do
       login
       @user = @current_user
-      @user.update_attributes(first_name: "Apple", last_name: "Boy")
+      @group = Group.create(name: 'test')
+      @user.update_attributes(first_name: "Apple", last_name: "Boy", groups: [@group])
     end
 
     it "should assign @users_with_opportunities" do
       create(:opportunity, stage: "prospecting", assignee: @user)
       get :opportunities_overview, xhr: true
-      expect(assigns[:users_with_opportunities]).to eq([@current_user])
+      expect(assigns[:users_with_opportunities]).to eq(@group.id => [@current_user])
     end
 
     it "@users_with_opportunities should be ordered by name" do
       create(:opportunity, stage: "prospecting", assignee: @user)
 
-      user1 = create(:user, first_name: "Zebra", last_name: "Stripes")
+      user1 = create(:user, first_name: "Zebra", last_name: "Stripes", groups: [@group])
       create(:opportunity, stage: "prospecting", assignee: user1)
 
-      user2 = create(:user, first_name: "Bilbo", last_name: "Magic")
+      user2 = create(:user, first_name: "Bilbo", last_name: "Magic", groups: [@group])
       create(:opportunity, stage: "prospecting", assignee: user2)
 
       get :opportunities_overview, xhr: true
 
-      expect(assigns[:users_with_opportunities]).to eq([@user, user2, user1])
+      expect(assigns[:users_with_opportunities]).to eq(@group.id => [@user, user2, user1])
     end
 
     it "should assign @unassigned_opportunities with only open unassigned opportunities" do
@@ -415,14 +416,14 @@ describe UsersController do
 
     it "should not include users who have no assigned opportunities" do
       get :opportunities_overview, xhr: true
-      expect(assigns[:users_with_opportunities]).to eq([])
+      expect(assigns[:users_with_opportunities]).to eq({})
     end
 
     it "should not include users who have no open assigned opportunities" do
       create(:opportunity, stage: "won", assignee: @user)
 
       get :opportunities_overview, xhr: true
-      expect(assigns[:users_with_opportunities]).to eq([])
+      expect(assigns[:users_with_opportunities]).to eq({})
     end
 
     it "should render opportunities overview" do

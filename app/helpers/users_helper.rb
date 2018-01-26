@@ -34,4 +34,49 @@ module UsersHelper
   def user_options_for_select(users, myself)
     (users - [myself]).map { |u| [u.full_name, u.id] }.prepend([t(:myself), myself.id])
   end
+
+  def opportunity_group_checkbox(value)
+    checked = true
+    url = url_for(action: :filter)
+    onclick = %{
+      $(this).siblings().find("input:checkbox").prop('checked', $(this).prop('checked'));
+      var values = [];
+      var users = [];
+      $('input[name=&quot;group[]&quot;]').filter(':checked').each(function () {
+        values.push(this.value);
+      });
+      $('input[name=&quot;user[]&quot;]').filter(':checked').each(function () {
+        users.push(this.value);
+      });
+      $('#loading').show();
+      $('#overlay').show();
+      $.post('#{url}', {groups: values.join(','), users: users.join(',')}, function () {
+        $('#loading').hide();
+        $('#overlay').hide();
+      });
+    }.html_safe
+    check_box_tag("group[]", value, checked, id: "checkbox_group_#{value}", onclick: onclick)
+  end
+
+  def opportunity_group_users_checkbox(value)
+    checked = true
+    url = url_for(action: :filter)
+    onclick = %{
+      var groups = [];
+      var users = [];
+      $('input[name=&quot;group[]&quot;]').filter(':checked').each(function () {
+        groups.push(this.value);
+      });
+      $('input[name=&quot;user[]&quot;]').filter(':checked').each(function () {
+        users.push(this.value);
+      });
+      $('#loading').show();
+      $('#overlay').show();
+      $.post('#{url}', {groups: groups.join(','), users: users.join(',')}, function () {
+        $('#loading').hide();
+        $('#overlay').hide();
+      });
+    }.html_safe
+    check_box_tag("user[]", value, checked, id: "checkbox_user_#{value}", onclick: onclick, style: "margin: 0 0 0 20px;")
+  end
 end

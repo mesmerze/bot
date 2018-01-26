@@ -1,16 +1,26 @@
 = styles_for :opportunity
+.title{style: 'text-align: center;'}
+  %span#title #{t :tab_team}
+  = image_tag("loading.gif", size: :thumb, id: "loading", style: "display: none;")
 
 #create_opportunity{ hidden }
 
-- if @users_with_opportunities.any? || @unassigned_opportunities.any?
-  %ul
-    = render partial: "user_report", collection: @users_with_opportunities
-    - if @unassigned_opportunities.any?
-      #unassigned
-        .title
-          %span#title
-            = t(:unassigned_opportunities)
-        %ul.list#opportunities
-          = render partial: "opportunities/opportunity", collection: @unassigned_opportunities
-- else
-  = t(:no_opportunities_found)
+#assigned
+  - if @users_with_opportunities.any?
+    - @users_with_opportunities.each do |group, users|
+      - if users.any?
+        %ul{id: dom_id(@groups.find_by(id: group))}
+          .title{style: 'text-align: center;'}
+            %span#title
+              = @groups.find_by(id: group).name
+          = render partial: "user_report", collection: users, cached: true
+  - else
+    = t(:no_opportunities_found)
+
+- if @unassigned_opportunities.any?
+  #unassigned
+    .title{style: 'text-align: center;'}
+      %span#title
+        = t(:unassigned_opportunities)
+    %ul.list#opportunities
+      = render partial: "opportunities/opportunity", collection: @unassigned_opportunities
