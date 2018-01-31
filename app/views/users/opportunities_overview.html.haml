@@ -1,13 +1,26 @@
 = styles_for :opportunity
-.dashboard_sort
-  %span#title #{t :sort_by, {field: ':'}}
-  = select_tag "sort", options_for_select(@options_for_sort, @options_for_sort.third.second), id: 'opportunities_sort'
-.title{style: 'text-align: center; display: block;'}
+
+.title_tools
+  .dashboard_sort{style: "vertical-align: top; display: inline-block;"}
+    %span#title #{t :sort_by, {field: ':'}}
+    = select_tag "sort", options_for_select(@options_for_sort, @options_for_sort.third.second), id: 'opportunities_sort'
+  #buttons
+    =content_tag :ul, class: 'format-buttons' do
+      %li
+        =link_to('#', class: "overview_basic-button") do
+          =content_tag(:i, nil, class: "fa fa-bars")
+      %li
+        =link_to('#', class: "overview_detailed-button active") do
+          =content_tag(:i, nil, class: "fa fa-list")
+
+  .create_asset
+    = link_to_inline("create_opportunity".to_sym, send("new_opportunity_path"), text: t("create_opportunity".to_sym))
+
+.title{style: 'display: block;'}
   %span#title #{t :tab_team}
   = image_tag("loading.gif", size: :thumb, id: "loading", style: "display: none;")
 
-
-#create_opportunity{ hidden }
+.remote#create_opportunity{ hidden }
 
 #assigned
   - if @users_with_opportunities.any?

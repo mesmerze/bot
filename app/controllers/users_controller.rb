@@ -152,6 +152,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def shops
+    @opportunity = Opportunity.find_by(id: params[:opportunity_id]) || Opportunity.new
+    @shops = Shop.where(account_id: params[:account_id])
+    @options = @shops.map { |a| [a.name, a.id] }
+  end
+
   protected
 
   def set_sort_options

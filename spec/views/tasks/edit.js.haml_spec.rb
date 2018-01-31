@@ -15,6 +15,7 @@ describe "/tasks/edit" do
     assign(:users, [current_user])
     assign(:bucket, Setting.task_bucket[1..-1] << ["On Specific Date...", :specific_time])
     assign(:category, Setting.unroll(:task_category))
+    controller.request.env["HTTP_REFERER"] = "http://localhost/task"
   end
 
   %w[pending assigned].each do |view|

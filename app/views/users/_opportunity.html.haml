@@ -1,0 +1,13 @@
+- if controller.action_name == 'update'
+  -tasks = opportunity.tasks
+-else
+  -tasks = tasks&.where(asset_id: opportunity)
+
+- cache opportunity do
+  -# default view
+  = render '/users/detailed_view', opportunity: opportunity
+  -unless tasks.blank?
+    .log#tasks
+      .indent
+        .subtitle #{t :tasks}
+      = render partial: "/users/task", collection: tasks, as: :task

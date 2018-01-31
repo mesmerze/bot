@@ -1,6 +1,9 @@
+- opportunities = user_report.assigned_opportunities.pipeline.order(@sort).includes(:tasks)
+- tasks = Task.where(asset_id: opportunities.ids, asset_type: 'Opportunity')
+
 %li{id: dom_id(user_report)}
   .title
     %span#title
       = user_report.full_name
   %ul.list#opportunities
-    = render partial: "opportunities/opportunity", collection: user_report.assigned_opportunities.pipeline.order(@sort), cached: true
+    = render partial: "users/opportunity", collection: opportunities, locals: { user: user_report, tasks: tasks }

@@ -48,6 +48,7 @@ describe "/tasks/complete" do
 
   describe "complete from related asset" do
     it "should replace pending partial with the completed one" do
+      controller.request.env["HTTP_REFERER"] = "http://localhost/opportunities"
       @task = build_stubbed(:task, completed_at: Time.now, completor: current_user)
       assign(:task, @task)
 

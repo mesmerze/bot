@@ -138,6 +138,10 @@ class Task < ActiveRecord::Base
     !!completed_at
   end
 
+  def within_10_days
+    completed_at >= 10.days.ago
+  end
+
   # Matcher for the :tracked_by? named scope.
   #----------------------------------------------------------------------------
   def tracked_by?(user)

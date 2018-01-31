@@ -42,6 +42,7 @@ module UsersHelper
       $(this).siblings().find("input:checkbox").prop('checked', $(this).prop('checked'));
       var values = [];
       var users = [];
+      var view = 'detailed';
       $('input[name=&quot;group[]&quot;]').filter(':checked').each(function () {
         values.push(this.value);
       });
@@ -50,6 +51,9 @@ module UsersHelper
       });
       $('#loading').show();
       $('#overlay').show();
+      if ($('.overview_basic-button').hasClass('active')) {
+        view = 'basic';
+      };
       $.post('#{url}', {groups: values.join(','), users: users.join(','), sort: $('#opportunities_sort').val()}, function () {
         $('#loading').hide();
         $('#overlay').hide();
@@ -64,6 +68,7 @@ module UsersHelper
     onclick = %{
       var groups = [];
       var users = [];
+      var view = 'detailed';
       $('input[name=&quot;group[]&quot;]').filter(':checked').each(function () {
         groups.push(this.value);
       });
@@ -72,7 +77,10 @@ module UsersHelper
       });
       $('#loading').show();
       $('#overlay').show();
-      $.post('#{url}', {groups: groups.join(','), users: users.join(','), sort: $('#opportunities_sort').val()}, function () {
+      if ($('.overview_basic-button').hasClass('active')) {
+        view = 'basic';
+      };
+      $.post('#{url}', {groups: groups.join(','), users: users.join(','), sort: $('#opportunities_sort').val(), view: view}, function () {
         $('#loading').hide();
         $('#overlay').hide();
       });
