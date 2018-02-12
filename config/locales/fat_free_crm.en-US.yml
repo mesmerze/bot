@@ -168,6 +168,10 @@ en-US:
           attributes:
             name:
               missing_opportunity_name: ^Please specify opportunity name.
+            probability:
+              missing_opportunity_probability: ^Please specify probability.
+            amount:
+              missing_opportunity_amount: ^Please specify amount.
             access:
               share_opportunity: ^Please specify users with whom to share the opportunity.
             account:

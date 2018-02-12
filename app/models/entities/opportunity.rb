@@ -90,6 +90,8 @@ class Opportunity < ActiveRecord::Base
   validates_associated :account, message: :missing_account, on: :create
   validates_presence_of :account, message: :missing_account, on: :create
   validates_presence_of :name, message: :missing_opportunity_name
+  validates_presence_of :probability, message: :missing_opportunity_probability
+  validates_presence_of :amount, message: :missing_opportunity_amount
   validates_numericality_of %i[probability amount discount], allow_nil: true
   validate :users_for_shared_access
   validates :stage, inclusion: { in: proc { Setting.unroll(:opportunity_stage).map { |s| s.last.to_s } } }, allow_blank: true
