@@ -34,7 +34,11 @@ module FatFreeCRM
       def sort_by_map
         Hash[
           sort_by_fields.zip(sort_by_clauses).map do |field, clause|
-            [field, name.tableize + "." + clause]
+            if (name.constantize.column_names & field.split('*')).any?
+              [field, name.tableize + "." + clause]
+            else
+              [field, clause]
+            end
           end
         ]
       end

@@ -8,7 +8,6 @@
 # == Schema Information
 #
 # Table name: opportunities
-#
 #  id              :integer         not null, primary key
 #  user_id         :integer
 #  campaign_id     :integer
@@ -54,6 +53,17 @@ class Opportunity < ActiveRecord::Base
   scope :not_lost,    -> { where("opportunities.stage <> 'lost'") }
   scope :pipeline,    -> { where("opportunities.stage IS NULL OR (opportunities.stage != 'won' AND opportunities.stage != 'lost')") }
   scope :unassigned,  -> { where("opportunities.assigned_to IS NULL") }
+  scope :stage_sort, -> do
+    select("*, amount*probability, CASE when stage = 'prospecting' then '1'
+                                        when stage = 'analysis' then '2'
+                                        when stage = 'presentation' then '3'
+                                        when stage = 'proposal' then '4'
+                                        when stage = 'negotiation' then '5'
+                                        when stage = 'final_review' then '6'
+                                        when stage = 'won' then '7'
+                                        when stage = 'lost' then '8'
+                                        else stage end as stage_sort")
+  end
 
   # Search by name OR id
   scope :text_search, ->(query) {
@@ -82,7 +92,7 @@ class Opportunity < ActiveRecord::Base
   has_paper_trail class_name: 'Version', ignore: [:subscribed_users]
   has_fields
   exportable
-  sortable by: ["name ASC", "amount DESC", "amount*probability DESC", "probability DESC", "closes_on ASC", "created_at DESC", "updated_at DESC"], default: "created_at DESC"
+  sortable by: ["name ASC", "amount DESC", "amount*probability DESC", "probability DESC", "closes_on ASC", "created_at DESC", "updated_at DESC", "stage_sort ASC", "Stage_sort DESC"], default: "created_at DESC"
 
   has_ransackable_associations %w[account contacts tags campaign activities emails comments]
   ransack_can_autocomplete

@@ -1,6 +1,11 @@
+- asset = params[:task][:asset_id]
 - if @task.valid?
-  $('#create_task_arrow').html(crm.COLLAPSED);
-  $('#create_task').slideUp(250);
+  - if from_dashboard?
+    $('#opportunity_#{asset}').next('.log').find('#create_task_arrow').html(crm.COLLAPSED);
+    $('#opportunity_#{asset}').next('.log').find('#create_task').slideUp(250);
+  - else
+    $('#create_task_arrow').html(crm.COLLAPSED);
+    $('#create_task').slideUp(250);
 
   - if called_from_index_page?  # "Classic" [Create Task] form requested from the Tasks page.
     $('#title').html('#{ j (@view == "assigned" ? t(:assigned_tasks) : t(:tasks)) }');
@@ -27,13 +32,20 @@
     crm.flick('empty', 'remove');
 
   - else # Inline [Create Task] form reqested from any of the core asset landing pages.
-    $('#create_task_title').html('#{ j t(:tasks) }');
-    - partial = (@task.assigned_to && @task.assigned_to != current_user.id) ? "assigned" : "pending"
-    $('#tasks').prepend('#{ j render(partial: "tasks/#{partial}", collection: [@task], locals: { bucket: nil }) }');
+    - if from_dashboard?
+      $('#opportunity_#{asset}').next('.log').find('#create_task_title').html('#{ j t(:tasks) }');
+      $('#opportunity_#{asset}').next('.log').find('#tasks').append('#{ j render(partial: "users/task", collection: [@task], locals: { bucket: nil }) }');
+    -else
+      $('#create_task_title').html('#{ j t(:tasks) }');
+      - partial = (@task.assigned_to && @task.assigned_to != current_user.id) ? "assigned" : "pending"
+      $('#tasks').prepend('#{ j render(partial: "tasks/#{partial}", collection: [@task], locals: { bucket: nil }) }');
     $('##{dom_id(@task)}').effect("highlight", { duration:1500 });
     $('#recently').replaceWith('#{ j render(partial: "shared/recently") }');
 
 - else # Couldn't create the task -- validation failed.
-  $('#create_task').effect("shake", { duration:250, distance: 6 });
+  - if from_dashboard?
+    $('#opportunity_#{asset}').next('.log').find('#create_task').effect("shake", { duration:250, distance: 6 });
+  - else
+    $('#create_task').effect("shake", { duration:250, distance: 6 });
   $('#task_name').focus();
   $('#new_task input[type=submit]').enable();

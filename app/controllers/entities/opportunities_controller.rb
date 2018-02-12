@@ -177,6 +177,10 @@ class OpportunitiesController < EntitiesController
 
   private
 
+  def order_by_attributes(scope, order)
+    scope.stage_sort.order(order)
+  end
+
   def all_shops?
     !params[:opportunity][:is_all_shops].to_i.zero?
   end

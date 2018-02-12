@@ -58,6 +58,38 @@
       else
         @show_form id
 
+    #----------------------------------------------------------------------------
+
+    hide_dashboard_form: (id, related) ->
+      arrow = $("#" + related).next('.log').find("#" + id + "_arrow")
+      arrow = $("#" + related).next('.log').find("#arrow") unless arrow.length
+      arrow.html(@COLLAPSED)
+      $("#" + related).next('.log').find("#" + id).hide().html("").css height: "auto"
+
+
+    #----------------------------------------------------------------------------
+    show_dashboard_form: (id, related) ->
+      # need to hide all previously opened forms
+      $('div[id^=create_task].remote:visible').each ->
+        arrow = $(this).siblings('.subtitle_tools').find('#create_task_arrow')
+        arrow.html("&#9658;")
+        $(this).hide().html("").css height: "auto"
+
+      arrow = $("#" + related).next('.log').find("#" + id + "_arrow")
+      arrow = $("#arrow") unless arrow.length
+      arrow.html(@EXPANDED)
+      $("#" + related).next('.log').find("#" + id).slideDown(250)
+      setTimeout ->
+        $("#" + related).next('.log').find("#" + id).find("input[autofocus]").focus()
+        0
+
+    #----------------------------------------------------------------------------
+
+    flip_dashboard_form: (id, related) ->
+      if $("#" + related).next('.log').find("#" + id + ":visible").length
+        @hide_dashboard_form id, related
+      else
+        @show_dashboard_form id, related
 
     #----------------------------------------------------------------------------
     set_title: (id, caption) ->

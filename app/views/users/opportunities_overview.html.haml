@@ -3,7 +3,7 @@
 .title_tools
   .dashboard_sort{style: "vertical-align: top; display: inline-block;"}
     %span#title #{t :sort_by, {field: ':'}}
-    = select_tag "sort", options_for_select(@options_for_sort, @options_for_sort.third.second), id: 'opportunities_sort'
+    = select_tag "sort", options_for_select(@options_for_sort, @options_for_sort[7].second), id: 'opportunities_sort'
   #buttons
     =content_tag :ul, class: 'format-buttons' do
       %li

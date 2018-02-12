@@ -162,7 +162,7 @@ class UsersController < ApplicationController
 
   def set_sort_options
     @options_for_sort = Opportunity.sort_by_map.map { |k, v| [t("option_#{k}".to_sym), v] }
-    @sort = params[:sort] || "opportunities.amount*opportunities.probability DESC"
+    @sort = params[:sort] || 'stage_sort ASC'
   end
 
   def user_params

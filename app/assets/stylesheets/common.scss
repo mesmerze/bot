@@ -781,3 +781,15 @@ table.asset_attributes {
     background-color: darkgray;
   }
 }
+
+.hide-comments {
+  padding-top: 8px;
+
+  & > div.dashboard_comment {
+    display: none;
+  }
+
+  & > li:nth-child(n+5) {
+    display: none;
+  }
+}

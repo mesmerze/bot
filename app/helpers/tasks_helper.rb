@@ -155,4 +155,8 @@ module TasksHelper
   def can_manage?(task)
     task.tracked_by?(current_user) || current_user.admin
   end
+
+  def from_dashboard?
+    request.referrer&.include?('opportunities_overview')
+  end
 end
