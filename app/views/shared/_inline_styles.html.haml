@@ -16,10 +16,14 @@
   - if models.include?(:opportunity)
     - Setting.opportunity_stage_color.each do |key, value|
       li.opportunity .#{key} { background:#{value}; }
+    - Setting.task_priority_color.each do |key, value|
+      li.opportunity .#{key} { background:#{value}; color:white; }
 
   - if models.include?(:task)
     - Setting.task_category_color.each do |key, value|
       li.task .#{key} { background:#{value}; }
+    - Setting.task_priority_color.each do |key, value|
+      li.task .#{key}, div.task .#{key} { background:#{value}; color:white; }
 
   - if models.include?(:org)
     - Setting.org_category_color.each do |key, value|

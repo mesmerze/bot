@@ -5,6 +5,21 @@
         .label.top.req #{t :name}:
         = f.text_field :name, autofocus: true, style: "width:500px"
     %tr
+      %td(colspan="5")
+        .label.top.req{style: 'margin: 0 8px 0 0;'} #{t :priority}:
+        .priority_box
+          = f.radio_button :priority, 'blocker'
+          = f.label t(:blocker)
+        .priority_box
+          = f.radio_button :priority, 'high'
+          = f.label t(:high)
+        .priority_box
+          = f.radio_button :priority, nil
+          = f.label t(:normal)
+        .priority_box
+          = f.radio_button :priority, 'low'
+          = f.label t(:low)
+    %tr
       %td
         .label.req #{t :due}:
         - bucket = (params[:bucket].blank? ? @task.bucket : params[:bucket]) || "due_asap"

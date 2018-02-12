@@ -12,6 +12,9 @@
       = link_to_task_delete(completed, bucket)
 
   .indent
+    - if completed.priority
+      .priority-strip{class: "#{completed.priority}"}
+        = t completed.priority
     %strike= auto_link h(completed.name)
     - if completed.asset_id?
       == #{t :related} #{link_to(h(completed.asset.name), polymorphic_url(completed.asset))}

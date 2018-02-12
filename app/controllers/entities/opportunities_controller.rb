@@ -191,7 +191,7 @@ class OpportunitiesController < EntitiesController
 
   #----------------------------------------------------------------------------
   def list_includes
-    %i[account user tags].freeze
+    %i[account user tasks tags].freeze
   end
 
   #----------------------------------------------------------------------------

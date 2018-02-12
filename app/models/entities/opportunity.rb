@@ -204,6 +204,10 @@ class Opportunity < ActiveRecord::Base
     opportunity
   end
 
+  def any_blockers?
+    tasks.blockers.any?
+  end
+
   private
 
   # Make sure at least one user has been selected if the contact is being shared.

@@ -106,6 +106,8 @@ class Task < ActiveRecord::Base
     where('upper(name) LIKE upper(?)', "%#{query}%")
   }
 
+  scope :blockers, -> { where(priority: 'blocker', completed_at: nil) }
+
   acts_as_commentable
   has_paper_trail class_name: 'Version', meta: { related: :asset },
                   ignore: [:subscribed_users]
@@ -116,10 +118,12 @@ class Task < ActiveRecord::Base
   validates_presence_of :name, message: :missing_task_name
   validates_presence_of :calendar, if: -> { bucket == 'specific_time' && !completed_at }
   validate :specific_time, unless: :completed?
+  validates_inclusion_of :priority, in: Setting.task_priorities.map(&:to_s), allow_nil: true
 
   before_create :set_due_date
   before_update :set_due_date, unless: :completed?
   before_save :notify_assignee
+  before_validation :nullify_priority
 
   # Matcher for the :my named scope.
   #----------------------------------------------------------------------------
@@ -284,6 +288,10 @@ class Task < ActiveRecord::Base
   def parse_calendar_date
     # always in 2012-10-28 06:28 format regardless of language
     Time.parse(calendar)
+  end
+
+  def nullify_priority
+    self.priority = nil if priority == 'on'
   end
 
   ActiveSupport.run_load_hooks(:fat_free_crm_task, self)

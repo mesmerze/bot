@@ -471,3 +471,13 @@ shop_stage_color:
 opportunity_category:
   - :new
   - :upsell
+
+task_priorities:
+  - :blocker
+  - :high
+  - :low
+
+task_priority_color:
+  :blocker      : Black
+  :high         : Red
+  :low          : Green

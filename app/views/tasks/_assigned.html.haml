@@ -11,6 +11,9 @@
       = link_to_task_delete(assigned, bucket)
 
   .indent
+    - if assigned.priority
+      .priority-strip{class: "#{assigned.priority}"}
+        = t assigned.priority
     = link_to(assigned.assignee.full_name, user_path(assigned.assignee)) + ": "
     = auto_link h(assigned.name)
     - if assigned.asset_id?
