@@ -32,6 +32,8 @@ feature 'Opportunities', '
       click_link 'Create Opportunity'
       expect(page).to have_selector('#opportunity_name', visible: true)
       fill_in 'opportunity_name', with: 'My Awesome Opportunity'
+      fill_in 'opportunity_probability', with: '100'
+      fill_in 'opportunity_amount', with: '1000'
       fill_in 'account_name', with: 'Example Account'
       select 'Prospecting', from: 'opportunity_stage'
       select 'Upsell', from: 'opportunity_category'
