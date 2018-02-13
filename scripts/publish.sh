@@ -31,7 +31,6 @@ echo "Adding build to Snowball"
     -p "${PROJECT}" \
     -e "staging" \
     -e "production" \
-    -e "pilot" \
     -u "${url}" \
     -s "https://snowball.kkvesper.net"
 
