@@ -2,7 +2,11 @@
 
 - if params[:cancel].true?     # <----------------- Hide [Edit Task]
 
-  - partial = (@task.assigned_to && @task.assigned_to != current_user.id) ? "assigned" : "pending"
+  -if request.referrer.include? 'opportunities_overview'
+    - partial = @task.completed_at? ? '/users/completed' : '/users/pending'
+  -else
+    - partial = (@task.assigned_to && @task.assigned_to != current_user.id) ? "assigned" : "pending"
+
   $('##{id}').html('#{ j render(partial: partial, collection: [ @task ], locals: { bucket: @task.bucket }) }');
 
 - else # <----------------------------------------  Show [Edit Task] form.
@@ -13,7 +17,10 @@
   -# Hide open [Edit Lead] form if any.
   - if @previous
     - if @previous.is_a?(Task)
-      - partial = (@previous.assigned_to && @previous.assigned_to != current_user.id) ? "assigned" : "pending"
+      -if request.referrer.include? 'opportunities_overview'
+        - partial = @task.completed_at? ? '/users/completed' : '/users/pending'
+      -else
+        - partial = (@previous.assigned_to && @previous.assigned_to != current_user.id) ? "assigned" : "pending"
       $('##{dom_id(@previous)}').replaceWith('#{ j render(partial: partial, collection: [ @previous ], locals: { bucket: nil }) }');
     - else
       crm.flick('task_#{@previous}', 'remove');

@@ -28,16 +28,18 @@ feature 'Opportunities Overview', "
   end
 
   scenario "Viewing Opportunity Overview when all opportunities have been assigned" do
-    user1 = create(:user, first_name: "Brian", last_name: 'Doyle-Murray')
+    group = create(:group, name: 'Awersome')
+
+    user1 = create(:user, first_name: "Brian", last_name: 'Doyle-Murray', groups: [group])
     create(:opportunity, name: "Acting", stage: 'prospecting', assignee: user1)
     create(:opportunity, name: "Directing", stage: 'won', assignee: user1)
 
-    user2 = create(:user, first_name: "Dean", last_name: 'Stockwell')
+    user2 = create(:user, first_name: "Dean", last_name: 'Stockwell', groups: [group])
     account1 = create(:account, name: 'Quantum Leap')
     create(:opportunity, name: "Leaping", stage: 'prospecting', account: account1, assignee: user2)
     create(:opportunity, name: "Return Home", stage: 'prospecting', account: account1, assignee: user2)
 
-    user3 = create(:user, first_name: "Chris", last_name: 'Jarvis')
+    user3 = create(:user, first_name: "Chris", last_name: 'Jarvis', groups: [group])
     create(:opportunity, stage: 'won', assignee: user3)
     create(:opportunity, stage: 'lost', assignee: user3)
 

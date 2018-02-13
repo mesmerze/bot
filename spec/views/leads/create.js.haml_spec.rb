@@ -60,6 +60,7 @@ describe "/leads/create" do
     it "should re-render [create] template in :create_lead div" do
       assign(:lead, build(:lead, first_name: nil)) # make it invalid
       assign(:users, [build_stubbed(:user)])
+      assign(:account, build(:account))
 
       render
 

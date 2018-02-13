@@ -12,6 +12,7 @@ describe "/tasks/create" do
 
   before do
     login
+    controller.params['task'] = { id: 42 }
   end
 
   (TASK_STATUSES - ['completed']).each do |status|

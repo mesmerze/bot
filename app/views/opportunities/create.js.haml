@@ -6,7 +6,10 @@
   $('##{create_id}_arrow').html(crm.COLLAPSED);
   $('##{create_id}_title').html('#{ j t(entity_name.pluralize) }');
   $('##{create_id}').slideUp(250);
-  $('##{entity_name.pluralize}').prepend('#{ j render(partial: entity_name, collection: [ @entity ]) }');
+  -if request.referrer =~ /opportunities_overview/
+    $("#user_#{@entity.assigned_to}").find('#opportunities').prepend('#{ j render(partial: '/users/opportunity', collection: [ @entity ]) }');
+  -else
+    $('##{entity_name.pluralize}').prepend('#{ j render(partial: entity_name, collection: [ @entity ]) }');
   $('##{dom_id(@entity)}').effect("highlight", { duration:1500 });
 
   - if called_from_index_page?

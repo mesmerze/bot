@@ -95,7 +95,12 @@ module TasksHelper
   #----------------------------------------------------------------------------
   def replace_content(task, bucket = nil)
     partial = task.assigned_to && task.assigned_to != current_user.id ? "assigned" : "pending"
-    html = render(partial: "tasks/#{partial}", collection: [task], locals: { bucket: bucket })
+
+    html = if request.referrer.include? 'opportunities_overview'
+             render(partial: "users/pending", collection: [task], locals: { bucket: bucket })
+           else
+             render(partial: "tasks/#{partial}", collection: [task], locals: { bucket: bucket })
+           end
     text = "$('##{dom_id(task)}').html('#{j html}');\n".html_safe
     text
   end
@@ -149,5 +154,9 @@ module TasksHelper
 
   def can_manage?(task)
     task.tracked_by?(current_user) || current_user.admin
+  end
+
+  def from_dashboard?
+    request.referrer&.include?('opportunities_overview')
   end
 end

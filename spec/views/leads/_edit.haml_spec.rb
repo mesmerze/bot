@@ -13,6 +13,7 @@ describe "/leads/_edit" do
   before do
     login
     assign(:lead, @lead = build_stubbed(:lead))
+    assign(:account, @account = build_stubbed(:account))
     assign(:users, [current_user])
     assign(:campaign, @campaign = build_stubbed(:campaign))
     assign(:campaigns, [@campaign])

@@ -1,16 +1,43 @@
-= styles_for :opportunity
+= styles_for :opportunity, :task
 
-#create_opportunity{ hidden }
+.title_tools
+  .dashboard_sort{style: "vertical-align: top; display: inline-block;"}
+    %span#title #{t :sort_by, {field: ':'}}
+    = select_tag "sort", options_for_select(@options_for_sort, @options_for_sort[7].second), id: 'opportunities_sort'
+  #buttons
+    =content_tag :ul, class: 'format-buttons' do
+      %li
+        =link_to('#', class: "overview_basic-button") do
+          =content_tag(:i, nil, class: "fa fa-bars")
+      %li
+        =link_to('#', class: "overview_detailed-button active") do
+          =content_tag(:i, nil, class: "fa fa-list")
 
-- if @users_with_opportunities.any? || @unassigned_opportunities.any?
-  %ul
-    = render partial: "user_report", collection: @users_with_opportunities
-    - if @unassigned_opportunities.any?
-      #unassigned
-        .title
-          %span#title
-            = t(:unassigned_opportunities)
-        %ul.list#opportunities
-          = render partial: "opportunities/opportunity", collection: @unassigned_opportunities
-- else
-  = t(:no_opportunities_found)
+  .create_asset
+    = link_to_inline("create_opportunity".to_sym, send("new_opportunity_path"), text: t("create_opportunity".to_sym))
+
+.title{style: 'display: block;'}
+  %span#title #{t :tab_team}
+  = image_tag("loading.gif", size: :thumb, id: "loading", style: "display: none;")
+
+.remote#create_opportunity{ hidden }
+
+#assigned
+  - if @users_with_opportunities.any?
+    - @users_with_opportunities.each do |group, users|
+      - if users.any?
+        %ul{id: dom_id(@groups.find_by(id: group))}
+          .title{style: 'text-align: center;'}
+            %span#title
+              = @groups.find_by(id: group).name
+          = render partial: "user_report", collection: users
+  - else
+    = t(:no_opportunities_found)
+
+- if @unassigned_opportunities.any?
+  #unassigned
+    .title{style: 'text-align: center;'}
+      %span#title
+        = t(:unassigned_opportunities)
+    %ul.list#opportunities
+      = render partial: "opportunities/opportunity", collection: @unassigned_opportunities

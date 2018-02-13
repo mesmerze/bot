@@ -5,6 +5,8 @@
     selected_account = $("option:selected", this).val()
     current_opportunity = $("#opportunity_id").val()
     path = $(location).attr("pathname").replace(/\/\d+$/, '') # HACK Find another solution
+    if path == '/users/opportunities_overview'
+      path = '/opportunities'
     $.ajax "#{path}/shops",
       type: 'GET'
       data: { account_id: selected_account, opportunity_id: current_opportunity  }

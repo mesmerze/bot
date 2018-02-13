@@ -8,7 +8,6 @@
 # == Schema Information
 #
 # Table name: opportunities
-#
 #  id              :integer         not null, primary key
 #  user_id         :integer
 #  campaign_id     :integer
@@ -54,7 +53,17 @@ class Opportunity < ActiveRecord::Base
   scope :not_lost,    -> { where("opportunities.stage <> 'lost'") }
   scope :pipeline,    -> { where("opportunities.stage IS NULL OR (opportunities.stage != 'won' AND opportunities.stage != 'lost')") }
   scope :unassigned,  -> { where("opportunities.assigned_to IS NULL") }
-  scope :weighted_sort, -> { select('*, amount*probability') }
+  scope :stage_sort, -> do
+    select("*, amount*probability, CASE when stage = 'prospecting' then '1'
+                                        when stage = 'analysis' then '2'
+                                        when stage = 'presentation' then '3'
+                                        when stage = 'proposal' then '4'
+                                        when stage = 'negotiation' then '5'
+                                        when stage = 'final_review' then '6'
+                                        when stage = 'won' then '7'
+                                        when stage = 'lost' then '8'
+                                        else stage end as stage_sort")
+  end
 
   # Search by name OR id
   scope :text_search, ->(query) {
@@ -83,7 +92,7 @@ class Opportunity < ActiveRecord::Base
   has_paper_trail class_name: 'Version', ignore: [:subscribed_users]
   has_fields
   exportable
-  sortable by: ["name ASC", "amount DESC", "amount*probability DESC", "probability DESC", "closes_on ASC", "created_at DESC", "updated_at DESC"], default: "created_at DESC"
+  sortable by: ["name ASC", "amount DESC", "amount*probability DESC", "probability DESC", "closes_on ASC", "created_at DESC", "updated_at DESC", "stage_sort ASC", "Stage_sort DESC"], default: "created_at DESC"
 
   has_ransackable_associations %w[account contacts tags campaign activities emails comments]
   ransack_can_autocomplete
@@ -91,6 +100,8 @@ class Opportunity < ActiveRecord::Base
   validates_associated :account, message: :missing_account, on: :create
   validates_presence_of :account, message: :missing_account, on: :create
   validates_presence_of :name, message: :missing_opportunity_name
+  validates_presence_of :probability, message: :missing_opportunity_probability
+  validates_presence_of :amount, message: :missing_opportunity_amount
   validates_numericality_of %i[probability amount discount], allow_nil: true
   validate :users_for_shared_access
   validates :stage, inclusion: { in: proc { Setting.unroll(:opportunity_stage).map { |s| s.last.to_s } } }, allow_blank: true
@@ -144,6 +155,9 @@ class Opportunity < ActiveRecord::Base
     self.account_opportunity = AccountOpportunity.new(account: account, opportunity: self) unless account.id.blank?
     self.account = account
     self.campaign = Campaign.find(params[:campaign]) unless params[:campaign].blank?
+    # Set close date to today if won or lost
+    self.closes_on = Date.current if stage == 'won'
+    self.closes_on = Date.current if stage == 'lost'
     result = save
     contacts << Contact.find(params[:contact]) unless params[:contact].blank?
     result
@@ -198,6 +212,10 @@ class Opportunity < ActiveRecord::Base
       end
     end
     opportunity
+  end
+
+  def any_blockers?
+    tasks.blockers.any?
   end
 
   private

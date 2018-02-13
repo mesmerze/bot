@@ -1,5 +1,10 @@
 - if @task.errors.empty?
-  $('##{dom_id(@task)}').slideUp(250);
+  -if request.referrer.include? 'opportunities_overview'
+    $('##{dom_id(@task)}').hide();
+    $('##{dom_id(@task)}').html('#{ j render(partial: 'users/pending', collection: [ @task ], locals: { bucket: @task.bucket }) }');
+    $('##{dom_id(@task)}').fadeIn({ duration:500 });
+  -else
+    $('##{dom_id(@task)}').slideUp(250);
 
   - if @empty_bucket
     $('#list_#{@empty_bucket}').fadeOut({ duration:500 });

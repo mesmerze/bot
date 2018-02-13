@@ -39,11 +39,11 @@ feature 'Leads', '
       select 'Myself', from: 'lead_assigned_to'
       select 'Contacted', from: 'lead_status'
       select 'Campaign', from: 'lead_source'
+      select 'Contacted', from: 'lead_status'
       click_link 'Comment'
       fill_in 'comment_body', with: 'This is an important lead.'
-      click_link 'Status'
-      select 'Contacted', from: 'lead_status'
       click_button 'Create Lead'
+      sleep(1)
       expect(leads_element).to have_content('Mr Lead')
 
       leads_element.click_link('Mr Lead')

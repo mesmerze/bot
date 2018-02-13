@@ -20,10 +20,10 @@ describe "/tasks/update" do
       assign(:task, @task = build_stubbed(:task, assignee: current_user, bucket: "due_tomorrow"))
       assign(:view, "pending")
       assign(:task_total, stub_task_total("pending"))
+      controller.request.env["HTTP_REFERER"] = "http://localhost/tasks"
     end
 
     it "from Tasks tab: should remove task from current bucket and hide empty bucket" do
-      controller.request.env["HTTP_REFERER"] = "http://localhost/tasks"
       render
 
       expect(rendered).to include(%/$('#task_#{@task.id}').remove();/)
@@ -31,14 +31,12 @@ describe "/tasks/update" do
     end
 
     it "from Tasks tab: should show updated task in a new bucket" do
-      controller.request.env["HTTP_REFERER"] = "http://localhost/tasks"
       render
       expect(rendered).to include("$('#due_tomorrow').prepend('<li class=\\'highlight task\\' id=\\'task_#{@task.id}\\'")
       expect(rendered).to include("$('#task_#{@task.id}').effect('highlight'")
     end
 
     it "from Tasks tab: should update tasks sidebar" do
-      controller.request.env["HTTP_REFERER"] = "http://localhost/tasks"
       render
 
       expect(rendered).to include("$('#due_tomorrow').prepend('<li class=\\'highlight task\\' id=\\'task_#{@task.id}\\'")
@@ -48,6 +46,7 @@ describe "/tasks/update" do
     end
 
     it "from asset page: should update task partial in place" do
+      controller.request.env["HTTP_REFERER"] = "http://localhost/opportunities"
       render
       expect(rendered).to include("$('#task_#{@task.id}').html('<li class=\\'highlight task\\' id=\\'task_#{@task.id}\\'")
     end
@@ -115,6 +114,7 @@ describe "/tasks/update" do
     end
 
     it "from asset page: should should re-render task partial" do
+      controller.request.env["HTTP_REFERER"] = "http://localhost/opportunities"
       assign(:task_before_update, build_stubbed(:task, assignee: nil))
       assign(:task, @task = build_stubbed(:task, assignee: build_stubbed(:user)))
       render
@@ -123,6 +123,7 @@ describe "/tasks/update" do
     end
 
     it "from asset page: should update recently viewed items" do
+      controller.request.env["HTTP_REFERER"] = "http://localhost/opportunities"
       assign(:task_before_update, build_stubbed(:task, assignee: nil))
       assign(:task, @task = build_stubbed(:task, assignee: build_stubbed(:user)))
       render

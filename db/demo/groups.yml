@@ -1,0 +1,12 @@
+<%
+  require "ffaker"
+  puts "Loading groups..."
+
+  for i in (1 .. 3) do
+%>
+group<%= i %>:
+  id: <%= i %>
+  name: <%= FFaker::Company.name %>
+  created_at: <%= created = Date.current - rand(15).days %>
+  updated_at: <%= created + rand(5).days %>
+<% end %>

@@ -178,7 +178,7 @@ class OpportunitiesController < EntitiesController
   private
 
   def order_by_attributes(scope, order)
-    scope.weighted_sort.order(order)
+    scope.stage_sort.order(order)
   end
 
   def all_shops?
@@ -195,7 +195,7 @@ class OpportunitiesController < EntitiesController
 
   #----------------------------------------------------------------------------
   def list_includes
-    %i[account user tags].freeze
+    %i[account user tasks tags].freeze
   end
 
   #----------------------------------------------------------------------------

@@ -168,6 +168,10 @@ en-US:
           attributes:
             name:
               missing_opportunity_name: ^Please specify opportunity name.
+            probability:
+              missing_opportunity_probability: ^Please specify probability.
+            amount:
+              missing_opportunity_amount: ^Please specify amount.
             access:
               share_opportunity: ^Please specify users with whom to share the opportunity.
             account:
@@ -296,6 +300,8 @@ en-US:
   option_target_leads: target leads
   option_target_revenue: target revenue
   option_updated_at: date updated
+  option_stage_sort: stage asc
+  option_Stage_sort: stage desc
   show_per_page: Show %{number} %{models} per page using %{fmt} format.
   sort_by: Sort by %{field}
   sort_by_displaying: Sort %{models} by %{field} displaying first name %{position}
@@ -627,6 +633,11 @@ en-US:
   total_tasks: Total %{value}
   view_assigned_tasks: view assigned tasks
   view_pending_tasks: view pending tasks
+  priority: Priority
+  blocker: Blocker
+  high: High
+  normal: Normal
+  low: Low
 
   # Views -> Team.
   #----------------------------------------------------------------------------
@@ -757,6 +768,8 @@ en-US:
   # Views -> Comments.
   #----------------------------------------------------------------------------
   comment: Comment
+  comments: Comments
+  add_comment: Add Comment
   edit_comment: Editing comment
   show: Show
   update: Update

@@ -32,7 +32,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe Opportunity do
   it "should create a new instance given valid attributes" do
     @account = create(:account)
-    expect(Opportunity.create!(name: "Opportunity", stage: 'analysis', category: 'new', account: @account)).to be_valid
+    expect(Opportunity.create!(name: "Opportunity", stage: 'analysis', category: 'new', account: @account, probability: 100, amount: 100)).to be_valid
   end
 
   it "should be possible to create opportunity with the same name" do

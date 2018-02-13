@@ -65,6 +65,15 @@ $sidebar_width: 210px;
     position: relative;
     top: -2px; } }
 
+.priority_box {
+  line-height: 20px;
+  display: inline-block;
+  padding: 8px 8px 0 0;
+  input {
+    position: relative;
+    top: -2px;
+    float: initial; } }
+
 .check_box {
   line-height: 20px;
   input {
@@ -281,6 +290,14 @@ $sidebar_width: 210px;
   -webkit-border: {
     top-left-radius: 7px;
     bottom-left-radius: 7px; }; }
+
+.priority-strip {
+  float: left;
+  font-size: 11px;
+  margin: 0px 6px 0px 0px;
+  padding: 1px 4px 1px 3px;
+  text-align: center;
+  width: 40px; }
 
 // Indentation classes:
 //   - indent: for use with strip (regular indentation).
@@ -762,5 +779,17 @@ table.asset_attributes {
 .ui-state-focus {
   span.jumpbox-highlight {
     background-color: darkgray;
+  }
+}
+
+.hide-comments {
+  padding-top: 8px;
+
+  & > div.dashboard_comment {
+    display: none;
+  }
+
+  & > li:nth-child(n+5) {
+    display: none;
   }
 }
