@@ -1,0 +1,178 @@
+$('#kpi').html('#{ j render(template: "/analysis/kpi") }');
+
+:plain
+  var chart = {
+    bindto: '#leads',
+    size: { height: 240, width: 480 },
+    data: {
+      x: 'x',
+      columns: [
+        ['x'].concat(#{raw json_escape(@kpi.scale_backwards)}),
+        ['leads'].concat(#{@kpi.leads})
+      ],
+      types: { leads: 'bar' }
+    },
+    legend: {
+      show: false
+    },
+    grid: { y: { show: true } },
+    axis: {
+      y: {
+        label: {
+          text: '# of Leads',
+          position: 'outer-middle'
+        },
+        tick: { format: d3.format("d") }
+      },
+      x: {
+        type : 'category',
+        label: { text: 'Month', position: 'outer-middle' }
+      }
+    }
+  };
+
+  var opportunities = {
+    ...chart,
+    bindto: '#opportunities',
+    data: {
+      x: 'x',
+      columns: [
+        ['x'].concat(#{raw json_escape(@kpi.scale_backwards)}),
+        ['opportunities'].concat(#{@kpi.opportunities})
+      ],
+      types: { opportunities: 'bar' }
+    },
+    axis: {
+      ...chart.axis,
+      y: {
+        label: {
+          text: '# of Opportunities',
+          position: 'outer-middle'
+        },
+        tick: { format: d3.format("d") }
+      }
+    }
+  };
+
+  var closed_opportunities = {
+    ...chart,
+    bindto: '#closed_opportunities',
+    data: {
+      x: 'x',
+      columns: [
+        ['x'].concat(#{raw json_escape(@kpi.scale_backwards)}),
+        ['opportunities'].concat(#{@kpi.closed_opportunities})
+      ],
+      types: { opportunities: 'bar' }
+    },
+    axis: {
+      ...chart.axis,
+      y: {
+        label: {
+          text: '# of Closed Opportunities',
+          position: 'outer-middle'
+        },
+        tick: { format: d3.format("d") }
+      }
+    }
+  };
+
+  var projected_opportunities = {
+    ...chart,
+    bindto: '#projected_opportunities',
+    data: {
+      x: 'x',
+      columns: [
+        ['x'].concat(#{raw json_escape(@kpi.scale_forward)}),
+        ['opportunities'].concat(#{@kpi.proj_opportunities})
+      ],
+      types: { opportunities: 'bar' }
+    },
+    axis: {
+      ...chart.axis,
+      y: {
+        label: {
+          text: '# of Opportunities Projected to be Closed',
+          position: 'outer-middle'
+        },
+        tick: { format: d3.format("d") }
+      }
+    }
+  };
+
+  var live_shops = {
+    ...chart,
+    bindto: '#live_shops',
+    data: {
+      x: 'x',
+      columns: [
+        ['x'].concat(#{raw json_escape(@kpi.scale_backwards)}),
+        ['shops'].concat(#{@kpi.live_shops})
+      ],
+      types: { shops: 'bar' }
+    },
+    axis: {
+      ...chart.axis,
+      y: {
+        label: {
+          text: '# of Shops set to Live',
+          position: 'outer-middle'
+        },
+        tick: { format: d3.format("d") }
+      }
+    }
+  };
+
+  var expected_revenue = {
+    ...chart,
+    bindto: '#expected_revenue',
+    data: {
+      x: 'x',
+      columns: [
+        ['x'].concat(#{raw json_escape(@kpi.scale_forward)}),
+        ['opportunities'].concat(#{@kpi.expected_revenue})
+      ],
+      types: { opportunities: 'bar' }
+    },
+    axis: {
+      ...chart.axis,
+      y: {
+        label: {
+          text: '$ of Expected Revenue',
+          position: 'outer-middle'
+        },
+        tick: { format: d3.format("$,") }
+      }
+    }
+  };
+
+  var closed_revenue = {
+    ...chart,
+    bindto: '#closed_revenue',
+    data: {
+      x: 'x',
+      columns: [
+        ['x'].concat(#{raw json_escape(@kpi.scale_backwards)}),
+        ['opportunities'].concat(#{@kpi.closed_revenue})
+      ],
+      types: { opportunities: 'bar' }
+    },
+    axis: {
+      ...chart.axis,
+      y: {
+        label: {
+          text: '$ of Closed Revenue',
+          position: 'outer-middle'
+        },
+        tick: { format: d3.format("$,") }
+      }
+    }
+  };
+
+  var leads_chart = c3.generate(chart);
+  var opportunities_chart = c3.generate(opportunities);
+  var opportunities_closed_chart = c3.generate(closed_opportunities);
+  var opportunities_projected_chart = c3.generate(projected_opportunities);
+  var live_shops_chart = c3.generate(live_shops);
+  var expected_revenue_chart = c3.generate(expected_revenue);
+  var closed_revenue_chart = c3.generate(closed_revenue);

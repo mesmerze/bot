@@ -11,7 +11,7 @@ namespace :ffcrm do
     task load: :environment do
       # Load fixtures
       require 'active_record/fixtures'
-      Dir.glob(FatFreeCRM.root.join('db', 'demo', '*.{yml,csv}')).each do |fixture_file|
+      Dir.glob(FatFreeCRM.root.join('db', 'demo', '*.{yml,csv}')).sort.each do |fixture_file|
         ActiveRecord::FixtureSet.create_fixtures(FatFreeCRM.root.join('db/demo'), File.basename(fixture_file, '.*'))
       end
 

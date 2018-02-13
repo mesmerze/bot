@@ -1,0 +1,10 @@
+<%
+  for i in Opportunity.ids do
+%>
+shops_opportunities<%= i %>:
+  id: <%= i %>
+  opportunity_id: <%= i %>
+  shop_id: <%= account = Opportunity.find(i).account; account ? account.shops.ids.sample : Account.last.shops.ids.sample %>
+  created_at: <%= starts = Date.today - rand(15).days %>
+  updated_at: <%= starts + rand(5).days %>
+<% end %>

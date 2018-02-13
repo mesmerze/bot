@@ -11,13 +11,12 @@
 #
 
 <%
-  for i in (1 .. 20) do
-    random = rand(20)
+  for i in Opportunity.ids do
 %>
 account_opportunities<%= i %>:
   id: <%= i %>
-  account_id: <%= i if random < 15 %>
-  opportunity_id: <%= (i + random) if random < 15 %>
+  account_id: <%= Account.ids.sample %>
+  opportunity_id: <%= i %>
   deleted_at:
   created_at: <%= starts = Date.today - rand(15).days %>
   updated_at: <%= starts + rand(5).days %>

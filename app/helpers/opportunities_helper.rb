@@ -45,4 +45,10 @@ module OpportunitiesHelper
                       style: 'width:330px;', class: 'select2',
                       placeholder: t(:select_a_campaign)
   end
+
+  def blockers?(opportunity)
+    opportunity.tasks.pluck(:priority, :completed_at).detect do |priority, completed|
+      priority == 'blocker' && completed.nil?
+    end
+  end
 end

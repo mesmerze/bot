@@ -2,8 +2,8 @@
   require "ffaker"
   puts "Loading shops..."
 
-  category = %w(affiliate competitor customer partner reseller vendor) << nil
-
+  stage = %w(not_started proposal negotiation won lost setup_queued setup_ongoing setup_training live_pending
+  live_trial live inactive inactive_temporary inactive_seasonal cancelled_closure cancelled_switched )
   for i in (1 .. rand(20) + 100) do
 %>
 account<%= i %>:
@@ -12,7 +12,10 @@ account<%= i %>:
   name             : <%= FFaker::Company.name %>
   num_seats        : <%= rand(1..999) %>
   access           : Public
+  account_id       : <%= Account.ids.sample %>
+  stage            : <%= stage.sample %>
+  country          : <%= Setting.countries.sample %>
 
-  created_at       : <%= created_at = (rand(60) + 2).days.ago + rand(600).minutes; created_at.to_s(:db) %>
-  updated_at       : <%= (created_at + rand(36_000).seconds).to_s(:db) %>
+  created_at       : <%= created_at = (rand(360) + 2).days.ago + rand(600).minutes; created_at.to_s(:db) %>
+  updated_at       : <%= (created_at + rand(60).days).to_s(:db) %>
 <% end %>

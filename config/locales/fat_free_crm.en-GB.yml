@@ -627,6 +627,17 @@ en-GB:
   unassigned_opportunities: Unassigned Opportunities
   no_opportunities_found: There are currently no outstanding opportunities.
 
+  # Views -> Analysis.
+  #----------------------------------------------------------------------------
+  select_user: Select User
+  num_leads: '# of Leads Created'
+  num_opportunities: '# of Opportunities Created'
+  num_closed_opportunities: '# of Opportunities Closed'
+  num_projected_opportunities: '# of Opportunities Projected to be Closed'
+  num_live_shops: '# of Shops set to Live'
+  expected_revenue: $ of Expected Revenue
+  closed_revenue: $ of Closed Revenue
+
   # Views -> Home.
   #----------------------------------------------------------------------------
   action_completed: completed

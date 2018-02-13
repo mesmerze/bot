@@ -1,8 +1,8 @@
 %li.highlight[shop]
   - if shop.stage
-    .strip{class: shop.stage} #{t(shop.stage)}
+    .strip{class: shop.stage, style: 'width: 110px'} #{t(shop.stage)}
   - else
-    .strip{:style => "color: gray;"} #{t :other}
+    .strip{style: 'color: gray; width: 110px'} #{t :other}
 
   %ul.tools.shop{style: 'float:left; visibility:visible; margin: 2px 5px 0 0;'}
     = hook(:shop_tools_before, self, shop: shop)

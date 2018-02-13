@@ -28,6 +28,7 @@ en-US:
   tab_team: Sales Dashboard
   tab_orgs: Orgs
   tab_shops: Shops
+  tab_kpi: Analysis
   admin_tab_groups: Groups
   admin_tab_users: Users
   admin_tab_fields: Custom Fields
@@ -643,6 +644,17 @@ en-US:
   #----------------------------------------------------------------------------
   unassigned_opportunities: Unassigned Opportunities
   no_opportunities_found: There are currently no outstanding opportunities.
+
+  # Views -> Analysis.
+  #----------------------------------------------------------------------------
+  select_user: Select User
+  num_leads: '# of Leads Created'
+  num_opportunities: '# of Opportunities Created'
+  num_closed_opportunities: '# of Opportunities Closed'
+  num_projected_opportunities: '# of Opportunities Projected to be Closed'
+  num_live_shops: '# of Shops set to Live'
+  expected_revenue: $ of Expected Revenue
+  closed_revenue: $ of Closed Revenue
 
   # Views -> Home.
   #----------------------------------------------------------------------------

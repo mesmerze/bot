@@ -248,6 +248,11 @@
   :icon: :fa-user
   :url:
     :controller: contacts
+- :active: false
+  :text: :tab_kpi
+  :icon: :fa-bar-chart-o
+  :url:
+    :controller: analysis
 
 :admin_tabs:
 - :active: true
@@ -459,12 +464,12 @@ shop_stage_color:
   :setup_ongoing      : LavenderBlush
   :setup_training     : LawnGreen
   :live_pending       : MediumOrchid
-  :live_trial         : MidnightBlue
+  :live_trial         : Cornflowerblue
   :live               : SpringGreen
   :inactive           : Violet
   :inactive_temporary : PaleVioletRed
   :inactive_seasonal  : MediumSpringGreen
-  :cancelled_closure  : Navy
+  :cancelled_closure  : Peachpuff
   :cancelled_switched : LightCoral
   :cancelled_unhappy  : OrangeRed
 

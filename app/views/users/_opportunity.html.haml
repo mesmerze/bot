@@ -4,7 +4,7 @@
   - comments = opportunity.comments.sort_by(&:updated_at).reverse
 
 -# default view
-= render '/users/detailed_view', opportunity: opportunity
+= render '/users/detailed_view', opportunity: opportunity, blockers: blockers?(opportunity)
 .log{style: 'padding: 0px 0px 8px 0px; border-bottom: 1px silver dotted;'}
   #tasks
     .indent

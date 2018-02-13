@@ -1,0 +1,10 @@
+%table
+  %tr
+    %td
+      .label #{t :select_user}:
+      = select_tag :user, options_for_select(@users.map { |u| [u.full_name, u.id] }), include_blank: 'None specified', style: 'width: 160px;', class: 'kpi-user select2'
+    %td
+      .label #{t :select_a_country}:
+      = select_tag :country,  options_for_select(Setting.unroll(:countries).map { |k, v| [ISO3166::Country[k].translations[I18n.locale.to_s], v] }.sort), style: 'width:180px', class: 'kpi-country select2-multi', multiple: true
+
+#kpi

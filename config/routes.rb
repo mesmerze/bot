@@ -177,6 +177,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :analysis, only: %i[index] do
+    collection do
+      get :draw_kpi
+    end
+  end
+
   namespace :admin do
     resources :groups
 
