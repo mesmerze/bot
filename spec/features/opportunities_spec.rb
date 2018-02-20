@@ -32,6 +32,34 @@ feature 'Opportunities', '
       click_link 'Create Opportunity'
       expect(page).to have_selector('#opportunity_name', visible: true)
       fill_in 'opportunity_name', with: 'My Awesome Opportunity'
+      click_link 'select existing'
+      find('#select2-account_id-container').click
+      find('.select2-search--dropdown').find('input').set('Example Account')
+      sleep(1)
+      find('li', text: 'Example Account').click
+      expect(page).to have_content('Example Account')
+      select 'Prospecting', from: 'opportunity_stage'
+      click_link 'Comment'
+      fill_in 'comment_body', with: 'This is a very important opportunity.'
+      click_button 'Create Opportunity'
+      expect(page).to have_content('My Awesome Opportunity')
+
+      find('div#opportunities').click_link('My Awesome Opportunity')
+      expect(page).to have_content('This is a very important opportunity.')
+
+      click_link "Dashboard"
+      expect(page).to have_content("Bill Murray created opportunity My Awesome Opportunity")
+      expect(page).to have_content("Bill Murray created comment on My Awesome Opportunity")
+    end
+  end
+
+  scenario 'should create a new opportunity v2', js: true do
+    create(:account, name: 'Example Account')
+    with_versioning do
+      visit opportunities_page
+      click_link 'Create Opportunity'
+      expect(page).to have_selector('#opportunity_name', visible: true)
+      fill_in 'opportunity_name', with: 'My Awesome Opportunity'
       fill_in 'opportunity_probability', with: '100'
       fill_in 'opportunity_amount', with: '1000'
       fill_in 'account_name', with: 'Example Account'
@@ -48,6 +76,17 @@ feature 'Opportunities', '
       click_link "My Dashboard"
       expect(page).to have_content("Bill Murray created opportunity My Awesome Opportunity")
       expect(page).to have_content("Bill Murray created comment on My Awesome Opportunity")
+    end
+  end
+
+  scenario 'should not display ammount with zero value', js: true do
+    with_amount = create(:opportunity, name: 'With Amount', amount: 3000, probability: 90, discount: nil, stage: 'proposal')
+    without_amount = create(:opportunity, name: 'Without Amount', amount: nil, probability: nil, discount: nil, stage: 'proposal')
+    with_versioning do
+      visit opportunities_page
+      click_link 'Long format'
+      expect(find("#opportunity_#{with_amount.id}")).to have_content('$3,000 | Probability 90%')
+      expect(find("#opportunity_#{without_amount.id}")).not_to have_content('$0 | Discount $0 | Probability 0%')
     end
   end
 
