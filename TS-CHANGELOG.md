@@ -1,5 +1,19 @@
 # TS Changelog
 
+### 0.2.0
+
+- Initial release of KPIs (#100)
+- Filter opportunity dashboard by groups and users (#81)
+- Allow adding shops to Opportunities (#82)
+- Select or create account on leads (#83)
+- Opportunity dashboard: add sorting (#84)
+- Create opportunity should allow blank campaign (#88)
+- Render tasks under appropriate opportunities (#87)
+- Add tasks priorities, blockers for opportunities (#99)
+- Fix security issues (OS #749)
+- Fix oppportunities sort by weighted amount (OS #753)
+- Fix sort order of country codes
+
 ### 0.1.1
 
 - Fix: Remove incorrect account categories (#79)
