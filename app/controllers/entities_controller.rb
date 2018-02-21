@@ -168,7 +168,7 @@ class EntitiesController < ApplicationController
       scope = order_by_attributes(scope, order)
     end
 
-    @search_results_count = scope.unscope(:select, :group).count
+    @search_results_count = scope.unscope(:select, :group, :order).count
 
     # Pagination is disabled for xls and csv requests
     unless wants.xls? || wants.csv?

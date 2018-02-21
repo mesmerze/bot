@@ -74,7 +74,7 @@ class KpiFactory
     projected = @months_forward.map do |m|
       opportunities.select { |t, _a, _p| (m..m.end_of_month).cover? t }
     end
-    @expected_revenue = projected.map { |m| m.sum { |_t, a, p| a * p / 100 } }
+    @expected_revenue = projected.map { |m| m.sum { |_t, a, p| a.to_i * p.to_i / 100 } }
   end
 
   def calc_closed_revenue
@@ -82,7 +82,7 @@ class KpiFactory
     closed = @months_backwards.map do |m|
       opportunities.select { |t, s, _a, _p| (m..m.end_of_month).cover?(t) && s == 'won' }
     end
-    @closed_revenue = closed.map { |m| m.sum { |_t, _s, a, p| a * p / 100 } }
+    @closed_revenue = closed.map { |m| m.sum { |_t, _s, a, p| a.to_i * p.to_i / 100 } }
   end
 
   def set_timelines

@@ -867,15 +867,34 @@ describe OpportunitiesController do
       expect(session[:opportunities_current_page]).to eq(1)
     end
 
-    it "should select @opportunities and render [index] template" do
-      @opportunities = [
-        create(:opportunity, name: "A", user: current_user),
-        create(:opportunity, name: "B", user: current_user)
-      ]
+    context "render [index] template" do
+      before do
+        @opportunities = [
+          create(:opportunity, name: "A", user: current_user, amount: 100, probability: 50, stage: 'presentation'),
+          create(:opportunity, name: "B", user: current_user, amount: 100, probability: 100, stage: 'analysis'),
+          create(:opportunity, name: "C", user: current_user, amount: 100, probability: 25, stage: 'prospecting')
+        ]
+      end
 
-      get :redraw, params: { per_page: 1, sort_by: "name" }, xhr: true
-      expect(assigns(:opportunities)).to eq([@opportunities.first])
-      expect(response).to render_template("opportunities/index")
+      it "should select @opportunities" do
+        get :redraw, params: { per_page: 1, sort_by: "name" }, xhr: true
+        expect(assigns(:opportunities)).to eq([@opportunities.first])
+        expect(response).to render_template("opportunities/index")
+      end
+
+      it "sort opportunities by weighted amount" do
+        get :redraw, params: { per_page: 3, sort_by: "amount*probability" }, xhr: true
+        expect(assigns(:opportunities)).to eq([@opportunities.second,
+                                               @opportunities.first,
+                                               @opportunities.third])
+        expect(response).to render_template("opportunities/index")
+      end
+
+      it "sort opportunities by stage" do
+        get :redraw, params: { per_page: 3, sort_by: "stage_sort" }, xhr: true
+        expect(assigns(:opportunities)).to eq(@opportunities.reverse)
+        expect(response).to render_template("opportunities/index")
+      end
     end
   end
 
