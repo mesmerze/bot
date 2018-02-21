@@ -1,5 +1,10 @@
 # TS Changelog
 
+### 0.2.1
+
+- Fix revenue calculations, fix entities counter
+- Fix comment creation
+
 ### 0.2.0
 
 - Initial release of KPIs (#100)
