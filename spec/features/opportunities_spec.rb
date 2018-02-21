@@ -32,6 +32,8 @@ feature 'Opportunities', '
       click_link 'Create Opportunity'
       expect(page).to have_selector('#opportunity_name', visible: true)
       fill_in 'opportunity_name', with: 'My Awesome Opportunity'
+      fill_in 'opportunity_probability', with: '100'
+      fill_in 'opportunity_amount', with: '1000'
       click_link 'select existing'
       find('#select2-account_id-container').click
       find('.select2-search--dropdown').find('input').set('Example Account')
@@ -47,7 +49,7 @@ feature 'Opportunities', '
       find('div#opportunities').click_link('My Awesome Opportunity')
       expect(page).to have_content('This is a very important opportunity.')
 
-      click_link "Dashboard"
+      click_link "My Dashboard"
       expect(page).to have_content("Bill Murray created opportunity My Awesome Opportunity")
       expect(page).to have_content("Bill Murray created comment on My Awesome Opportunity")
     end
@@ -81,7 +83,8 @@ feature 'Opportunities', '
 
   scenario 'should not display ammount with zero value', js: true do
     with_amount = create(:opportunity, name: 'With Amount', amount: 3000, probability: 90, discount: nil, stage: 'proposal')
-    without_amount = create(:opportunity, name: 'Without Amount', amount: nil, probability: nil, discount: nil, stage: 'proposal')
+    without_amount = build(:opportunity, name: 'Without Amount', amount: nil, probability: nil, discount: nil, stage: 'proposal')
+    without_amount.save(validate: false)
     with_versioning do
       visit opportunities_page
       click_link 'Long format'
