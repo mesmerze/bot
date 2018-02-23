@@ -26,7 +26,6 @@ describe "/leads/_new" do
     expect(view).to render_template(partial: "leads/_status")
     expect(view).to render_template(partial: "leads/_contact")
     expect(view).to render_template(partial: "leads/_web")
-    expect(view).to render_template(partial: "entities/_permissions")
 
     expect(rendered).to have_tag("form[class=new_lead]")
   end

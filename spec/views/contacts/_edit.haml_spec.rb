@@ -27,7 +27,6 @@ describe "/contacts/_edit" do
     expect(view).to render_template(partial: "contacts/_top_section")
     expect(view).to render_template(partial: "contacts/_extra")
     expect(view).to render_template(partial: "contacts/_web")
-    expect(view).to render_template(partial: "_permissions")
 
     expect(rendered).to have_tag("form[class=edit_contact]") do
       with_tag "input[type=hidden][id=contact_user_id][value='#{@contact.user_id}']"

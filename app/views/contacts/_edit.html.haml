@@ -11,7 +11,6 @@
     = render "contacts/extra",       f: f, edit: true
     = render "contacts/web",         f: f, edit: true
     = render "fields/groups",        f: f, edit: true
-    = render "entities/permissions", f: f, edit: true, entity: @contact
     = hook(:entity_form, self, {f: f, entity: @contact})
 
     .buttonbar

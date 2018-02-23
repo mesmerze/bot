@@ -27,7 +27,6 @@ describe "/contacts/_new" do
     expect(view).to render_template(partial: "contacts/_top_section")
     expect(view).to render_template(partial: "contacts/_extra")
     expect(view).to render_template(partial: "contacts/_web")
-    expect(view).to render_template(partial: "entities/_permissions")
 
     expect(rendered).to have_tag("form[class=new_contact]")
   end

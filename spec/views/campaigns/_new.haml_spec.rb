@@ -20,7 +20,6 @@ describe "/campaigns/_new" do
     render
     expect(view).to render_template(partial: "campaigns/_top_section")
     expect(view).to render_template(partial: "campaigns/_objectives")
-    expect(view).to render_template(partial: "_permissions")
 
     expect(rendered).to have_tag("form[class=new_campaign]")
   end

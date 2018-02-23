@@ -6,7 +6,6 @@
     = f.error_messages :object_name => t('shop')
 
     = render "shops/top_section",  :f => f, :edit => true
-    = render "entities/permissions",  :f => f, :edit => true, :entity => @shop
 
     = hook(:entity_form, self, {f: f, entity: @shop})
 

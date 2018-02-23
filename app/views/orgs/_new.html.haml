@@ -7,7 +7,6 @@
   = render "orgs/top_section",  :f => f
   = render "orgs/accounts",     :f => f
   = render "shared/add_comment", :f => f
-  = render "entities/permissions",  :f => f, :entity => @org
   = hook(:entity_form, self, {f: f, entity: @org})
 
   .buttonbar
