@@ -129,9 +129,7 @@ class TasksController < ApplicationController
     @task&.update_attributes(completed_at: Time.now, completed_by: current_user.id)
 
     # Make sure bucket's div gets hidden if it's the last completed task in the bucket.
-    if Task.bucket_empty?(params[:bucket], current_user)
-      @empty_bucket = params[:bucket]
-    end
+    empty_bucket unless request.referrer&.include?('opportunities_overview')
 
     update_sidebar unless params[:bucket].blank?
     respond_with(@task)
@@ -141,12 +139,10 @@ class TasksController < ApplicationController
   #----------------------------------------------------------------------------
   def uncomplete
     @task = current_user.admin ? Task.find_by(id: params[:id]) : Task.tracked_by(current_user).find(params[:id])
-    @task&.update_attributes(completed_at: nil, completed_by: nil)
+    @task&.update_attributes(completed_at: nil, completed_by: nil, calendar: @task.due_at.strftime('%Y-%m-%d %H:%M'))
 
     # Make sure bucket's div gets hidden if we're deleting last task in the bucket.
-    if Task.bucket_empty?(params[:bucket], current_user, @view)
-      @empty_bucket = params[:bucket]
-    end
+    empty_bucket unless request.referrer&.include?('opportunities_overview')
 
     update_sidebar
     respond_with(@task)
@@ -187,11 +183,19 @@ class TasksController < ApplicationController
       :due_at,
       :completed_at,
       :deleted_at,
-      :background_info
+      :background_info,
+      :calendar,
+      :view
     )
   end
 
   private
+
+  def empty_bucket
+    if Task.bucket_empty?(params[:bucket], current_user, @view)
+      @empty_bucket = params[:bucket]
+    end
+  end
 
   # Yields array of current filters and updates the session using new values.
   #----------------------------------------------------------------------------

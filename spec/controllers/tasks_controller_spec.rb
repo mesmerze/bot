@@ -464,7 +464,7 @@ describe TasksController do
   #----------------------------------------------------------------------------
   describe "responding to PUT uncomplete" do
     it "should change task status, expose task as @task, and render template" do
-      @task = create(:task, completed_at: Time.now, user: current_user)
+      @task = create(:task, completed_at: Time.now, user: current_user, bucket: 'specific_time', calendar: Time.current.strftime('%Y-%m-%d'))
 
       put :uncomplete, params: { id: @task.id }, xhr: true
       expect(@task.reload.completed_at).to eq(nil)
