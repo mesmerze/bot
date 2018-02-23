@@ -798,6 +798,17 @@ en-US:
 
   # Views -> Emails.
   #----------------------------------------------------------------------------
+  name_of_opportunity: 'Name of Opportunity'
+  opportunity_status: 'Opportunity Status'
+  name_of_an_account: 'Name of Account'
+  projected_close_date: 'Projected Close Date'
+  projected_revenue: 'Projected Revenue'
+  last_comment: 'Last Comment'
+  opportunities_created: 'Opportunities Created'
+  opportunities_closed: 'Opportunities Closed'
+  closed_revenue: 'Closed Revenue'
+  live_shops: 'Live Shops'
+  empty_report: 'Sorry, there is nothing to report today'
 
   # Views -> Passwords.
   #----------------------------------------------------------------------------

@@ -1,0 +1,37 @@
+%h3 Weekly Summary
+= Date.current.to_s(:long)
+
+- @users.each do |user|
+  %div{style: 'text-align:center; padding:10px 0 0 0;'}
+    = user.full_name
+  %table
+    %tr
+      %th{style: 'width:170px; text-align: left;'}
+        = t :opportunities_created
+        &#058;
+      %td
+        =  @opportunities[user.id]&.size.to_i
+    %tr
+      %th{style: 'text-align: left;'}
+        = t :opportunities_closed
+        &#058;
+      %td
+        =  @closed_opportunities[user.id]&.size.to_i
+    %tr
+      %th{style: 'text-align: left;'}
+        = t :projected_revenue
+        &#058;
+      %td
+        = number_to_currency(@projected_revenue[user.id].to_i, precision: 0)
+    %tr
+      %th{style: 'text-align: left;'}
+        = t :closed_revenue
+        &#058;
+      %td
+        = number_to_currency(@closed_revenue[user.id].to_i, precision: 0)
+    %tr
+      %th{style: 'text-align: left;'}
+        = t :live_shops
+        &#058;
+      %td
+        =  @live_shops[user.id]&.size.to_i

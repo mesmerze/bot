@@ -24,7 +24,7 @@ FactoryBot.define do
     source              { %w[campaign cold_call conference online referral self web word_of_mouth other].sample }
     stage               { FactoryBot.generate(:opportunity_status) }
     probability         { rand(50) }
-    amount              { rand(1000) }
+    amount              { rand(101..1000) }
     discount            { rand(100) }
     category            { Setting.opportunity_category.map(&:to_s).sample }
     closes_on           { FactoryBot.generate(:date) }

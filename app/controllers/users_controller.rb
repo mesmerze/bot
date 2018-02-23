@@ -6,7 +6,8 @@
 # See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 #------------------------------------------------------------------------------
 class UsersController < ApplicationController
-  before_action :set_current_tab, only: %i[show opportunities_overview] # Don't hightlight any tabs.
+  before_action -> { set_current_tab(:tab_dashboard) }, only: :show
+  before_action -> { set_current_tab(:tab_team) }, only: :opportunities_overview
   before_action :set_sort_options, only: %i[opportunities_overview filter]
 
   check_authorization

@@ -1,0 +1,50 @@
+%h3 Daily Summary
+= Date.current.to_s(:long)
+
+- if @opportunities.blank?
+  %div{style: 'text-align:center; padding:40px 0 0 0;'}
+    = t :empty_report
+- else
+  - @opportunities.each do |user, opportunities|
+    %div{style: 'text-align:center; padding:10px 0 0 0;'}
+      = User.find(user).full_name
+    %table
+      - opportunities.each_with_index do |opportunity, index|
+        %tr
+          %th{rowspan: 6, style: 'width:30px; vertical-align:top;'}
+            = index.next
+          %th{style: 'width:170px; text-align: left;'}
+            = t :name_of_opportunity
+            &#058;
+          %td
+            =  link_to opportunity.name, url_for(opportunity)
+        %tr
+          %th{style: 'vertical-align:top; text-align: left;'}
+            = t :opportunity_status
+            &#058;
+          %td
+            = t(opportunity.stage)
+        %tr
+          %th{style: 'vertical-align:top; text-align: left;'}
+            = t :name_of_an_account
+            &#058;
+          %td
+            = opportunity.account&.name.to_s
+        %tr
+          %th{style: 'vertical-align:top; text-align: left;'}
+            = t :projected_close_date
+            &#058;
+          %td
+            = opportunity.projected_close_date.to_s
+        %tr
+          %th{style: 'vertical-align:top; text-align: left;'}
+            = t :projected_revenue
+            &#058;
+          %td
+            = number_to_currency(opportunity.weighted_amount.to_i, precision: 0)
+        %tr{style: 'padding:0 0 10px 0;'}
+          %th{style: 'vertical-align:top; text-align: left;'}
+            = t :last_comment
+            &#058;
+          %td
+            = opportunity.comments.last&.comment.to_s
