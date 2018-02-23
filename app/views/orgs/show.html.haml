@@ -2,7 +2,7 @@
   = render(template, :org => @org)
 - else
 
-  = styles_for :account
+  = styles_for :account, :task
 
   = render 'orgs/title_bar', :org => @org
 
@@ -13,4 +13,8 @@
 
     = render "accounts/accounts", :object => @org
 
+    = render partial: "tasks/tasks", locals: { object: @org }
+
     = render :partial => "versions/versions", :locals => {:object => @org}
+
+    = load_select_popups_for(@org, :tasks)

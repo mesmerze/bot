@@ -281,6 +281,23 @@ describe TasksController do
           expect(assigns[:task_total]).to be_an_instance_of(HashWithIndifferentAccess)
         end
       end
+
+      it "creates tasks for multiple entities" do
+        @task = build(:task, user: current_user, assigned_to: current_user.id)
+        @opportunity = create(:opportunity, user: current_user)
+        @org = create(:org, user: current_user)
+        post :create, params: {
+          task: @task.attributes.compact
+                     .merge(asset_attributes: [{ asset_type: "opportunity", asset_id: @opportunity.id },
+                                               { asset_type: "org", asset_id: @org.id }])
+        }, xhr: true
+        expect(assigns(:tasks).size).to eq(2)
+        expect(assigns(:tasks).map(&:name)).to all(eq(@task.name))
+        expect(assigns(:tasks).map(&:assigned_to)).to all(eq(current_user.id))
+        expect(assigns(:tasks).first.asset_type).to eq('Opportunity')
+        expect(assigns(:tasks).second.asset_type).to eq('Org')
+        expect(assigns(:view)).to eq("pending")
+      end
     end
 
     describe "with invalid params" do
@@ -288,7 +305,7 @@ describe TasksController do
         @task = build(:task, name: nil, user: current_user)
         allow(Task).to receive(:new).and_return(@task)
 
-        post :create, params: { task: {} }, xhr: true
+        post :create, params: { task: { name: '' } }, xhr: true
         expect(assigns(:task)).to eq(@task)
         expect(assigns(:view)).to eq("pending")
         expect(assigns[:task_total]).to eq(nil)
@@ -321,6 +338,25 @@ describe TasksController do
           put :update, params: { id: @task.id, task: { name: "Hello" } }, xhr: true
           expect(assigns[:task_total]).to be_an_instance_of(HashWithIndifferentAccess)
         end
+      end
+
+      it "updates tasks for multiple entities" do
+        @task = create(:task, user: current_user, assigned_to: current_user.id)
+        @account = create(:account, user: current_user)
+        @shop = create(:shop, user: current_user)
+        put :update, params: {
+          id: @task.id,
+          task: @task.attributes.compact
+                     .merge(asset_attributes: [{ asset_type: "account", asset_id: @account.id },
+                                               { asset_type: "shop", asset_id: @shop.id }])
+        }, xhr: true
+        expect(assigns(:dup_tasks).size).to eq(1)
+        expect(assigns(:dup_tasks).first.name).to eq(@task.name)
+        expect(assigns(:dup_tasks).first.id).not_to eq(@task.id)
+        expect(assigns(:dup_tasks).first.assigned_to).to eq(current_user.id)
+        expect(assigns(:dup_tasks).first.asset_type).to eq('Shop')
+        expect(assigns(:task).asset_type).to eq('Account')
+        expect(assigns(:view)).to eq("pending")
       end
     end
 

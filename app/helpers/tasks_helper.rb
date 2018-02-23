@@ -159,4 +159,11 @@ module TasksHelper
   def from_dashboard?
     request.referrer&.include?('opportunities_overview')
   end
+
+  # render assign entities only on /tasks/index
+  def render_assign_entities(form, edit = true)
+    if URI(request.referer).path == '/tasks'
+      render "tasks/assign", f: form, edit: edit
+    end
+  end
 end

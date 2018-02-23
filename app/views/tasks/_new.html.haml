@@ -6,6 +6,7 @@
   = hidden_field_tag "task[asset_type]", "#{@asset.class if @asset}"
 
   = render "tasks/top_section",    f: f
+  = render_assign_entities(f)
   = render "fields/groups", f: f
 
   .buttonbar

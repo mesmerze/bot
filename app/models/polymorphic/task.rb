@@ -213,7 +213,30 @@ class Task < ActiveRecord::Base
     end
   end
 
+  def save_with_entities(entities)
+    return false unless valid?
+    entities ? process_tasks(entities) : [save && self]
+  end
+
+  def assign_entities(entities)
+    if entities.blank?
+      []
+    else
+      self.asset = nil # remove old relation
+      process_tasks(entities) - [self]
+    end
+  end
+
   private
+
+  def process_tasks(entities)
+    entities = entities.map { |asset| asset[:asset_type].capitalize.constantize.find(asset[:asset_id]) }.uniq
+    entities.map do |entity|
+      task = asset_id ? dup : self
+      task.asset = entity
+      task.save && task
+    end
+  end
 
   #----------------------------------------------------------------------------
   def set_due_date

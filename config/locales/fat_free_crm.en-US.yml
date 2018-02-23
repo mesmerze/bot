@@ -639,6 +639,11 @@ en-US:
   high: High
   normal: Normal
   low: Low
+  task_assign: Shop, Opportunity, Account, Org
+  entity_type: Entity Type
+  entity: Entity
+  org: Org
+  shop: Shop
 
   # Views -> Team.
   #----------------------------------------------------------------------------

@@ -18,6 +18,7 @@ describe "/tasks/update" do
     before do
       assign(:task_before_update, build_stubbed(:task, assignee: current_user, bucket: "due_asap"))
       assign(:task, @task = build_stubbed(:task, assignee: current_user, bucket: "due_tomorrow"))
+      assign(:dup_tasks, [@task.clone])
       assign(:view, "pending")
       assign(:task_total, stub_task_total("pending"))
       controller.request.env["HTTP_REFERER"] = "http://localhost/tasks"
@@ -66,6 +67,7 @@ describe "/tasks/update" do
       assignee = build_stubbed(:user)
       assign(:task_before_update, build_stubbed(:task, assignee: nil))
       assign(:task, @task = build_stubbed(:task, assignee: assignee))
+      assign(:dup_tasks, [@task.clone])
       assign(:view, "pending")
       controller.request.env["HTTP_REFERER"] = "http://localhost/tasks"
 
@@ -80,6 +82,7 @@ describe "/tasks/update" do
       assignee = build_stubbed(:user)
       assign(:task_before_update, build_stubbed(:task, assignee: assignee))
       assign(:task, @task = build_stubbed(:task, assignee: nil))
+      assign(:dup_tasks, [@task.clone])
       assign(:view, "assigned")
       controller.request.env["HTTP_REFERER"] = "http://localhost/tasks?view=assigned"
 
@@ -93,6 +96,7 @@ describe "/tasks/update" do
     it "assigned tasks to somebody else from Tasks tab: should re-render task partial" do
       assign(:task_before_update, build_stubbed(:task, assignee: build_stubbed(:user)))
       assign(:task, @task = build_stubbed(:task, assignee: build_stubbed(:user)))
+      assign(:dup_tasks, [@task.clone])
       assign(:view, "assigned")
       controller.request.env["HTTP_REFERER"] = "http://localhost/tasks?view=assigned"
 
@@ -103,6 +107,7 @@ describe "/tasks/update" do
     it "from Tasks tab: should update tasks sidebar" do
       assign(:task_before_update, build_stubbed(:task, assignee: nil))
       assign(:task, @task = build_stubbed(:task, assignee: build_stubbed(:user)))
+      assign(:dup_tasks, [@task.clone])
       assign(:view, "assigned")
       controller.request.env["HTTP_REFERER"] = "http://localhost/tasks?view=assigned"
       render
@@ -117,6 +122,7 @@ describe "/tasks/update" do
       controller.request.env["HTTP_REFERER"] = "http://localhost/opportunities"
       assign(:task_before_update, build_stubbed(:task, assignee: nil))
       assign(:task, @task = build_stubbed(:task, assignee: build_stubbed(:user)))
+      assign(:dup_tasks, [@task.clone])
       render
 
       expect(rendered).to include("$('#task_#{@task.id}').html('<li class=\\'highlight task\\' id=\\'task_#{@task.id}\\'")
@@ -126,6 +132,7 @@ describe "/tasks/update" do
       controller.request.env["HTTP_REFERER"] = "http://localhost/opportunities"
       assign(:task_before_update, build_stubbed(:task, assignee: nil))
       assign(:task, @task = build_stubbed(:task, assignee: build_stubbed(:user)))
+      assign(:dup_tasks, [@task.clone])
       render
 
       expect(rendered).to have_text("Recent Items")

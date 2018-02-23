@@ -8,10 +8,16 @@
   - else
     - if @task.assigned_to != @task_before_update.assigned_to
       = reassign(@task)
+      - @dup_tasks.each do |task|
+        = reassign(task)
     - elsif @task.bucket != @task_before_update.bucket
       = reschedule(@task)
+      - @dup_tasks.each do |task|
+        = reschedule(task)
     - else
       = replace_content(@task, @task.bucket)
+      - @dup_tasks.each do |task|
+        = insert_content(task, task.bucket, @view)
 
 - else # Errors
   $('##{dom_id(@task)}').effect("shake", { duration:250, distance: 6 });

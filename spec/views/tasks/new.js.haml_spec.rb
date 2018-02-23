@@ -16,6 +16,8 @@ describe "/tasks/new" do
     assign(:users, [current_user])
     assign(:bucket, Setting.task_bucket[1..-1] << ["On Specific Date...", :specific_time])
     assign(:category, Setting.unroll(:task_category))
+    assign(:entities, Opportunity.my(current_user).map { |opp| [opp.name, opp.id] })
+    controller.request.env["HTTP_REFERER"] = "http://localhost/tasks"
   end
 
   it "should toggle empty message div if it exists" do

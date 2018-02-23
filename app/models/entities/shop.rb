@@ -8,10 +8,11 @@ class Shop < ActiveRecord::Base
   has_many :opportunities, through: :shops_opportunities
   has_many :shops_contacts, dependent: :destroy
   has_many :contacts, through: :shops_contacts
+  has_many :tasks, as: :asset, dependent: :destroy
 
   uses_user_permissions
   sortable by: ["name ASC", "created_at DESC", "updated_at DESC"], default: "created_at DESC"
-  has_ransackable_associations %w[accounts]
+  has_ransackable_associations %w[accounts tasks]
   ransack_can_autocomplete
   has_paper_trail class_name: 'Version', ignore: [:subscribed_users]
 
@@ -34,6 +35,10 @@ class Shop < ActiveRecord::Base
   end
 
   def discard!(attachment)
-    send(attachment.class.name.tableize).delete(attachment)
+    if attachment.is_a?(Task)
+      attachment.update_attribute(:asset, nil)
+    else # Contacts, Opportunities
+      send(attachment.class.name.tableize).delete(attachment)
+    end
   end
 end

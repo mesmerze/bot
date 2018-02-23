@@ -2,7 +2,7 @@
   = render(template, shop: @shop)
 - else
 
-  = styles_for :opportunity, :contact
+  = styles_for :opportunity, :contact, :task
 
   = render 'shops/title_bar', shop: @shop
 
@@ -16,6 +16,8 @@
 
     = render "opportunities/opportunities", object: @shop
 
+    = render partial: "tasks/tasks", locals: { object: @shop }
+
     = render "versions/versions", object: @shop
 
-    = load_select_popups_for(@shop, :contacts, :opportunities)
+    = load_select_popups_for(@shop, :contacts, :opportunities, :tasks)

@@ -38,6 +38,7 @@ class TasksController < ApplicationController
     @task = Task.new
     @bucket = Setting.unroll(:task_bucket)[1..-1] << [t(:due_specific_date, default: 'On Specific Date...'), :specific_time]
     @category = Setting.unroll(:task_category)
+    @entities = Opportunity.my(current_user).map { |opp| [opp.name, opp.id] }
 
     if params[:related]
       model, id = params[:related].split(/_(\d+)/)
@@ -59,6 +60,11 @@ class TasksController < ApplicationController
     @bucket = Setting.unroll(:task_bucket)[1..-1] << [t(:due_specific_date, default: 'On Specific Date...'), :specific_time]
     @category = Setting.unroll(:task_category)
     @asset = @task.asset if @task.asset_id?
+    @entities = if @asset
+                  @task.asset_type.safe_constantize.my(current_user).map { |entity| [entity.name, entity.id] }
+                else
+                  Opportunity.my(current_user).map { |opp| [opp.name, opp.id] }
+                end
 
     if params[:previous].to_s =~ /(\d+)\z/
       @previous = Task.tracked_by(current_user).find_by_id(Regexp.last_match[1]) || Regexp.last_match[1].to_i
@@ -74,7 +80,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params) # NOTE: we don't display validation messages for tasks.
 
     respond_with(@task) do |_format|
-      if @task.save
+      if @tasks = @task.save_with_entities(params[:task][:asset_attributes])
         update_sidebar if called_from_index_page?
       end
     end
@@ -95,6 +101,7 @@ class TasksController < ApplicationController
 
     respond_with(@task) do |_format|
       if @task.update_attributes(task_params)
+        @dup_tasks = @task.assign_entities(params[:task][:asset_attributes])
         @task.bucket = @task.computed_bucket
         if called_from_index_page?
           if Task.bucket_empty?(@task_before_update.bucket, current_user, @view)
@@ -163,6 +170,19 @@ class TasksController < ApplicationController
       else
         filters.delete(params[:filter])
       end
+    end
+  end
+
+  def assign
+    entity_type = [Opportunity, Org, Shop, Account].find do |model|
+      model.name == params[:entity_type].capitalize
+    end
+
+    @task = Task.new(asset_type: entity_type)
+    @entities = entity_type.my(current_user).map { |entity| [entity.name, entity.id] }
+
+    respond_to do |format|
+      format.html { render partial: 'assign_fields', locals: { disabled: false } }
     end
   end
 

@@ -1,0 +1,10 @@
+%table.assign_row{ border: 0, width: 500, cellpadding: 0, cellspacing: 0 }
+  %tr
+    %td
+      .ui-icon.ui-icon-minus{ style: 'display:flex; margin:0.5rem 0 0; cursor: pointer;' }
+    %td
+      = select_tag 'task[asset_attributes][][asset_type]', options_for_select(Setting.unroll(:task_asset_types), @task&.asset_type&.downcase), disabled: disabled, class: "entity_type", style: "width: 150px;"
+    %td= spacer
+    %td
+      = select_tag 'task[asset_attributes][][asset_id]', options_for_select(@entities, @task&.asset_id), disabled: disabled, class: "entity", style: "width: 250px;"
+    %td= spacer

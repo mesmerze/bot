@@ -7,6 +7,7 @@ class Org < ActiveRecord::Base
   has_many :org_accounts, dependent: :destroy
   has_many :accounts, through: :org_accounts
   has_many :emails, as: :mediator
+  has_many :tasks, as: :asset, dependent: :destroy
 
   default_scope do
     Org.left_outer_joins(accounts: :opportunities)
@@ -26,7 +27,7 @@ class Org < ActiveRecord::Base
   has_paper_trail class_name: 'Version', ignore: [:subscribed_users]
   sortable by: ["name ASC", "revenue", "created_at DESC", "updated_at DESC"], default: "created_at DESC"
 
-  has_ransackable_associations %w[accounts emails]
+  has_ransackable_associations %w[accounts emails tasks]
   ransack_can_autocomplete
 
   scope :text_search, ->(query) { ransack('name_cont' => query).result }
@@ -41,5 +42,15 @@ class Org < ActiveRecord::Base
     attributes.delete_if { |_k, v| v["_destroy"].false? && accounts.find_by(id: v["id"]) }
     accounts << attributes.map { |_k, v| Account.find(v[:id]) } # Preferably finding accounts should be scoped
     super
+  end
+
+  def attach!(attachment)
+    unless send("#{attachment.class.name.downcase}_ids").include?(attachment.id)
+      send(attachment.class.name.tableize) << attachment
+    end
+  end
+
+  def discard!(attachment)
+    attachment.update_attribute(:asset, nil)
   end
 end

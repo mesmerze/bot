@@ -137,6 +137,10 @@ Rails.application.routes.draw do
       get :field_group
       get :versions
     end
+    member do
+      put :attach
+      post :discard
+    end
   end
 
   resources :shops, id: /\d+/ do
@@ -155,6 +159,7 @@ Rails.application.routes.draw do
     collection do
       post :filter
       match :auto_complete, via: %i[get post]
+      get :assign
     end
     member do
       put :complete

@@ -15,7 +15,8 @@ describe "/tasks/edit" do
     assign(:users, [current_user])
     assign(:bucket, Setting.task_bucket[1..-1] << ["On Specific Date...", :specific_time])
     assign(:category, Setting.unroll(:task_category))
-    controller.request.env["HTTP_REFERER"] = "http://localhost/task"
+    assign(:entities, Opportunity.my(current_user).map { |opp| [opp.name, opp.id] })
+    controller.request.env["HTTP_REFERER"] = "http://localhost/tasks"
   end
 
   %w[pending assigned].each do |view|

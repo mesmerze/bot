@@ -20,6 +20,7 @@ describe "/tasks/create" do
       before do
         assign(:view, status)
         assign(:task, @task = stub_task(status))
+        assign(:tasks, [@task])
         assign(:task_total, stub_task_total(status))
         controller.request.env["HTTP_REFERER"] = "http://localhost/tasks?view=#{status}"
         render
@@ -47,44 +48,50 @@ describe "/tasks/create" do
     end
   end
 
-  it "should show flash message when assigning a task from pending tasks view" do
-    assign(:view, "pending")
-    assign(:task, build_stubbed(:task, id: 42, assignee: build_stubbed(:user)))
-    controller.request.env["HTTP_REFERER"] = "http://localhost/tasks"
-    render
+  context 'from pending tasks view' do
+    before do
+      assign(:view, "pending")
+      assign(:task, @task = build_stubbed(:task, id: 42, assignee: build_stubbed(:user)))
+      assign(:tasks, [@task])
+      controller.request.env["HTTP_REFERER"] = "http://localhost/tasks"
+    end
 
-    expect(rendered).to include("$('#flash').html")
-    expect(rendered).to include("crm.flash('notice', true)")
+    it 'should show flash message when assigning a task' do
+      render
+
+      expect(rendered).to include("$('#flash').html")
+      expect(rendered).to include("crm.flash('notice', true)")
+    end
+
+    it 'should update recent items when assigning a task' do
+      render
+
+      expect(rendered).to include("#recently")
+      expect(rendered).to have_text("Recent Items")
+    end
   end
 
-  it "should update recent items when assigning a task from pending tasks view" do
-    assign(:view, "pending")
-    assign(:task, build_stubbed(:task, id: 42, assignee: build_stubbed(:user)))
-    controller.request.env["HTTP_REFERER"] = "http://localhost/tasks"
-    render
+  context 'from assigned tasks view' do
+    before do
+      assign(:view, "assigned")
+      assign(:task, @task = build_stubbed(:task, id: 42, assignee: nil))
+      assign(:tasks, [@task])
+      controller.request.env["HTTP_REFERER"] = "http://localhost/tasks?view=assigned"
+    end
 
-    expect(rendered).to include("#recently")
-    expect(rendered).to have_text("Recent Items")
-  end
+    it "should show flash message when creating a pending task" do
+      render
 
-  it "should show flash message when creating a pending task from assigned tasks view" do
-    assign(:view, "assigned")
-    assign(:task, build_stubbed(:task, id: 42, assignee: nil))
-    controller.request.env["HTTP_REFERER"] = "http://localhost/tasks?view=assigned"
-    render
+      expect(rendered).to include("$('#flash').html")
+      expect(rendered).to include("crm.flash('notice', true)")
+    end
 
-    expect(rendered).to include("$('#flash').html")
-    expect(rendered).to include("crm.flash('notice', true)")
-  end
+    it "should update recent items when creating a pending task" do
+      render
 
-  it "should update recent items when creating a pending task from assigned tasks view" do
-    assign(:view, "assigned")
-    assign(:task, build_stubbed(:task, id: 42, assignee: nil))
-    controller.request.env["HTTP_REFERER"] = "http://localhost/tasks?view=assigned"
-    render
-
-    expect(rendered).to include("#recently")
-    expect(rendered).to have_text("Recent Items")
+      expect(rendered).to include("#recently")
+      expect(rendered).to have_text("Recent Items")
+    end
   end
 
   (TASK_STATUSES - ['assigned']).each do |status|
@@ -93,6 +100,7 @@ describe "/tasks/create" do
         @task = build_stubbed(:task, id: 42)
         assign(:view, status)
         assign(:task, @task)
+        assign(:tasks, [@task])
         render
       end
 
