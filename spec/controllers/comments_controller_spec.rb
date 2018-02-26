@@ -8,7 +8,7 @@
 require 'spec_helper'
 
 describe CommentsController do
-  COMMENTABLE = %i[account campaign contact lead opportunity].freeze
+  COMMENTABLE = %i[account campaign contact lead opportunity shop org].freeze
 
   before(:each) do
     login

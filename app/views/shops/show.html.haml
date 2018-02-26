@@ -8,6 +8,7 @@
 
   %div#edit_shop{ hidden }
 
+  = render "comments/new", :commentable => @shop
   = render partial: "shared/timeline", collection: @timeline
 
   = hook(:show_shop_bottom, self, {entity: @shop}) do

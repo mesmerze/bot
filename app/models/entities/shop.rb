@@ -9,13 +9,17 @@ class Shop < ActiveRecord::Base
   has_many :shops_contacts, dependent: :destroy
   has_many :contacts, through: :shops_contacts
   has_many :tasks, as: :asset, dependent: :destroy
+  has_many :emails, as: :mediator
 
   uses_user_permissions
   sortable by: ["name ASC", "created_at DESC", "updated_at DESC"], default: "created_at DESC"
   has_ransackable_associations %w[accounts tasks]
   ransack_can_autocomplete
   has_paper_trail class_name: 'Version', ignore: [:subscribed_users]
+  uses_comment_extensions
+  acts_as_commentable
 
+  serialize :subscribed_users, Set
   scope :text_search, ->(query) { ransack('name_cont' => query).result }
 
   validates_presence_of :name, message: :missing_name

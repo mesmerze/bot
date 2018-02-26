@@ -8,6 +8,8 @@ class ShopsController < EntitiesController
   end
 
   def show
+    @comment = Comment.new
+    @timeline = timeline(@shop)
     respond_with(@shop) do |format|
       format.json { render json: @shop.to_json }
     end
