@@ -10,4 +10,8 @@ module CommentsHelper
     config = Setting.email_comment_replies || {}
     config[:server].present? && config[:user].present? && config[:password].present?
   end
+
+  def on_dashboard?
+    controller.action_name == 'opportunities_overview'
+  end
 end

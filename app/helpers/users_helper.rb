@@ -88,14 +88,16 @@ module UsersHelper
     check_box_tag("user[]", value, checked, id: "checkbox_user_#{value}", onclick: onclick, style: "margin: 0 0 0 20px;")
   end
 
-  def dashboard_task(related, assets)
+  def dashboard_buttons(related, assets)
     asset = assets.to_s.singularize
     create_id  = "create_#{asset}"
     create_url = controller.send(:"new_#{asset}_path")
 
-    html = tag(:br)
-    html << content_tag(:div, link_to_inline(create_id, create_url, related: dom_id(related), text: t(create_id)), class: "subtitle_tools")
-    html << content_tag(:div, t(assets), class: :subtitle, id: "create_#{asset}_title")
-    html << content_tag(:div, "", class: :remote, id: create_id, style: "display:none;")
+    content_tag :div, class: 'dashboard_tools' do
+      html = link_to_inline(create_id, create_url, related: dom_id(related), text: t(create_id), plain: true, class: 'dashboard_button')
+      html << link_to('#', class: 'add_comment') do
+        content_tag(:span, t(:add_note))
+      end
+    end
   end
 end

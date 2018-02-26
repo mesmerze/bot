@@ -14,9 +14,10 @@
   = hidden_field_tag :shown_emails, "#{commentable.email_ids.join(',')}", id: "#{id_prefix}_shown_emails"
 
   = link_to avatar_for(current_user, size: :small), user_path(current_user)
-  .tools
-    = link_to_function(t(:expand_all), "crm.flip_notes_and_emails('#{t(:expanded)}', '#{t(:more)}', '#{t(:less)}', '#{id_prefix}')") << " | "
-    = link_to_function(t(:collapse_all), "crm.flip_notes_and_emails('#{t(:collapsed)}', '#{t(:more)}', '#{t(:less)}', '#{id_prefix}')")
+  - unless on_dashboard?
+    .tools
+      = link_to_function(t(:expand_all), "crm.flip_notes_and_emails('#{t(:expanded)}', '#{t(:more)}', '#{t(:less)}', '#{id_prefix}')") << " | "
+      = link_to_function(t(:collapse_all), "crm.flip_notes_and_emails('#{t(:collapsed)}', '#{t(:more)}', '#{t(:less)}', '#{id_prefix}')")
 
   %div{ {id: "#{id_prefix}_post"}.merge(hidden_if(true))}
     = form_for(@comment, remote: true, html: {id: "#{id_prefix}_new_comment"}) do |f|

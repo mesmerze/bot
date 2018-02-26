@@ -6,8 +6,7 @@
 # See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 #------------------------------------------------------------------------------
 module TasksHelper
-  # Sidebar checkbox control for filtering tasks by due date -- used for
-  # pending and assigned views only.
+  # Sidebar checkbox control for filtering tasks by due date -- used for # pending and assigned views only.
   #----------------------------------------------------------------------------
   def task_filter_checkbox(view, filter, count)
     name = "filter_by_task_#{view}"
@@ -165,5 +164,9 @@ module TasksHelper
     if URI(request.referer).path == '/tasks'
       render "tasks/assign", f: form, edit: edit
     end
+  end
+
+  def uncomplete_checkbox(task, bucket)
+    %{$.ajax("#{uncomplete_task_path(task)}", {type: "PUT", data: {bucket: "#{bucket}", view: "#{@view}"}});}
   end
 end

@@ -783,17 +783,30 @@ table.asset_attributes {
 }
 
 .hide-comments {
-  padding-top: 8px;
-
   & > div.dashboard_comment {
     display: none;
   }
 
-  & > li:nth-child(n+5) {
+  & > li.comment:not(:first-of-type) {
     display: none;
+  }
+
+  & .gravatar {
+    padding: 0 !important;
   }
 }
 
 .center {
   text-align: center;
+}
+
+.dashboard_tools {
+  font-size: 11px;
+  float: right;
+  position: absolute;
+  margin: 22px 0 0 15px;
+  text-align: right;
+  & > a {
+    margin: 5px 0 5px;
+  }
 }

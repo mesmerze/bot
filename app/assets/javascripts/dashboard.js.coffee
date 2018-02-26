@@ -30,36 +30,31 @@
     $(this).toggleClass('active')
     $('.overview_detailed-button').toggleClass('active')
     $('.log').toggle()
+    $('.dashboard_tools').toggle()
+    $('li.highlight.opportunity').css({'border-bottom-width': '1px'})
 
   $(document).on 'click', '.overview_detailed-button', (e)->
     e.preventDefault()
     $(this).toggleClass('active')
     $('.overview_basic-button').toggleClass('active')
     $('.log').toggle()
+    $('.dashboard_tools').toggle()
+    $('li.highlight.opportunity').css({'border-bottom-width': '0px'})
 
-  $(document).on 'click', '.flip_comments', (e)->
+  $(document).on 'click', '.hide-comments li.comment', (e)->
     e.preventDefault()
-    visible = false
-    arrow = $(this).find("small")
-    comments = $(this).parent().parent().find("li.comment").slice(1)
+    e.stopPropagation()
+    comments = $(this).parent().find('li.comment').slice(1)
     return unless comments.length
-
     comments.each ->
-      $(this).toggle()
-      if $(this).is(':hidden')
-        visible = true
+      $(this).slideToggle(250)
 
-    arrow.html(if visible then "&#9668;" else "&#9660;")
+  $(document).on 'click', '.hide-comments li.comment a, textarea, form', (e)->
+    e.stopPropagation()
 
   $(document).on 'click', '.add_comment', (e)->
     e.preventDefault()
-    arrow = $(this).find('#comments_arrow')
-    create_comment = $(this).parent().parent().find('.dashboard_comment')
-
-    create_comment.slideToggle(
-      250
-      =>
-        arrow.html(if create_comment.css('display') is 'none' then "&#9658;" else "&#9660;")
-    )
+    create_comment = $(this).parent().next().next().find('.dashboard_comment')
+    create_comment.slideToggle(250)
 
 ) jQuery

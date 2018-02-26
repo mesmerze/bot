@@ -227,6 +227,10 @@ class Task < ActiveRecord::Base
     end
   end
 
+  def recently?
+    completed_at > 24.hours.ago
+  end
+
   private
 
   def process_tasks(entities)

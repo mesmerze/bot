@@ -1,14 +1,14 @@
-.highlight[pending]
+.highlight[pending]{style: 'margin-bottom: 5px;'}
   - if can_manage?(pending)
     .tools
       = link_to_task_edit(pending, bucket) + " | "
       = link_to_discard(pending) + " | " if shown_on_landing_page?
       = link_to_task_delete(pending, bucket)
 
-  .indent
+  %div
     = check_box_tag dom_id(pending, :complete), 1, false, onclick: link_to_task_complete(pending, bucket)
 
-  .indentwide
+  %div
     - if pending.priority
       .priority-strip{class: "#{pending.priority}"}
         = t pending.priority

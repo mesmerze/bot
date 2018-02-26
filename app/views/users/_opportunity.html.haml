@@ -1,23 +1,15 @@
 - if controller.action_name == 'update'
   - comments = opportunity.comments.order('updated_at DESC')
 -else
-  - comments = opportunity.comments.sort_by(&:updated_at).reverse
+  - comments = opportunity.comments.sort_by(&:created_at).reverse
 
--# default view
+= dashboard_buttons(opportunity, :tasks)
 = render '/users/detailed_view', opportunity: opportunity, blockers: blockers?(opportunity)
 .log{style: 'padding: 0px 0px 8px 0px; border-bottom: 1px silver dotted;'}
-  #tasks
-    .indent
-      = dashboard_task(opportunity, :tasks)
+  #tasks.indent
+    = content_tag(:div, "", class: :remote, id: 'create_task', style: "display:none;")
     -unless opportunity.tasks.blank?
       = render partial: "/users/task", collection: opportunity.tasks, as: :task, cached: true
   #comments.indent.hide-comments
-    .subtitle_tools
-      = link_to('#', class: 'add_comment') do
-        = content_tag(:span, "&#9658;".html_safe, id: 'comments_arrow', class: :arrow)
-        = t(:add_comment)
-    .subtitle
-      = t :comments
-      = link_to("<small>&#9668;</small>".html_safe, '#', class: "flip_comments")
     = render "comments/new", commentable: opportunity
     = render partial: "shared/timeline", collection: comments, cached: true
