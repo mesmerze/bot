@@ -14,4 +14,14 @@ module CommentsHelper
   def on_dashboard?
     controller.action_name == 'opportunities_overview'
   end
+
+  def advice_comment(org)
+    partial = render(partial: "comments/new", locals: { commentable: org })
+    onclick = "$('.comment.highlight.new_comment').replaceWith('#{j partial}');\n"
+    content_tag(:div, class: 'comment highlight new_comment') do
+      html = link_to avatar_for(current_user, size: :small), user_path(current_user)
+      html << content_tag(:div, t(:opportunities_first), class: 'label', style: 'display: inline-block;')
+      html << button_tag(t(:note_anyway), onclick: onclick)
+    end
+  end
 end

@@ -754,6 +754,8 @@ en-US:
   collapse_all: Collapse all
   expanded: Expanded
   collapsed: Collapsed
+  opportunities_first: Please Insert Notes on Opportunities First
+  note_anyway: Note Anyway
 
   # Views -> Layout.
   #----------------------------------------------------------------------------

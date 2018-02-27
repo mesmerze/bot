@@ -10,7 +10,7 @@
 
   %div#edit_account{ hidden }
 
-  = render "comments/new", commentable: @account
+  = advice_comment(@account)
   = render partial: "shared/timeline", collection: @timeline
 
   = hook(:show_account_bottom, self, {entity: @account}) do

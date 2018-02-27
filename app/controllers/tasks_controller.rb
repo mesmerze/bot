@@ -146,7 +146,7 @@ class TasksController < ApplicationController
   #----------------------------------------------------------------------------
   def uncomplete
     @task = current_user.admin ? Task.find_by(id: params[:id]) : Task.tracked_by(current_user).find(params[:id])
-    @task&.update_attributes(completed_at: nil, completed_by: nil, calendar: @task.due_at.strftime('%Y-%m-%d %H:%M'))
+    @task&.update_attributes(completed_at: nil, completed_by: nil, calendar: @task.due_at&.strftime('%Y-%m-%d %H:%M'))
 
     # Make sure bucket's div gets hidden if we're deleting last task in the bucket.
     empty_bucket unless request.referrer&.include?('opportunities_overview')

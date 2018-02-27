@@ -1,20 +1,20 @@
 - if (template = template_for_current_view)
-  = render(template, :org => @org)
+  = render(template, org: @org)
 - else
 
   = styles_for :account, :task
 
-  = render 'orgs/title_bar', :org => @org
+  = render 'orgs/title_bar', org: @org
 
-  = render "comments/new", :commentable => @org
-  = render :partial => "shared/timeline", :collection => @timeline
+  = advice_comment(@org)
+  = render partial: "shared/timeline", collection: @timeline
 
   = hook(:show_org_bottom, self, {entity: @org}) do
 
-    = render "accounts/accounts", :object => @org
+    = render "accounts/accounts", object: @org
 
     = render partial: "tasks/tasks", locals: { object: @org }
 
-    = render :partial => "versions/versions", :locals => {:object => @org}
+    = render partial: "versions/versions", locals: {object: @org}
 
     = load_select_popups_for(@org, :tasks)
