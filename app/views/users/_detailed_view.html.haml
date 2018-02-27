@@ -15,9 +15,9 @@
     - if blockers
       .priority-strip{class: 'blocker'}
         = t :blocker
-    = link_to_if can?(:read, opportunity), opportunity.name, opportunity
     - if (account = opportunity.account) && account.id
-      == #{t :from} #{link_to_if can?(:read, account), account.name, account_path(account)}
+      == #{link_to_if can?(:read, account), account.name, account_path(account)}:
+    = link_to_if can?(:read, opportunity), opportunity.name, opportunity, { class: 'dashboard-link' }
     %tt
       &ndash;
       - user_name = opportunity.user.try(:full_name)
@@ -51,6 +51,8 @@
           %span.warn= t(:past_due, distance_of_time_in_words(opportunity.closes_on, Date.today))
       - else
         = t(:no_closing_date)
+
+      = account_type(account&.category)
 
       - if opportunity.tags.present?
         %dt

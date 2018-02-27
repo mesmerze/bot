@@ -810,3 +810,19 @@ table.asset_attributes {
     margin: 4px 0 4px;
   }
 }
+
+a.dashboard-link:link, a.dashboard-link:visited {
+  color: #3f3f3f;
+}
+
+a.dashboard-link:hover {
+    color: white;
+}
+
+.type-strip {
+  display: inline-block;
+  font-size: 11px;
+  margin: 0px 6px 0px 0px;
+  padding: 1px 4px 1px 3px;
+  text-align: center;
+  width: 55px; }

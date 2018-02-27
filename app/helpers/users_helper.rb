@@ -105,4 +105,15 @@ module UsersHelper
       end
     end
   end
+
+  def account_type(type)
+    case type
+    when 'customer_restaurant'
+      content_tag(:span, " | ") + content_tag(:div, t(:restaurant), class: 'type-strip', style: 'background-color: #d6f5d6;')
+    when 'customer_hotel'
+      content_tag(:span, " | ") + content_tag(:div, t(:hotel), class: 'type-strip', style: 'background-color: #fff4b3;')
+    when 'customer_other'
+      content_tag(:span, " | ") + content_tag(:div, t(:other), class: 'type-strip', style: 'background-color: #f2f2f2;')
+    end
+  end
 end

@@ -53,8 +53,8 @@ feature 'Opportunities Overview', "
 
     within "#user_#{user2.id}" do
       expect(page).to have_selector('.title', text: 'Dean Stockwell')
-      expect(page).to have_content('Leaping from Quantum Leap')
-      expect(page).to have_content('Return Home from Quantum Leap')
+      expect(page).to have_content('Quantum Leap: Leaping')
+      expect(page).to have_content('Quantum Leap: Return Home')
     end
 
     expect(page).not_to have_selector("#user_#{user3.id}")

@@ -8,7 +8,10 @@
     crm.flip_form('edit_#{entity_name}');
     crm.set_title('edit_#{entity_name}', '#{h @entity.name}');
   - else                                            # Called from index page...
-    $('##{id}').replaceWith('#{ j render(partial: entity_name, collection: [ @entity ]) }');
+    - if from_dashboard?
+      $('##{id}').replaceWith('#{ j render(partial: 'users/detailed_view', locals: { opportunity: @entity, blockers: blockers?(@entity)}) }');
+    - else
+      $('##{id}').replaceWith('#{ j render(partial: entity_name, collection: [ @entity ]) }');
 
 - else # <----------------------------------------- Show requested [Edit Opportunity] form.
 
