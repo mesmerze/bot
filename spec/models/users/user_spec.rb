@@ -59,13 +59,13 @@ describe User do
   describe '#destroyable?' do
     describe "Destroying users with and without related assets" do
       before do
-        @user = build(:user)
-        @current_user = build(:user)
+        @user = create(:user)
+        @current_user = create(:user)
       end
 
       %w[account campaign lead contact opportunity].each do |asset|
         it "should not destroy the user if she owns #{asset}" do
-          create(asset, user: @user)
+          build(asset, user: @user).save(validate: false)
           expect(@user.destroyable?(@current_user)).to eq(false)
         end
 

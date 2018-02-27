@@ -32,7 +32,7 @@
           %td= spacer
           %td
             .label #{t :assigned_to}:
-            = user_select(:contact, all_users, current_user)
+            = user_select(asset: :contact)
 
         - if Setting.background_info && Setting.background_info.include?(:contact)
           %tr

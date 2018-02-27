@@ -394,9 +394,10 @@ describe UsersController do
     end
 
     it "should assign @unassigned_opportunities with only open unassigned opportunities" do
-      @o1 = create(:opportunity, stage: "prospecting", assignee: nil)
-      @o2 = create(:opportunity, stage: "won", assignee: nil)
-      @o3 = create(:opportunity, stage: "prospecting", assignee: nil)
+      @o1 = build(:opportunity, stage: "prospecting", assignee: nil)
+      @o2 = build(:opportunity, stage: "won", assignee: nil)
+      @o3 = build(:opportunity, stage: "prospecting", assignee: nil)
+      [@o1, @o2, @o3].each { |o| o.save(validate: false) }
 
       get :opportunities_overview, xhr: true
 
@@ -405,9 +406,10 @@ describe UsersController do
     end
 
     it "@unassigned_opportunities should be ordered by stage" do
-      @o1 = create(:opportunity, stage: "proposal", assignee: nil)
-      @o2 = create(:opportunity, stage: "prospecting", assignee: nil)
-      @o3 = create(:opportunity, stage: "negotiation", assignee: nil)
+      @o1 = build(:opportunity, stage: "proposal", assignee: nil)
+      @o2 = build(:opportunity, stage: "prospecting", assignee: nil)
+      @o3 = build(:opportunity, stage: "negotiation", assignee: nil)
+      [@o1, @o2, @o3].each { |o| o.save(validate: false) }
 
       get :opportunities_overview, xhr: true
 

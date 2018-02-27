@@ -18,7 +18,7 @@ FactoryBot.define do
     user
     campaign
     account
-    assigned_to nil
+    assigned_to         { user&.id }
     name                { FFaker::Lorem.sentence[0, 64] }
     access "Public"
     source              { %w[campaign cold_call conference online referral self web word_of_mouth other].sample }

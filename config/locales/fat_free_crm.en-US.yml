@@ -177,6 +177,8 @@ en-US:
               share_opportunity: ^Please specify users with whom to share the opportunity.
             account:
               missing_account: ^Please select account.
+            assigned_to:
+              missing_assigned_user: ^Please select assigned user
         org:
           attributes:
             name:

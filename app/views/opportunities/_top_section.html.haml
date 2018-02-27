@@ -51,7 +51,7 @@
           %td= spacer
           %td
             .label.req #{t :assigned_to}:
-            = user_select(:opportunity, all_users, current_user)
+            = user_select(asset: :opportunity)
         %tr
           %td
             .label #{t :campaign}:

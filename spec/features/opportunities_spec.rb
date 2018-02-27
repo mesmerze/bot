@@ -17,7 +17,7 @@ feature 'Opportunities', '
   end
 
   scenario 'should view a list of opportunities' do
-    3.times { |i| create(:opportunity, name: "Opportunity #{i}") }
+    3.times { |i| create(:opportunity, name: "Opportunity #{i}", assignee: @user) }
     visit opportunities_page
     expect(page).to have_content('Opportunity 0')
     expect(page).to have_content('Opportunity 1')
@@ -40,6 +40,7 @@ feature 'Opportunities', '
       sleep(1)
       find('li', text: 'Example Account').click
       expect(page).to have_content('Example Account')
+      select 'Myself', from: 'opportunity_assigned_to'
       select 'Prospecting', from: 'opportunity_stage'
       click_link 'Comment'
       fill_in 'comment_body', with: 'This is a very important opportunity.'
@@ -67,6 +68,7 @@ feature 'Opportunities', '
       fill_in 'account_name', with: 'Example Account'
       select 'Prospecting', from: 'opportunity_stage'
       select 'Upsell', from: 'opportunity_category'
+      select 'Myself', from: 'opportunity_assigned_to'
       click_link 'Comment'
       fill_in 'comment_body', with: 'This is a very important opportunity.'
       click_button 'Create Opportunity'
@@ -108,7 +110,7 @@ feature 'Opportunities', '
   scenario 'should view and edit an opportunity', js: true do
     create(:account, name: 'Example Account')
     create(:account, name: 'Other Example Account')
-    create(:opportunity, name: 'A Cool Opportunity')
+    create(:opportunity, name: 'A Cool Opportunity', assignee: @user)
     with_versioning do
       visit opportunities_page
       click_link 'A Cool Opportunity'
@@ -134,7 +136,7 @@ feature 'Opportunities', '
   end
 
   scenario 'should search for an opportunity', js: true do
-    2.times { |i| create(:opportunity, name: "Opportunity #{i}") }
+    2.times { |i| create(:opportunity, name: "Opportunity #{i}", assignee: @user) }
     visit opportunities_page
     expect(find('#opportunities')).to have_content("Opportunity 0")
     expect(find('#opportunities')).to have_content("Opportunity 1")

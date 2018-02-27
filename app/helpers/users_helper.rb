@@ -23,10 +23,15 @@ module UsersHelper
     User.by_name
   end
 
-  def user_select(asset, users, myself)
+  def user_select(options = {})
+    users = options.fetch(:users, all_users)
+    myself = options.fetch(:myself, current_user)
+    asset = options.fetch(:asset, :opportunity)
+    blank_option = asset == :opportunity ? {} : { include_blank: t(:unassigned) }
+
     user_options = user_options_for_select(users, myself)
     select(asset, :assigned_to, user_options,
-           { include_blank: t(:unassigned) },
+           blank_option,
            style: 'width: 160px;',
            class: 'select2')
   end

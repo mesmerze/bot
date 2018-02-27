@@ -8,7 +8,7 @@
         %td= spacer
         %td
           .label #{t :assigned_to}:
-          = user_select(:shop, User.without(current_user), current_user)
+          = user_select(asset: :shop, users: User.without(current_user))
         %td= spacer
         %td
           .label.top #{t :country}:

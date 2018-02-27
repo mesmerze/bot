@@ -31,8 +31,15 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe Opportunity do
   it "should create a new instance given valid attributes" do
-    @account = create(:account)
-    expect(Opportunity.create!(name: "Opportunity", stage: 'analysis', category: 'new', account: @account, probability: 100, amount: 100)).to be_valid
+    account = create(:account)
+    assignee = create(:user)
+    expect(Opportunity.create!(name: "Opportunity",
+                               stage: 'analysis',
+                               category: 'new',
+                               account: account,
+                               probability: 100,
+                               amount: 100,
+                               assignee: assignee)).to be_valid
   end
 
   it "should be possible to create opportunity with the same name" do
@@ -152,7 +159,10 @@ describe Opportunity do
     end
 
     context "unassigned" do
-      let(:unassigned_opportunity) { create(:opportunity, assignee: nil) }
+      let(:unassigned_opportunity) do
+        unassigned = build(:opportunity, assignee: nil)
+        unassigned.save(validate: false) && unassigned
+      end
       let(:assigned_opportunity) { create(:opportunity, assignee: create(:user)) }
 
       it "includes unassigned opportunities" do

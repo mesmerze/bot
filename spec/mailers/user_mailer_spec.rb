@@ -35,8 +35,8 @@ describe UserMailer do
   end
 
   describe "assigned_entity_notification" do
-    let(:assigner) { build(:user, first_name: "Bob", last_name: "Hope") }
-    let(:assignee) { build(:user, email: "assignee@example.com") }
+    let(:assigner) { create(:user, first_name: "Bob", last_name: "Hope") }
+    let(:assignee) { create(:user, email: "assignee@example.com") }
 
     context "for an account" do
       let(:account) { build_stubbed(:account, id: 16, name: 'Ghostbusters', user: assigner, assignee: assignee) }

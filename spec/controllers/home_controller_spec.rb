@@ -56,7 +56,7 @@ describe HomeController do
       opportunity_1 = create(:opportunity, name: "Your first opportunity", closes_on: 15.days.from_now, assigned_to: current_user.id, stage: 'proposal')
       opportunity_2 = create(:opportunity, name: "Another opportunity for you", closes_on: 10.days.from_now, assigned_to: current_user.id, stage: 'proposal')
       opportunity_3 = create(:opportunity, name: "Third Opportunity", closes_on: 5.days.from_now, assigned_to: current_user.id, stage: 'proposal')
-      opportunity_4 = create(:opportunity, name: "Fourth Opportunity", closes_on: 50.days.from_now, assigned_to: nil, user_id: current_user.id, stage: 'proposal')
+      opportunity_4 = create(:opportunity, name: "Fourth Opportunity", closes_on: 50.days.from_now, assigned_to: current_user.id, user_id: current_user.id, stage: 'proposal')
 
       create(:opportunity_in_pipeline, name: "Someone else's Opportunity", assigned_to: create(:user).id, stage: 'proposal')
       create(:opportunity_in_pipeline, name: "Not my opportunity", assigned_to: create(:user).id, stage: 'proposal')
@@ -69,7 +69,7 @@ describe HomeController do
       account_1 = create(:account, name: "Anderson", assigned_to: current_user.id)
       account_2 = create(:account, name: "Wilson", assigned_to: current_user.id)
       account_3 = create(:account, name: "Triple", assigned_to: current_user.id)
-      account_4 = create(:account, name: "Double", assigned_to: nil, user_id: current_user.id)
+      account_4 = create(:account, name: "Double", assigned_to: current_user.id, user_id: current_user.id)
 
       create(:account, name: "Someone else's Account", assigned_to: create(:user).id)
       create(:account, name: "Not my account", assigned_to: create(:user).id)

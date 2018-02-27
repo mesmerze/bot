@@ -63,8 +63,8 @@ feature 'Opportunities Overview', "
   end
 
   scenario "Viewing Opportunity Overview when all opportunities are unassigned" do
-    create(:opportunity, name: "Acting", stage: 'prospecting', assignee: nil)
-    create(:opportunity, name: "Presenting", stage: 'won', assignee: nil)
+    build(:opportunity, name: "Acting", stage: 'prospecting', assignee: nil).save(validate: false)
+    build(:opportunity, name: "Presenting", stage: 'won', assignee: nil).save(validate: false)
 
     visit opportunity_overview_page
 
@@ -77,7 +77,7 @@ feature 'Opportunities Overview', "
 
   scenario "Viewing Opportunity Overview when there are no opportunities in the pipeline" do
     create(:opportunity, name: "Presenting", stage: 'lost', assignee: create(:user))
-    create(:opportunity, name: "Eating", stage: 'won', assignee: nil)
+    build(:opportunity, name: "Eating", stage: 'won', assignee: nil).save(validate: false)
 
     visit opportunity_overview_page
 

@@ -24,16 +24,16 @@ describe UsersHelper do
 
   describe "user_select" do
     it "includes blank option" do
-      expect(user_select(:lead, [user1, user2], myself)).to match(/<option value="">Unassigned<\/option>/)
+      expect(user_select(asset: :lead, users: [user1, user2], myself: myself)).to match(/<option value="">Unassigned<\/option>/)
     end
 
     it "includes myself" do
-      expect(user_select(:lead, [user1, user2], myself)).to match(/<option value="54">Myself<\/option>/)
+      expect(user_select(asset: :lead, users: [user1, user2], myself: myself)).to match(/<option value="54">Myself<\/option>/)
     end
 
     it "includes other users" do
-      expect(user_select(:lead, [user1, user2], myself)).to match(/<option value="60">Bob Hope<\/option>/)
-      expect(user_select(:lead, [user1, user2], myself)).to match(/<option value="75">Billy Joel<\/option>/)
+      expect(user_select(asset: :lead, users: [user1, user2], myself: myself)).to match(/<option value="60">Bob Hope<\/option>/)
+      expect(user_select(asset: :lead, users: [user1, user2], myself: myself)).to match(/<option value="75">Billy Joel<\/option>/)
     end
   end
 end
