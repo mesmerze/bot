@@ -14,6 +14,10 @@
           %td
             .label.top #{t :last_name}:
             = f.text_field :last_name
+          %td= spacer
+          %td
+            .label.top #{t :month_revenue}:
+            = f.text_field :month_revenue
         %tr
           %td
             .label.top #{t :job_title}:
@@ -22,6 +26,10 @@
           %td
             .label.top #{t :company}:
             = f.text_field :company
+          %td= spacer
+          %td
+            .label.top #{t :month_shops}:
+            = f.text_field :month_shops
     .subtitle #{t :contact_info}
     .section
       %table

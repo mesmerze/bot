@@ -1,4 +1,7 @@
-$('#kpi').html('#{ j render(template: "/analysis/kpi") }');
+$('#analysis_kpis').html('#{ j render(template: "/analysis/kpi") }');
+- if @redraw_users
+  $('.selectors').html('#{ j render(template: "/analysis/redraw_users") }');
+  $('.select2-multi').select2MultiCheckboxes();
 
 :plain
   var chart = {
@@ -169,6 +172,39 @@ $('#kpi').html('#{ j render(template: "/analysis/kpi") }');
     }
   };
 
+  var summary = {
+    ...chart,
+    bindto: '#sales_summary',
+    data: {
+      x: 'x',
+      columns: [
+        ['x'].concat(#{raw json_escape(@kpi.scale_middle)}),
+        ['target'].concat(#{@kpi.target_line}),
+        ['projected'].concat(#{@kpi.projections}),
+        ['closed'].concat(#{@kpi.closed})
+      ],
+      types: { projected: 'bar', closed: 'bar' }
+    },
+    point: { show: false },
+    legend: {
+      show: true
+    },
+    axis: {
+      ...chart.axis,
+      y: {
+        label: {
+          text: 'Monthly Revenue',
+          position: 'outer-middle'
+        },
+        tick: { format: d3.format("$,") }
+      },
+      x: {
+        type : 'category',
+        label: { text: '+/- 6 Months', position: 'outer-center' }
+      }
+    }
+  };
+
   var leads_chart = c3.generate(chart);
   var opportunities_chart = c3.generate(opportunities);
   var opportunities_closed_chart = c3.generate(closed_opportunities);
@@ -176,3 +212,4 @@ $('#kpi').html('#{ j render(template: "/analysis/kpi") }');
   var live_shops_chart = c3.generate(live_shops);
   var expected_revenue_chart = c3.generate(expected_revenue);
   var closed_revenue_chart = c3.generate(closed_revenue);
+  var summary_chart = c3.generate(summary);

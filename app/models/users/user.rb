@@ -91,6 +91,8 @@ class User < ActiveRecord::Base
   cattr_accessor :current_user
 
   validates_presence_of :email, message: :missing_email
+  validates_numericality_of :month_revenue, allow_blank: true, greater_than_or_equal_to: 0
+  validates_numericality_of :month_shops, allow_blank: true, greater_than_or_equal_to: 0
 
   #----------------------------------------------------------------------------
   def name

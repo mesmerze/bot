@@ -127,6 +127,8 @@ class Admin::UsersController < Admin::ApplicationController
       :skype,
       :password,
       :password_confirmation,
+      :month_shops,
+      :month_revenue,
       group_ids: []
     )
   end

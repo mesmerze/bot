@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180124111802) do
+ActiveRecord::Schema.define(version: 20180301113853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -483,6 +483,9 @@ ActiveRecord::Schema.define(version: 20180124111802) do
     t.boolean "admin", default: false, null: false
     t.datetime "suspended_at"
     t.string "single_access_token"
+    t.integer "month_revenue"
+    t.integer "month_shops"
+    t.jsonb "projections", default: {}
     t.index ["email"], name: "index_users_on_email"
     t.index ["perishable_token"], name: "index_users_on_perishable_token"
     t.index ["persistence_token"], name: "index_users_on_persistence_token"

@@ -23,8 +23,7 @@ class UsersController < ApplicationController
     respond_with(@user)
   end
 
-  # GET /users/new
-  # GET /users/new.js
+  # GET /users/new # GET /users/new.js
   #----------------------------------------------------------------------------
   def new
     respond_with(@user)

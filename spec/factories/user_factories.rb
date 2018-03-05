@@ -21,6 +21,8 @@ FactoryBot.define do
     google nil
     skype nil
     admin false
+    month_revenue       { rand(10000..100000) }
+    month_shops         { rand(1..10) }
     password_hash       { SecureRandom.hex(64) }
     password_salt       { SecureRandom.hex(64) }
     persistence_token   { SecureRandom.hex(64) }

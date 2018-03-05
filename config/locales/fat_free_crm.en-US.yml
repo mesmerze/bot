@@ -662,6 +662,8 @@ en-US:
   num_live_shops: '# of Shops set to Live'
   expected_revenue: $ of Expected Revenue
   closed_revenue: $ of Closed Revenue
+  select_group: Select Group
+  sales_summary: Sales Summary
 
   # Views -> Home.
   #----------------------------------------------------------------------------
@@ -861,6 +863,9 @@ en-US:
   user_suspended_on: suspended on %{value}
   users: Users
   users_small: users
+  month_shops: Target Shops set to Live per Month
+  month_revenue: Target Revenue per Month
+  sales_target: Sales
 
   # Views -> Versions
   #----------------------------------------------------------------------------

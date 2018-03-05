@@ -16,3 +16,7 @@ end
 every :friday, at: local('8:30pm') do
   rake "tscrm:weekly_report"
 end
+
+every "0 0 28-31 * *" do
+  rake "tscrm:save_projections"
+end

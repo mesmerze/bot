@@ -5,10 +5,12 @@ class AnalysisController < ApplicationController
 
   def index
     @users = User.all
+    @groups = Group.all.map { |g| [g.name, g.id] } << ['Unassigned group', :unassigned]
   end
 
   def draw_kpi
-    @kpi = KpiFactory.new(params[:user_id], params[:countries])
+    @kpi = KpiFactory.new(params[:groups], params[:users], params[:countries])
+    @redraw_users = @kpi.users if params[:redraw].present?
 
     respond_with(@kpi)
   end

@@ -45,5 +45,5 @@ opportunity_<%= i %>:
   updated_at  : <%= (created_at + rand(36_000).seconds).to_s(:db) %>
   background_info : <%= FFaker::Lorem.paragraph[0,255] %>
   closes_on   : <%= created_at + (rand(100) + 10).days %>
-  projected_close_date: <%= Date.today + rand(360).days %>
+  projected_close_date: <%= created_at + rand(70).days %>
 <% end %>

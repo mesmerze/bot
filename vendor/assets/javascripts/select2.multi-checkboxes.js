@@ -13,8 +13,7 @@
     self.options = options;
     self.$element = $(element);
 	var values = self.$element.val();
-    self.$element.removeAttr('multiple');
-    self.select2 = self.$element.select2({
+    self.$element.removeAttr('multiple'); self.select2 = self.$element.select2({
       allowClear: false,
       minimumResultsForSearch: options.minimumResultsForSearch,
       placeholder: options.placeholder,
@@ -67,7 +66,7 @@
           if (selected.length) {
             return "Selected: " + selected.length;
           } else {
-            return "Default: All countries";
+            return "Default: All selected";
           }
         },
         wrapClass: 'wrap',
