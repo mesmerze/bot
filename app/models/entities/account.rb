@@ -151,6 +151,19 @@ class Account < ActiveRecord::Base
     end
   end
 
+  def save_with_opportunity
+    return false unless save
+    Opportunity.create(name: 'Initial Sign Up',
+                       user: user,
+                       account: self,
+                       assignee: user,
+                       amount: 150,
+                       probability: 100,
+                       category: 'new',
+                       stage: 'prospecting',
+                       shops: shops)
+  end
+
   # Class methods.
   #----------------------------------------------------------------------------
   def self.create_or_select_for(model, params)
