@@ -1,5 +1,23 @@
 # TS Changelog
 
+### 0.3.0
+
+- Fix complete/uncomplete tasks with specific 'due at' time (#115)
+- Add orgs/shops relations to tasks and show tasks on landings (#108)
+- Hide permissions on entities create/edit (#116)
+- Mailer report (#106)
+- Fix selecting sales dashboard tab on users profile page
+- Compact sales dashboard (#113)
+- Add comments to shops landing page (#117)
+- Hide comments on Account/Org landings (#118)
+- Assigned user are required for opportunities (#121)
+- Realign Descriptions & Fix cancel opportunities edit (#126)
+- Rename Leads tab to Marketing (#129)
+- Multiselect groups and users in KPI report (#127)
+- Add task and schedule for projections at the end of every month
+- Add task to save projections of demo data
+- Auto create intial opportunity (#128)
+
 ### 0.2.1
 
 - Fix revenue calculations, fix entities counter

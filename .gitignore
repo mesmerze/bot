@@ -11,6 +11,8 @@ db/*.sql*
 log/*.log
 doc/
 dist/
+node_modules
+public/packs
 vendor/bundle
 Gemfile.ci.lock
 
