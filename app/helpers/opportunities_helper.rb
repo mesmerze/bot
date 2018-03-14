@@ -86,19 +86,19 @@ module OpportunitiesHelper
   private
 
   def opportunity_closes_on_message(opportunity, won_or_lost)
-    if opportunity.closes_on
+    if opportunity.projected_close_date
       if won_or_lost
-        if opportunity.closes_on >= Date.today
-          t(:closing_date, l(opportunity.closes_on, format: :mmddyy))
+        if opportunity.projected_close_date >= Date.today
+          t(:closing_date, l(opportunity.projected_close_date, format: :mmddyy))
         else
-          t(:closed_ago_on, time_ago: distance_of_time_in_words(opportunity.closes_on, Date.today), date: l(opportunity.closes_on, format: :mmddyy))
+          t(:closed_ago_on, time_ago: distance_of_time_in_words(opportunity.projected_close_date, Date.today), date: l(opportunity.projected_close_date, format: :mmddyy))
         end
-      elsif opportunity.closes_on > Date.today
-        t(:expected_to_close, time: distance_of_time_in_words(Date.today, opportunity.closes_on), date: l(opportunity.closes_on, format: :mmddyy))
-      elsif opportunity.closes_on == Date.today
+      elsif opportunity.projected_close_date > Date.today
+        t(:expected_to_close, time: distance_of_time_in_words(Date.today, opportunity.projected_close_date), date: l(opportunity.projected_close_date, format: :mmddyy))
+      elsif opportunity.projected_close_date == Date.today
         content_tag(:span, t(:closes_today), class: 'warn')
       else
-        content_tag(:span, t(:past_due, distance_of_time_in_words(opportunity.closes_on, Date.today)), class: 'warn')
+        content_tag(:span, t(:past_due, distance_of_time_in_words(opportunity.projected_close_date, Date.today)), class: 'warn')
       end
     else
       t(:no_closing_date)
