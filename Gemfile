@@ -59,6 +59,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'rubocop', '~> 0.52.0' # Pinned because upgrades require regenerating rubocop_todo.yml
   gem 'rainbow'
+  gem 'rack-mini-profiler'
 end
 
 group :test do
@@ -75,6 +76,11 @@ group :heroku do
   gem 'rails_12factor'
 end
 
+gem 'rails', github: 'rails', branch: '5-2-stable'
+gem 'cancancan', github: 'lizzyaustad/cancancan', branch: 'rails_5_2_upgrade_fixes'
+gem 'webpacker'
+gem 'foreman'
+gem 'rails-jquery-autocomplete'
 gem 'puma', '~> 3.0'
 gem 'sass-rails'
 gem 'coffee-rails'
@@ -84,7 +90,7 @@ gem 'execjs'
 gem 'therubyracer', platform: :ruby unless ENV["CI"]
 gem 'nokogiri', '>= 1.8.1'
 gem 'activemodel-serializers-xml'
-gem 'bootsnap', require: false
+# gem 'bootsnap', require: false
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'fog-aws'
 gem 'aws-ses', '0.6.0', require: 'aws/ses'

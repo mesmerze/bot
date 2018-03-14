@@ -8,7 +8,7 @@
       %tr
         %td
           .label #{t :assigned_to}:
-          = user_select(asset: :org, users: User.without(current_user))
+          = user_select(asset: :org, users: User.without_user(current_user))
         %td= spacer
         %td
           .label.req #{t :category}:

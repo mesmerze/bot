@@ -8,7 +8,7 @@
 require 'paper_trail'
 
 class Version < PaperTrail::Version
-  ASSETS = %w[all tasks campaigns leads accounts contacts opportunities comments emails]
+  ASSETS = %w[all tasks campaigns leads accounts contacts opportunities comments emails shops orgs]
   EVENTS = %w[all_events create view update destroy]
   DURATION = %w[one_hour one_day two_days one_week two_weeks one_month]
 
@@ -43,7 +43,7 @@ class Version < PaperTrail::Version
     end
 
     def latest(options = {})
-      includes(:item, :related, :user)
+      includes(:related, :user)
         .where(({ item_type: options[:asset] } if options[:asset]))
         .where(({ event:     options[:event] } if options[:event]))
         .where(({ whodunnit: options[:user].to_s } if options[:user]))

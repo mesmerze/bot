@@ -42,8 +42,7 @@ module OpportunitiesHelper
     campaigns = ([selected_campaign] + Campaign.my(current_user).order(:name).limit(25)).compact.uniq
     collection_select :opportunity, :campaign_id, campaigns, :id, :name,
                       { selected: options[:selected], include_blank: true },
-                      style: 'width:330px;', class: 'select2',
-                      placeholder: t(:select_a_campaign)
+                      style: 'width:330px;', class: 'select2', placeholder: t(:select_a_campaign)
   end
 
   def blockers?(opportunity)

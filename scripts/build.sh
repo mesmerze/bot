@@ -28,6 +28,9 @@ if [ ! -d /tmp/build/vendor/cache ]; then rm -rf /tmp/build/vendor/cache; fi
 cp -R $BUNDLE_PATH /tmp/build/vendor/bundle
 pushd /tmp/build >/dev/null
 
+echo "NPM install..."
+npm install
+
 echo "Pre-compiling assets..."
 bundle exec rake assets:precompile
 

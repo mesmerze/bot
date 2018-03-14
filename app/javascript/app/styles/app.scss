@@ -1,0 +1,34 @@
+/*
+ * Copyright (c) 2008-2013 Michael Dvorkin and contributors.
+ *
+ * Fat Free CRM is freely distributable under the terms of MIT license.
+ * See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
+ *------------------------------------------------------------------------------
+ */
+
+// Node modules css import
+@import "~select2/dist/css/select2.min";
+@import "~font-awesome/scss/font-awesome";
+
+// Vendor css import
+@import "~stylesheets/jquery-ui.custom";
+@import "~stylesheets/modalbox";
+@import "~stylesheets/ransack_ui_bootstrap/search";
+@import "~stylesheets/c3";
+@import "~stylesheets/select2.multi-checkboxes";
+
+// Application css import
+@import "_rails";
+@import "_safari";
+@import "_base";
+@import "_header";
+@import "_common";
+@import "_fields";
+@import "_textarea_autocomplete";
+@import "_admin";
+@import "_advanced_search";
+@import "_format_buttons";
+@import "_lists";
+@import "_orgs";
+@import "_about";
+@import "_print";

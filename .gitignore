@@ -1,6 +1,4 @@
-config/*.yml
 config/deploy.rb
-!settings.yml
 
 .rspec
 spec/reports
@@ -34,3 +32,8 @@ Design
 
 .passenger
 .vagrant
+/public/packs
+/public/packs-test
+/node_modules
+yarn-debug.log*
+.yarn-integrity

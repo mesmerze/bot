@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       match :auto_complete, via: %i[get post]
       get :redraw
       get :versions
+      get :shops, to: 'opportunities#shops'
     end
     member do
       put :attach

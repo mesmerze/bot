@@ -29,10 +29,8 @@ module FatFreeCRM
   class Application < Rails::Application
     VERSION = File.read(Rails.root.join('VERSION')).strip
 
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
+    # Settings in config/environments/* take precedence over those specified here.  # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-
     # Models are organized in sub-directories
     config.autoload_paths += Dir[Rails.root.join("app/models/**")] +
                              Dir[Rails.root.join("app/controllers/entities")]
@@ -41,7 +39,7 @@ module FatFreeCRM
     config.autoload_once_paths += [File.expand_path("../app/models/fields/field.rb", __FILE__)]
 
     # Activate observers that should always be running.
-    unless ARGV.join.include?('assets:precompile')
+    unless ARGV.join.include?('assets:precompile') || ARGV.join.include?('db:create')
       config.active_record.observers = :lead_observer, :opportunity_observer, :task_observer, :entity_observer
     end
 
@@ -72,6 +70,8 @@ module FatFreeCRM
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += %i[password password_hash password_salt password_confirmation]
+
+    config.active_record.sqlite3.represent_boolean_as_integer = true
   end
 end
 

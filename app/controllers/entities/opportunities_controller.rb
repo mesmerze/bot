@@ -178,7 +178,7 @@ class OpportunitiesController < EntitiesController
   private
 
   def order_by_attributes(scope, order)
-    scope.stage_sort.order(order)
+    scope.stage_sort.order(Arel.sql(order))
   end
 
   def all_shops?
