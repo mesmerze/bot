@@ -40,8 +40,8 @@ module NavigationHelpers
     admin_groups_path
   end
 
-  def opportunity_overview_page
-    opportunities_overview_users_path
+  def sales_dashboard_page
+    dashboard_path
   end
 end
 

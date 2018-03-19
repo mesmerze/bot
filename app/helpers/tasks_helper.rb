@@ -95,8 +95,8 @@ module TasksHelper
   def replace_content(task, bucket = nil)
     partial = task.assigned_to && task.assigned_to != current_user.id ? "assigned" : "pending"
 
-    html = if request.referrer.include? 'opportunities_overview'
-             render(partial: "users/pending", collection: [task], locals: { bucket: bucket })
+    html = if from_dashboard?
+             render(partial: "dashboard/pending", collection: [task], locals: { bucket: bucket })
            else
              render(partial: "tasks/#{partial}", collection: [task], locals: { bucket: bucket })
            end
@@ -153,10 +153,6 @@ module TasksHelper
 
   def can_manage?(task)
     task.tracked_by?(current_user) || current_user.admin
-  end
-
-  def from_dashboard?
-    request.referrer&.include?('opportunities_overview')
   end
 
   # render assign entities only on /tasks/index

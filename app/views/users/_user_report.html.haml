@@ -1,8 +1,0 @@
-- opportunities = user_report.assigned_opportunities.pipeline.stage_sort.order(@sort).includes(:user, :tasks, :comments, :account, :tags, :emails)
-
-%li{id: dom_id(user_report)}
-  .title
-    %span#title
-      = user_report.full_name
-  %ul.list#opportunities
-    = render partial: "users/opportunity", collection: opportunities, locals: { user: user_report, opportunities: opportunities }

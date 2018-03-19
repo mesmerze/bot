@@ -9,8 +9,8 @@
 - else # Completing from the Asset page -- replace task partial with completed one.
 
   $('##{dom_id(@task)}').hide();
-  -if request.referrer.include? 'opportunities_overview'
-    $('##{dom_id(@task)}').html('#{ j render(partial: "users/completed", collection: [ @task ], locals: { bucket: nil }) }');
+  -if from_dashboard?
+    $('##{dom_id(@task)}').html('#{ j render(partial: "dashboard/completed", collection: [ @task ], locals: { bucket: nil }) }');
   -else
     $('##{dom_id(@task)}').html('#{ j render(partial: "tasks/completed", collection: [ @task ], locals: { bucket: nil }) }');
   $('##{dom_id(@task)}').fadeIn({ duration:500 });

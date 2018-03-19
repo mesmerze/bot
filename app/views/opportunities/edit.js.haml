@@ -9,7 +9,7 @@
     crm.set_title('edit_#{entity_name}', '#{h @entity.name}');
   - else                                            # Called from index page...
     - if from_dashboard?
-      $('##{id}').replaceWith('#{ j render(partial: 'users/detailed_view', locals: { opportunity: @entity, blockers: blockers?(@entity)}) }');
+      $('##{id}').replaceWith('#{ j render(partial: 'dashboard/detailed_view', locals: { opportunity: @entity, blockers: blockers?(@entity)}) }');
     - else
       $('##{id}').replaceWith('#{ j render(partial: entity_name, collection: [ @entity ]) }');
 

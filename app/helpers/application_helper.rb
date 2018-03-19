@@ -354,10 +354,11 @@ module ApplicationHelper
   #----------------------------------------------------------------------------
   def links_to_export(action = :index)
     token = current_user.single_access_token
-    url_params = { action: action }
+    @controller = controller_name == 'dashboard' ? 'opportunities' : controller_name
+    url_params = { controller: @controller, action: action }
     url_params[:id] = params[:id] unless params[:id].blank?
     url_params[:query] = params[:query] unless params[:query].blank?
-    url_params[:q] = params[:q] unless params[:q].blank?
+    url_params[:q] = params[:q]&.permit! unless params[:q].blank?
     url_params[:view] = @view unless @view.blank? # tasks
     url_params[:id] = params[:id] unless params[:id].blank?
 
@@ -508,6 +509,10 @@ module ApplicationHelper
     options = { params: { action: 'index' } }.merge(options) if controller.action_name == 'filter'
     options = { renderer: RemoteLinkPaginationHelper::LinkRenderer }.merge(options)
     will_paginate(collection, options)
+  end
+
+  def from_dashboard?
+    request.referrer&.include?('dashboard')
   end
 
   private

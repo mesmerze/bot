@@ -23,6 +23,11 @@ Rails.application.routes.draw do
   match '/home/timezone', as: :timezone, via: %i[get put post]
   post '/home/redraw', as: :redraw
 
+  get '/dashboard'        => 'dashboard#index', as: :dashboard
+  get '/dashboard/redraw' => 'dashboard#redraw', as: :redraw_dashboard
+  get '/dashboard/shops' => 'opportunities#shops'
+  get '/dashboard/opportunities/:id' => 'dashboard#opportunities', as: :dashboard_opportunities
+
   resource :authentication, except: %i[index edit]
   resources :comments,       except: %i[new show]
   resources :emails,         only: [:destroy]
@@ -178,8 +183,6 @@ Rails.application.routes.draw do
     end
     collection do
       match :auto_complete, via: %i[get post]
-      get :opportunities_overview
-      post :filter
     end
   end
 

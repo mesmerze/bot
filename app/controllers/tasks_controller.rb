@@ -136,7 +136,7 @@ class TasksController < ApplicationController
     @task&.update_attributes(completed_at: Time.now, completed_by: current_user.id)
 
     # Make sure bucket's div gets hidden if it's the last completed task in the bucket.
-    empty_bucket unless request.referrer&.include?('opportunities_overview')
+    empty_bucket unless helpers.from_dashboard?
 
     update_sidebar unless params[:bucket].blank?
     respond_with(@task)
@@ -149,7 +149,7 @@ class TasksController < ApplicationController
     @task&.update_attributes(completed_at: nil, completed_by: nil, calendar: @task.due_at&.strftime('%Y-%m-%d %H:%M'))
 
     # Make sure bucket's div gets hidden if we're deleting last task in the bucket.
-    empty_bucket unless request.referrer&.include?('opportunities_overview')
+    empty_bucket unless helpers.from_dashboard?
 
     update_sidebar
     respond_with(@task)

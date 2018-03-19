@@ -18,6 +18,7 @@
       = javascript_pack_tag "locales/#{I18n.locale}"
 
     = csrf_meta_tag
+    = content_for :render_async
     = hook(:javascript_includes, self)
 
     :javascript

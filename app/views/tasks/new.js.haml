@@ -5,7 +5,7 @@ crm.flick('empty', 'toggle');
   crm.flip_form('create_task');
 
 - unless params[:cancel].true?
-  - if request.referrer =~ /opportunities_overview/
+  - if from_dashboard?
     $('##{params[:related]}').next('.log').find('#create_task').html('#{ j render(partial: "new") }');
   -else
     $('#create_task').html('#{ j render(partial: "new") }');

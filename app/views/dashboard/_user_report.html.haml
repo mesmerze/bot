@@ -1,0 +1,11 @@
+%li{id: dom_id(user_report)}
+  .title
+    %span#title
+      = user_report.full_name
+  %ul.list#opportunities
+    - if user_report.assigned_opportunities.blank?
+      = t(:no_opportunities_found)
+    - else
+      = render_async dashboard_opportunities_path(user_report, ids: @searched_ids, sort: @sort_by, stages: @stages), event_name: 'opportunities-loaded' do
+        .label{ style: 'display:inline-block;' } Opportunities are loading...
+        = image_tag("loading.gif", size: :thumb, id: "loading", style: "display: inline-block;")

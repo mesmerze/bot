@@ -206,8 +206,7 @@
   :text: :tab_team
   :icon: :fa-globe
   :url:
-    :controller: users
-    :action: opportunities_overview
+    :controller: dashboard
 - :active: false
   :text: :tab_tasks
   :icon: :fa-check-square-o
@@ -218,11 +217,6 @@
   :icon: :fa-tasks
   :url:
     :controller: leads
-- :active: false
-  :text: :tab_opportunities
-  :icon: :fa-money
-  :url:
-    :controller: opportunities
 - :active: false
   :text: :tab_campaigns
   :icon: :fa-bar-chart-o

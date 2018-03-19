@@ -4,12 +4,12 @@
   - comments = opportunity.comments.sort_by(&:created_at).reverse
 
 = dashboard_buttons(opportunity, :tasks)
-= render '/users/detailed_view', opportunity: opportunity, blockers: blockers?(opportunity)
+= render '/dashboard/detailed_view', opportunity: opportunity, blockers: blockers?(opportunity)
 .log{style: 'padding: 0px 0px 8px 0px; border-bottom: 1px silver dotted;'}
   #tasks.indent
     = content_tag(:div, "", class: :remote, id: 'create_task', style: "display:none;")
     -unless opportunity.tasks.blank?
-      = render partial: "/users/task", collection: opportunity.tasks, as: :task, cached: true
+      = render partial: "/dashboard/task", collection: opportunity.tasks, as: :task, cached: true
   #comments.indent.hide-comments
     = render "comments/new", commentable: opportunity
     = render partial: "shared/timeline", collection: comments, cached: true

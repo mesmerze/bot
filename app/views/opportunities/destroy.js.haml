@@ -2,7 +2,7 @@
 - @entity = instance_variable_get("@#{entity_name}")
 
 $('##{dom_id(@entity)}').css('background-color', '#ffe4e1').slideUp(250);
-- if request.referrer =~ /opportunities_overview/
+- if from_dashboard?
   $('##{dom_id(@entity)}').next('.log').remove();
 - if called_from_index_page?
   = refresh_sidebar(:index, :filters)

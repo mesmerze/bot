@@ -35,7 +35,7 @@
     - else # Inline [Create Task] form reqested from any of the core asset landing pages.
       - if from_dashboard?
         $('#opportunity_#{asset}').next('.log').find('#create_task_title').html('#{ j t(:tasks) }');
-        $('#opportunity_#{asset}').next('.log').find('#tasks').append('#{ j render(partial: "users/task", collection: [@task], locals: { bucket: nil }) }');
+        $('#opportunity_#{asset}').next('.log').find('#tasks').append('#{ j render(partial: "dashboard/task", collection: [@task], locals: { bucket: nil }) }');
       -else
         $('#create_task_title').html('#{ j t(:tasks) }');
         - partial = (@task.assigned_to && @task.assigned_to != current_user.id) ? "assigned" : "pending"

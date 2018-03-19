@@ -2,8 +2,8 @@
 
 - if params[:cancel].true?     # <----------------- Hide [Edit Task]
 
-  -if request.referrer.include? 'opportunities_overview'
-    - partial = @task.completed_at? ? '/users/completed' : '/users/pending'
+  -if from_dashboard?
+    - partial = @task.completed_at? ? '/dashboard/completed' : '/dashboard/pending'
   -else
     - partial = (@task.assigned_to && @task.assigned_to != current_user.id) ? "assigned" : "pending"
 
@@ -17,8 +17,8 @@
   -# Hide open [Edit Lead] form if any.
   - if @previous
     - if @previous.is_a?(Task)
-      -if request.referrer.include? 'opportunities_overview'
-        - partial = @task.completed_at? ? '/users/completed' : '/users/pending'
+      -if from_dashboard?
+        - partial = @task.completed_at? ? '/dashboard/completed' : '/dashboard/pending'
       -else
         - partial = (@previous.assigned_to && @previous.assigned_to != current_user.id) ? "assigned" : "pending"
       $('##{dom_id(@previous)}').replaceWith('#{ j render(partial: partial, collection: [ @previous ], locals: { bucket: nil }) }');

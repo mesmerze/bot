@@ -41,56 +41,25 @@ module UsersHelper
   end
 
   def opportunity_group_checkbox(value)
-    checked = true
-    url = url_for(action: :filter)
     onclick = %{
       $(this).siblings().find("input:checkbox").prop('checked', $(this).prop('checked'));
-      var values = [];
-      var users = [];
-      var view = 'detailed';
-      $('input[name=&quot;group[]&quot;]').filter(':checked').each(function () {
-        values.push(this.value);
-      });
-      $('input[name=&quot;user[]&quot;]').filter(':checked').each(function () {
-        users.push(this.value);
-      });
-      $('#loading').show();
-      $('#overlay').show();
-      if ($('.overview_basic-button').hasClass('active')) {
-        view = 'basic';
-      };
-      $.post('#{url}', {groups: values.join(','), users: users.join(','), sort: $('#opportunities_sort').val()}, function () {
-        $('#loading').hide();
-        $('#overlay').hide();
-      });
+      crm.grab_filters();
     }.html_safe
-    check_box_tag("group[]", value, checked, id: "checkbox_group_#{value}", onclick: onclick)
+    check_box_tag("group[]", value, true, id: "checkbox_group_#{value}", onclick: onclick)
   end
 
   def opportunity_group_users_checkbox(value)
-    checked = true
-    url = url_for(action: :filter)
     onclick = %{
-      var groups = [];
-      var users = [];
-      var view = 'detailed';
-      $('input[name=&quot;group[]&quot;]').filter(':checked').each(function () {
-        groups.push(this.value);
-      });
-      $('input[name=&quot;user[]&quot;]').filter(':checked').each(function () {
-        users.push(this.value);
-      });
-      $('#loading').show();
-      $('#overlay').show();
-      if ($('.overview_basic-button').hasClass('active')) {
-        view = 'basic';
-      };
-      $.post('#{url}', {groups: groups.join(','), users: users.join(','), sort: $('#opportunities_sort').val(), view: view}, function () {
-        $('#loading').hide();
-        $('#overlay').hide();
-      });
+      crm.grab_filters();
     }.html_safe
-    check_box_tag("user[]", value, checked, id: "checkbox_user_#{value}", onclick: onclick, style: "margin: 0 0 0 20px;")
+    check_box_tag("user[]", value, true, id: "checkbox_user_#{value}", onclick: onclick, style: "margin: 0 0 0 20px;")
+  end
+
+  def dashboard_stage_checkbox(value)
+    onclick = %{
+      crm.grab_filters();
+    }.html_safe
+    check_box_tag("stage[]", value, true, id: value, onclick: onclick)
   end
 
   def dashboard_buttons(related, assets)

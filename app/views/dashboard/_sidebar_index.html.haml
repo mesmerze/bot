@@ -1,0 +1,34 @@
+.dashboard_filters
+  .filters#filters
+    #overlay{ style: "width: 100%; height: 100%; position: absolute; z-index:10; display:none;" }
+    .caption= t :groups
+    - @users_with_opportunities.each do |group, users|
+      .check_box{style: "border-bottom: 1px silver dotted;"}
+        = opportunity_group_checkbox(group)
+        = label_tag(@groups.find_by(id: group).name)
+        = link_to("<small>&#9668;</small>".html_safe, '#', class: "flip_users")
+        .users_filter{ style: "display: none;" }
+          - users.each do |user|
+            .check_box{style: "border-bottom: 1px silver dotted;"}
+              = opportunity_group_users_checkbox(user.id)
+              = label_tag("#{user.first_name} #{user.last_name}")
+
+  .filters#filters
+    .caption= t :opportunity_stages
+    - @stage.each do |value, key|
+      .check_box{style: "border-bottom: 1px silver dotted;"}
+        %div{style: "float:right;"}
+          = @opportunity_stage_total[key]
+        = dashboard_stage_checkbox(key)
+        = label_tag(key, value)
+
+    .check_box{style: "border-bottom: 1px silver dotted;"}
+      %div{style: "float:right;"}
+        = @opportunity_stage_total[:other]
+      = dashboard_stage_checkbox("other")
+      = label_tag(:other, t(:other))
+
+    .check_box
+      %div{style: "float:right;"}
+        %b= @opportunity_stage_total[:all]
+      %b #{t :total_opportunities}

@@ -1,16 +1,13 @@
 = styles_for :opportunity, :task
 
 .title_tools
-  .dashboard_sort{style: "vertical-align: top; display: inline-block;"}
-    %span#title #{t :sort_by, {field: ':'}}
-    = select_tag "sort", options_for_select(@options_for_sort, @options_for_sort[7].second), id: 'opportunities_sort'
   #buttons
     =content_tag :ul, class: 'format-buttons' do
       %li
-        =link_to('#', class: "overview_basic-button") do
+        =link_to('#', class: "overview_basic-button", title: 'Short format') do
           =content_tag(:i, nil, class: "fa fa-bars")
       %li
-        =link_to('#', class: "overview_detailed-button active") do
+        =link_to('#', class: "overview_detailed-button active", title: 'Long format') do
           =content_tag(:i, nil, class: "fa fa-list")
 
   .create_asset
@@ -21,6 +18,8 @@
   = image_tag("loading.gif", size: :thumb, id: "loading", style: "display: none;")
 
 .remote#create_opportunity{ hidden }
+
+= render 'entities/search'
 
 #assigned
   - if @users_with_opportunities.any?
@@ -41,3 +40,5 @@
         = t(:unassigned_opportunities)
     %ul.list#opportunities
       = render partial: "opportunities/opportunity", collection: @unassigned_opportunities
+
+#export= render "shared/export"

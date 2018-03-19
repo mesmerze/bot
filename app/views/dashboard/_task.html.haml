@@ -1,0 +1,4 @@
+- if task.completed_at? && task.within_10_days
+  = render "dashboard/completed", completed: task, bucket: nil
+- else
+  = render "dashboard/pending", pending: task, bucket: nil

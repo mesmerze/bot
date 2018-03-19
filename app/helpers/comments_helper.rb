@@ -12,7 +12,7 @@ module CommentsHelper
   end
 
   def on_dashboard?
-    controller.action_name == 'opportunities_overview'
+    controller_name == 'dashboard'
   end
 
   def advice_comment(org)

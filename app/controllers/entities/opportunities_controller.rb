@@ -6,6 +6,7 @@
 # See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 #------------------------------------------------------------------------------
 class OpportunitiesController < EntitiesController
+  before_action -> { set_current_tab(:tab_team) }, only: :show
   before_action :load_settings
   before_action :get_data_for_sidebar, only: :index
   before_action :set_params, only: %i[index redraw filter]

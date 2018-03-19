@@ -192,7 +192,8 @@ class EntitiesController < ApplicationController
 
   #----------------------------------------------------------------------------
   def filter_out(scope)
-    filter = session[:"#{controller_name}_filter"].to_s.split(',')
+    filter = session[:"#{controller_name}_filter"]
+    filter = filter&.is_a?(Array) ? filter : filter.to_s.split(',')
     filter.present? ? scope.state(filter) : scope
   end
 

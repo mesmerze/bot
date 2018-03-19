@@ -438,6 +438,34 @@
           @searchRequest = null
       )
 
+    #----------------------------------------------------------------------------
+    dashboard_search: (query, controller) ->
+      $("#loading").show()
+      groups = []
+      users = []
+      stages = []
+      view = 'basic'
+      $('input[name="group[]"]').filter(':checked').each ->
+        groups.push(this.value)
+      $('input[name="user[]"]').filter(':checked').each ->
+        users.push(this.value)
+      $('input[name="stage[]"]').filter(':checked').each ->
+        stages.push(this.value)
+      sort = $('#opportunities_sort').val()
+      view = 'basic' if $('.overview_basic-button').hasClass('active')
+      @searchRequest.abort()  if @searchRequest and @searchRequest.readyState isnt -4
+      @searchRequest = $.get(
+        @base_url + "/" + controller + "/redraw" + ".js"
+        query: query
+        groups: groups
+        users: users
+        sort: sort
+        view: view
+        stages: stages
+        ->
+          $("#loading").hide()
+          @searchRequest = null
+      )
 
     #----------------------------------------------------------------------------
     jumper: (controller) ->
@@ -502,6 +530,53 @@
       $('ul[id^="user_"]').each (e, user)->
         $(user).css("display", "block")
         $(user).toggle($(user).find('.bucket:visible').children().length > 0)
+
+    grab_groups: ->
+      groups = []
+      $('input[name="group[]"]').filter(':checked').each ->
+        groups.push(this.value)
+      return groups
+
+    grab_users: ->
+      users = []
+      $('input[name="user[]"]').filter(':checked').each ->
+        users.push(this.value)
+      return users
+
+    grab_stages: ->
+      stages = []
+      $('input[name="stage[]"]').filter(':checked').each ->
+        stages.push(this.value)
+      return stages
+
+    grab_query: ->
+      $('#query').val()
+
+    grab_view: ->
+      view = 'detailed'
+      if $('.overview_basic-button').hasClass('active')
+        view = 'basic'
+      return view
+
+    grab_sort: ->
+      $('#opportunities_sort').val()
+
+    grab_filters: ->
+      filters = {
+        stages: crm.grab_stages(),
+        groups: crm.grab_groups(),
+        users: crm.grab_users(),
+        sort: crm.grab_sort(),
+        view: crm.grab_view(),
+        query: crm.grab_query()
+      }
+      $("#loading").show()
+      $.get(
+        "dashboard/redraw"
+        filters
+        ->
+          $("#loading").hide()
+      )
 
   $ ->
     crm.focus_on_first_field()

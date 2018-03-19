@@ -12,17 +12,15 @@
     )
 
   $(document).on 'change', '#opportunities_sort', ->
-    groups = []
-    users = []
-    view = 'detailed'
-    $('input[name="group[]"]').filter(':checked').each ->
-      groups.push(this.value)
-    $('input[name="user[]"]').filter(':checked').each ->
-      users.push(this.value)
     $('#loading').show()
-    if $('.overview_basic-button').hasClass('active')
-      view = 'basic'
-    $.post "/users/filter", { groups: groups.join(','), users: users.join(','), sort: $(this).val(), view: view }, ->
+    $.get "/dashboard/redraw", {
+      stages: crm.grab_stages(),
+      groups: crm.grab_groups(),
+      users: crm.grab_users(),
+      sort: crm.grab_sort(),
+      view: crm.grab_view(),
+      query: crm.grab_query()
+    }, ->
       $('#loading').hide()
 
   $(document).on 'click', '.overview_basic-button', (e)->
@@ -55,6 +53,15 @@
   $(document).on 'click', '.add_comment', (e)->
     e.preventDefault()
     create_comment = $(this).parent().next().next().find('.dashboard_comment')
+    comments = $(this).parent().next().next().find('li.comment:visible').slice(1)
     create_comment.slideToggle(250)
+    return unless comments.length
+    comments.each ->
+      $(this).slideToggle(250)
+
+  $(document).on 'opportunities-loaded', ->
+    if $('.overview_basic-button').hasClass('active')
+      $('.log').hide()
+      $('.dashboard_tools').hide()
 
 ) jQuery

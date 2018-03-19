@@ -8,9 +8,9 @@
     crm.set_title('edit_#{entity_name}', '#{h @entity.name}');
     = refresh_sidebar(:show, :summary)
   - else
-    -if request.referrer =~ /opportunities_overview/
+    -if from_dashboard?
       var prev = $('##{id}');
-      $("#user_#{@entity.assigned_to}").find('#opportunities').prepend('#{ j render(partial: '/users/opportunity', collection: [ @entity ]) }');
+      $("#user_#{@entity.assigned_to}").find('#opportunities').prepend('#{ j render(partial: '/dashboard/opportunity', collection: [ @entity ]) }');
       $('##{id}').effect("highlight", { duration:1500 });
       prev.next('.log').remove();
       prev.remove();

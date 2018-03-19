@@ -1,0 +1,9 @@
+$('#assigned').html('#{ j render(partial: "dashboard/assigned_opportunities") }');
+$('#search_results_count').html('#{ j render(plain: t('search_results_count', count: @search_results_count)) }');
+$('#export').html('#{ j render(partial: "shared/export") }');
+
+- if controller.action_name == 'index'
+  $('.dashboard_filters').replaceWith('#{ j render(partial: "dashboard/sidebar_index") }');
+
+-if params[:view] == 'basic'
+  $('.log').hide();
