@@ -26,7 +26,7 @@ describe OpportunitiesController do
     end
 
     it "should expose all opportunities as @opportunities and render [index] template" do
-      @opportunities = [create(:opportunity, user: current_user)]
+      @opportunities = [create(:opportunity, user: current_user, assignee: current_user)]
 
       get :index
       expect(assigns[:opportunities]).to eq(@opportunities)

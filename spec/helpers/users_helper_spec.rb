@@ -23,6 +23,10 @@ describe UsersHelper do
   end
 
   describe "user_select" do
+    include Devise::Test::ControllerHelpers
+
+    before { sign_in myself }
+
     it "includes blank option" do
       expect(user_select(asset: :lead, users: [user1, user2], myself: myself)).to match(/<option value="">Unassigned<\/option>/)
     end

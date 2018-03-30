@@ -864,6 +864,7 @@ en-US:
   user_suspended_on: suspended on %{value}
   users: Users
   users_small: users
+  cant_find_user: Can't find user with email
   month_shops: Target Shops set to Live per Month
   month_revenue: Target Revenue per Month
   sales_target: Sales

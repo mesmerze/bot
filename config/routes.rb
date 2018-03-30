@@ -10,12 +10,27 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
+  # Deprecated: Compatibility with legacy Authlogic routes
+  get '/login',  to: redirect('/users/sign_in')
+  get '/signup', to: redirect('/users/sign_up')
+
+  devise_for :users, controllers: { registrations: 'registrations',
+                                    sessions: 'sessions',
+                                    passwords: 'passwords',
+                                    confirmations: 'confirmations',
+                                    omniauth_callbacks: 'omniauth_callbacks' }
+
+  devise_scope :user do
+    resources :users, only: %i[index show] do
+      collection do
+        get :opportunities_overview
+      end
+    end
+  end
+
   get 'activities' => 'home#index'
-  get 'admin'      => 'admin/users#index',       :as => :admin
-  get 'login'      => 'authentications#new',     :as => :login
-  delete 'logout'  => 'authentications#destroy', :as => :logout
-  get 'profile'    => 'users#show',              :as => :profile
-  get 'signup'     => 'users#new',               :as => :signup
+  get 'admin'      => 'admin/users#index',       as: :admin
+  get 'profile'    => 'users#show',              as: :profile
 
   get '/home/options',  as: :options
   get '/home/toggle',   as: :toggle
@@ -28,10 +43,8 @@ Rails.application.routes.draw do
   get '/dashboard/shops' => 'opportunities#shops'
   get '/dashboard/opportunities/:id' => 'dashboard#opportunities', as: :dashboard_opportunities
 
-  resource :authentication, except: %i[index edit]
   resources :comments,       except: %i[new show]
   resources :emails,         only: [:destroy]
-  resources :passwords,      only: %i[new create edit update]
 
   resources :accounts, id: /\d+/ do
     collection do
@@ -173,7 +186,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, id: /\d+/, except: %i[index destroy] do
+  resources :users, id: /\d+/, except: %i[index destroy create] do
     member do
       get :avatar
       get :password

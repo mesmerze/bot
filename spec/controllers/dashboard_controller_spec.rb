@@ -6,7 +6,7 @@ describe DashboardController do
   describe "responding to GET sales dashboard" do
     before(:each) do
       login
-      @user = @current_user
+      @user = current_user
       @group = Group.create(name: 'test')
       @user.update_attributes(first_name: "Apple", last_name: "Boy", groups: [@group])
     end
@@ -14,7 +14,7 @@ describe DashboardController do
     it "should assign @users_with_opportunities" do
       create(:opportunity, stage: "prospecting", assignee: @user)
       get :index, xhr: true
-      expect(assigns[:users_with_opportunities]).to eq(@group.id => [@current_user])
+      expect(assigns[:users_with_opportunities]).to eq(@group.id => [current_user])
     end
 
     it "@users_with_opportunities should be ordered by name" do

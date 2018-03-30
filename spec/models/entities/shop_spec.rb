@@ -10,7 +10,7 @@ describe Shop do
   context 'attach opportunity and contact to shop' do
     before do
       @account = create(:account)
-      @shop = create(:shop, account: @account, user: current_user)
+      @shop = create(:shop, account: @account, user: create(:user))
       @contact = create(:contact)
       @opportunity = create(:opportunity)
     end
@@ -37,7 +37,7 @@ describe Shop do
 
   context 'discard' do
     before do
-      @shop = create(:shop, user: current_user)
+      @shop = create(:shop, user: create(:user))
       @contact = create(:contact)
       @opportunity = create(:opportunity)
       @shop.contacts << @contact
