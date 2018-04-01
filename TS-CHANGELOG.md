@@ -1,6 +1,6 @@
 # TS Changelog
 
-### 0.3.0
+### 0.4.0
 
 - Fix expected close date bug (#133)
 - Refactor: Migrate assets to Webpacker (#131)
