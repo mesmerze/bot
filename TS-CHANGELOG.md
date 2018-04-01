@@ -2,6 +2,14 @@
 
 ### 0.3.0
 
+- Fix expected close date bug (#133)
+- Refactor: Migrate assets to Webpacker (#131)
+- Refactor: Migrate user auth to Devise (#135)
+- Improvements to Sales Dashboard (#130)
+- Enable Google Oauth login
+
+### 0.3.0
+
 - Fix complete/uncomplete tasks with specific 'due at' time (#115)
 - Add orgs/shops relations to tasks and show tasks on landings (#108)
 - Hide permissions on entities create/edit (#116)
