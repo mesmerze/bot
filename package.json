@@ -1,4 +1,10 @@
 {
+  "name": "ts-crm",
+  "version": "1.0.0",
+  "main": "",
+  "repository": "https://github.com/kkvesper/ts-crm",
+  "license": "",
+  "private": true,
   "dependencies": {
     "@rails/webpacker": "^3.3.0",
     "cocoon": "github:nathanvda/cocoon",
@@ -16,8 +22,7 @@
     "select2": "^4.0.3",
     "url-loader": "^1.0.1",
     "webpack-jquery-ui": "^1.0.0",
-    "webpack-merge": "^4.1.1",
-    "yarn": "^1.5.1"
+    "webpack-merge": "^4.1.1"
   },
   "devDependencies": {
     "webpack-dev-server": "^2.11.1"

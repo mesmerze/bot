@@ -10,3 +10,4 @@ vendor/cache/**/*
 vendor/cache
 vendor/bundle/**/*
 vendor/bundle
+node_modules/

@@ -6,11 +6,11 @@ services:
       - dbdata:/var/lib/postgresql/data
   web:
     build: .
-    image: app
+    image: ts-crm
     command: ./scripts/start.sh
     volumes:
       - .:/code
-      - bundle-dev:/bundle
+      - deps-dev:/deps
     ports:
       - "3000:3000"
     links:
@@ -19,42 +19,47 @@ services:
       - db
     environment:
       - RAILS_ENV=development
-      - BUNDLE_PATH=/bundle
+      - BUNDLE_PATH=/deps/bundle
       - BUNDLE_JOBS=4
       - TS_CRM_DATABASE_HOST=db
       - TS_CRM_DATABASE_USER=postgres
   test:
     build: .
-    image: app
+    image: ts-crm
     command: ./scripts/test.sh
     volumes:
-      - bundle-dev:/bundle
+      - deps-dev:/deps
     links:
       - db
     depends_on:
       - db
     environment:
       - RAILS_ENV=test
-      - BUNDLE_PATH=/bundle
+      - BUNDLE_PATH=/deps/bundle
       - BUNDLE_JOBS=4
       - TS_CRM_DATABASE_HOST=db
       - TS_CRM_DATABASE_USER=postgres
   artifact:
-    build:
-      context: .
-    image: app
+    build: .
+    image: ts-crm
     command: ./scripts/build.sh
     volumes:
-      - bundle-build:/bundle
+      - deps-build:/deps
       - ./dist:/dist
     environment:
       - RAILS_ENV=production
-      - BUNDLE_PATH=/bundle
+      - BUNDLE_PATH=/deps/bundle
       - BUNDLE_JOBS=4
+      - BUNDLE_IGNORE_CONFIG=1
+      - BUNDLE_GLOBAL_GEM_CACHE=1
+      - BUNDLE_FROZEN=1
+      - BUNDLE_DEPLOYMENT=1
+      - BUNDLE_WITHOUT=development:test
+      - BUNDLE_GEMFILE=/code/Gemfile
       - HOST_USER_ID
       - HOST_USER_GID
 
 volumes:
-  bundle-build:
-  bundle-dev:
+  deps-build:
+  deps-dev:
   dbdata:
