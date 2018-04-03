@@ -1,5 +1,9 @@
 # TS Changelog
 
+### 0.4.1
+
+- Fix Google env vars (#137)
+
 ### 0.4.0
 
 - Fix expected close date bug (#133)
