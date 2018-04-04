@@ -31,6 +31,7 @@ en-US:
   tab_orgs: Orgs
   tab_shops: Shops
   tab_kpi: Analysis
+  tab_meetings: Meetings
   admin_tab_groups: Groups
   admin_tab_users: Users
   admin_tab_fields: Custom Fields
@@ -213,6 +214,18 @@ en-US:
             email:
               missing_email: ^Please specify email address.
               email_in_use: ^There is another user with the same email.
+        meeting:
+          attributes:
+            name:
+              missing_meeting_name: ^Please specify meeting name.
+            assigned_to:
+              missing_assigned_user: ^Please specify assigned user.
+            account_id:
+              missing_account: ^Please select an account.
+            meeting_start:
+              missing_meeting_date: ^Please specify meeting start
+            timezone:
+              missing_timezone: ^Please specify timezone
         custom_field:
           required: ^%{field} is required.
           minlength: ^%{field} is too short.
@@ -668,6 +681,32 @@ en-US:
   select_group: Select Group
   sales_summary: Sales Summary
 
+  # View -> Meetings.
+  #----------------------------------------------------------------------------
+  meetings: Meetings
+  create_meeting: Create meeting
+  meeting_date: Meeting date
+  summary: Summary
+  important: Important
+  upcoming: Upcoming
+  done: Done
+  select_type: Select type
+  meeting_type: Meeting type
+  meeting_small: meeting
+  initial_demo: Initial Demo
+  it_marketing: IT/Marketing
+  executive: Executive
+  shop_staff: Shop Staff
+  general_meeting: General Meeting
+  no_users: No users to show
+  empty_summary: Summary not provided
+  save_meeting: Save Meeting
+  meeting_starts_at: meeting starts at %{date}
+  time_zone: Time Zone
+  meeting_start: Meeting Start
+  meeting_document: Attachment
+  ts_crm: TS CRM
+
   # Views -> Home.
   #----------------------------------------------------------------------------
   action_completed: completed
@@ -693,6 +732,9 @@ en-US:
   subject_opportunity: opportunity
   subject_task: task
   subject_user: user
+  subject_shop: shop
+  subject_org: org
+  subject_meeting: meeting
   tag_list: Tags
   create_past_participle: Record Creations
   view_past_participle: Views

@@ -14,6 +14,7 @@ import './js/browser_fix';
 import 'webpack-jquery-ui'; // CSS and JS for jquery-ui here
 import 'select2';
 import 'cocoon/app/assets/javascripts/cocoon';
+import 'fullcalendar';
 
 // Vendor js import
 import 'javascripts/autocomplete-rails';
@@ -26,8 +27,7 @@ import 'javascripts/ransack_ui_jquery/search_form';
 import 'javascripts/ransack_ui_jquery/search_form';
 import 'javascripts/select2.multi-checkboxes';
 
-// Application js import
-import d3 from "d3";
+// Application js import import d3 from "d3";
 import c3 from 'javascripts/c3';
 global.c3 = c3;
 import './js/timeago.coffee';
@@ -52,6 +52,11 @@ import './js/dashboard.coffee';
 import './js/kpi.coffee';
 import './js/lead_picker.coffee';
 import './js/shops_picker.coffee';
+import './js/meetings.coffee';
+
+import * as ActiveStorage from 'javascripts/activestorage'
+import './js/direct_uploads';
+ActiveStorage.start();
 
 // CSS import
 import './styles/app';

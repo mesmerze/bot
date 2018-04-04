@@ -1,0 +1,15 @@
+.remote
+  = hidden_field_tag 'meeting_id', @meeting.id
+  = simple_form_for(@meeting, html: one_submit_only, remote: true) do |f|
+    = link_to_close edit_meeting_path(@meeting)
+    = f.hidden_field :user_id
+
+    = f.error_messages object_name: t('meeting')
+
+    = render "meetings/top_section", f: f, edit: true
+    = hook(:entity_form, self, {f: f, entity: @meeting})
+
+    .buttonbar
+      = f.submit t(:save_meeting)
+      #{t :or}
+      = link_to_cancel edit_meeting_path(@meeting)

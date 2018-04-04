@@ -34,6 +34,8 @@ FactoryBot.define do
     updated_at          { FactoryBot.generate(:time) }
     created_at          { FactoryBot.generate(:time) }
     suspended_at nil
+    oauth_token nil
+    refresh_token nil
     password "password"
     password_confirmation "password"
   end

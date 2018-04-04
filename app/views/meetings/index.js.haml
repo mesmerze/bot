@@ -1,0 +1,4 @@
+$('.list').replaceWith('#{ j render(partial: 'meetings') }');
+
+- if @users_filter.blank?
+  $('.filters').replaceWith('#{ j render(partial: 'sidebar_index') }');

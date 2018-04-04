@@ -3,7 +3,7 @@
 // Fat Free CRM is freely distributable under the terms of MIT license.
 // See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 //------------------------------------------------------------------------------
-#search {
+#search, #meetings-index {
 
   margin-top: 15px;
 
@@ -27,10 +27,13 @@
     }
   }
 
-  .search_form {
+  .search_form, .list {
     border: none;
     background-color: #eee;
     padding: 10px;
+    li.meeting {
+      background-color: #eee;
+    }
   }
 
   .options {

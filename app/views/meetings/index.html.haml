@@ -1,0 +1,26 @@
+= styles_for :meeting
+
+.title_tools
+  #buttons
+    =content_tag :ul, class: 'format-buttons' do
+      %li
+        =link_to('#', :"data-meetings-view" => 'list', class: "list-meetings active") do
+          =content_tag(:i, nil, class: "fa fa-list")
+      %li
+        =link_to('#', :"data-meetings-view" => 'calendar', class: "calendar-meetings") do
+          =content_tag(:i, nil, class: "fa fa-calendar")
+  .create_asset
+    = link_to_inline("create_meeting".to_sym, send("new_meeting_path"), text: t("create_meeting".to_sym))
+
+.title{style: 'display: block;'}
+  %span#title #{t :tab_meetings}
+  = image_tag("loading.gif", sjze: :thumb, id: "loading", style: "display: none;")
+
+.remote#create_meeting{ hidden }
+
+.remote#options{ hidden }
+
+#meetings-index
+  = render partial: 'upcoming_done', locals: { meetings: @meetings }
+
+#calendar

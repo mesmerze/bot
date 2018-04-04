@@ -1,0 +1,6 @@
+= account_section(object, :meetings)
+.list#meetings
+  - meetings = object.meetings.order('updated_at desc').paginate(page: 1, per_page: 20)
+  = render partial: "meetings/meeting", collection: meetings
+
+= paginate( collection: meetings, id: 'meetings_pagination', params: { action: 'meetings' } )

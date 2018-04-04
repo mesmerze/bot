@@ -1,7 +1,7 @@
 (($) ->
 
   # handle account change in edit form
-  $(document).on 'change', "#account_id", ->
+  $(document).on 'change', ".opportunity #account_id, .contact #account_id, #create_contact #account_id, #create_opportunity #account_id", ->
     selected_account = $("option:selected", this).val()
     current_opportunity = $("#opportunity_id").val()
     path = $(location).attr("pathname").replace(/\/\d+$/, '') # HACK Find another solution

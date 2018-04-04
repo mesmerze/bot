@@ -1,0 +1,42 @@
+%li.highlight[meeting]
+  - if meeting.meeting_type
+    .strip{style: 'width:90px;', class: meeting.meeting_type}= t(meeting.meeting_type)
+  - else
+    .strip.white{style: 'width:90px;'} #{t :other}
+
+  %ul.tools
+    - if can?(:update, meeting)
+      %li= link_to_edit(meeting)
+
+    - if can?(:destroy, meeting)
+      %li= link_to_delete(meeting)
+
+  .indentwide
+    = link_to('', '#', class: "ui-icon ui-icon-carat-1-e flip_summary")
+
+    = link_to(meeting.account.name, meeting.account)
+    &ndash;
+    = meeting.name + ", "
+    %tt
+      = t(:meeting_starts_at, date: l(parse_time(meeting), format: :mmddhhss))
+      = " | "
+      - user_name = meeting.user.try(:full_name)
+
+      - if user_name
+        = t(:added_by, time_ago: timeago(meeting.account.created_at), user: h(user_name)).html_safe
+      - else
+        = t(:added_ago, value: timeago(meeting.created_at)).html_safe
+
+      - if meeting.important
+        = " | "
+        .ui-icon-red.ui-icon.ui-icon-flag{style: "display:inline-block;"}
+
+      - if meeting.attachment?
+        = " | "
+        = link_to meeting.document.blob.filename.to_s, rails_blob_path(meeting.document, disposition: "attachment")
+
+    .summary[meeting]{ style: 'display:none;' }
+      - unless meeting.summary.blank?
+        = simple_format meeting.summary
+      - else
+        = simple_format t(:empty_summary), class: 'empty-summary'

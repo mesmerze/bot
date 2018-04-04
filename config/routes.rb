@@ -205,6 +205,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :meetings, id: /\d+/ do
+    collection do
+      get :calendar
+    end
+  end
+
   namespace :admin do
     resources :groups
 

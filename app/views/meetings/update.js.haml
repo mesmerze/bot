@@ -1,0 +1,22 @@
+- entity_name = controller.controller_name.singularize.underscore
+- @entity = instance_variable_get("@#{entity_name}")
+- id = called_from_landing_page? ? "edit_#{entity_name}" : dom_id(@entity)
+
+- if @entity.errors.empty?
+  -if called_from_index_page?
+    var prev = $('##{id}');
+    prev.remove();
+    $("#user_#{@entity.assigned_to}").find('#meetings').prepend('#{ j render(partial: 'meeting', collection: [ @entity ]) }');
+    $('##{id}').effect("highlight", { duration:1500 });
+    $('#recently').replaceWith('#{ j render(partial: "shared/recently") }');
+  -elsif called_from_landing_page?(:accounts)
+    $('##{id}').replaceWith('#{ j render(partial: entity_name, collection: [ @entity ]) }');
+    $('##{id}').effect("highlight", { duration:1500 });
+    = refresh_sidebar_for(:accounts, :show, :summary)
+    $('#recently').replaceWith('#{ j render(partial: "shared/recently") }');
+- else
+  $('##{id}').html('#{ j render(partial: "edit") }');
+  $('##{id} .remote').effect("shake", { duration:250, distance: 6 });
+  $('##{dom_id(@entity, :edit)} input[type!=hidden]').first().focus();
+
+= hook(:entity_update, self, {entity: @entity})

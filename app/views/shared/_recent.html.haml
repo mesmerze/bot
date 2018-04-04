@@ -1,4 +1,7 @@
 - title = (recent.item.respond_to?(:full_name) ? recent.item.full_name : recent.item.name)
 %li{ class: recent != @versions.last ? "" : "last" }
-  %dt= link_to(truncate(title, length: 19), polymorphic_url(recent.item), title: title)
+  - unless recent.item.is_a? Meeting
+    %dt= link_to(truncate(title, length: 19), polymorphic_url(recent.item), title: title)
+  - else
+    %dt= truncate(recent.item.name, length: 19)
   %tt= t(recent.item_type.downcase) + ":"

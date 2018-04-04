@@ -27,10 +27,13 @@ module AccountsHelper
   #----------------------------------------------------------------------------
   def account_select(options = {})
     options[:selected] = @account&.id.to_i
-    accounts = ([@account.new_record? ? nil : @account] + Account.my(current_user).order(:name).limit(25)).compact.uniq
-    collection_select :account, :id, accounts, :id, :name,
+    width = options.fetch(:width, 330)
+    asset = options.fetch(:asset, :account)
+    attr = options.fetch(:attr, :id)
+    accounts = ([@account&.new_record? ? nil : @account] + Account.my(current_user).order(:name).limit(25)).compact.uniq
+    collection_select asset, attr, accounts, :id, :name,
                       { include_blank: true },
-                      style: 'width:330px;', class: 'select2',
+                      style: "width:#{width}px;", class: 'select2',
                       placeholder: t(:select_an_account),
                       "data-url": auto_complete_accounts_path(format: 'json')
   end

@@ -1,0 +1,12 @@
+.list
+  - if @meetings_with_users.any?
+    - @meetings_with_users.each do |user_id, meetings|
+      - if meetings.any?
+        %ul{id: "user_#{user_id}"}
+          .title
+            %span#title
+              = @users.find { |u| u[:id] == user_id }[:full_name]
+          #meetings
+            = render partial: "meeting", collection: meetings
+  - else
+    = render "shared/empty"

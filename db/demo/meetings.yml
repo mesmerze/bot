@@ -1,0 +1,23 @@
+<%
+  require "ffaker"
+  puts "Loading meetings..."
+
+  type = %w(initial_demo it_marketing executive shop_staff general_meeting) << ""
+
+  for i in (1 .. rand(20) + 50) do
+%>
+meeting_<%= i %>:
+  id            : <%= i %>
+  name          : <%= FFaker::Lorem::sentence %>
+  user_id       : <%= rand(8) + 1 %>
+  assigned_to   : <%= rand(8) + 1 %>
+  account_id    : <%= Account.ids.sample %>
+  meeting_type  : <%= type.sample %>
+  important     : <%= [true, false].sample %>
+  summary       : <%= FFaker::Lorem.paragraph[0,255] %>
+  meeting_start : <%= DateTime.parse (1.months.ago + rand(60).days + rand(23).hours).to_s %>
+  timezone      : <%= ActiveSupport::TimeZone.all.map(&:name).sample %>
+  access        : Public
+  created_at    : <%= created_at = (rand(360) + 2).days.ago + rand(600).minutes; created_at.to_s(:db) %>
+  updated_at    : <%= (created_at + rand(36_000).seconds).to_s(:db) %>
+<% end %>

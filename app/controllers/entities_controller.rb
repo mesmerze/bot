@@ -85,6 +85,11 @@ class EntitiesController < ApplicationController
   def shops
   end
 
+  # GET /entities/meetings
+  #----------------------------------------------------------------------------
+  def meetings
+  end
+
   # GET /entities/versions                                                 AJAX
   #----------------------------------------------------------------------------
   def versions

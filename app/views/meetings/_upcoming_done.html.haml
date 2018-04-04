@@ -1,0 +1,8 @@
+.tabs
+  %ul
+    %li
+      = link_to t('upcoming'), '#', :"data-meetings-index" => 'upcoming', class: 'flip_meetings active', id: 'upcoming'
+    %li
+      = link_to t('done'), '#', :"data-meetings-index" => "done", class: 'flip_meetings', id: 'done'
+
+= render 'meetings'

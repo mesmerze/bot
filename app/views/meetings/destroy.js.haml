@@ -1,0 +1,8 @@
+- entity_name = controller.controller_name.singularize.underscore
+- @entity = instance_variable_get("@#{entity_name}")
+
+$('##{dom_id(@entity)}').css('background-color', '#ffe4e1').slideUp(250);
+- if called_from_landing_page?(:accounts)
+  = refresh_sidebar_for(:accounts, :show, :summary)
+- else
+  $('#recently').replaceWith('#{ j render(partial: "shared/recently") }');

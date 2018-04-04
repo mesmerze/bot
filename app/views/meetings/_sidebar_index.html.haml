@@ -1,0 +1,9 @@
+.filters#filters#meetings_filters
+  #overlay{ style: "width: 100%; height: 100%; position: absolute; z-index:10; display:none;" }
+  .caption= t :users
+  - @users.each do |user|
+    .check_box{style: "border-bottom: 1px silver dotted;"}
+      = meetings_user_checkbox(user[:id])
+      = user[:full_name]
+  - if @users.blank?
+    = t :no_users

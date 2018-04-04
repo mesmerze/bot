@@ -44,6 +44,7 @@ class Account < ActiveRecord::Base
   has_many :addresses, dependent: :destroy, as: :addressable, class_name: "Address" # advanced search uses this
   has_many :emails, as: :mediator
   has_many :shops
+  has_many :meetings, dependent: :destroy
 
   serialize :subscribed_users, Set
 

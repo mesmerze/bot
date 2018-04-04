@@ -11,7 +11,8 @@ RUN apt-get update -qq && \
         lsb-release \
         imagemagick \
         libpq-dev \
-        postgresql-client
+        postgresql-client \
+        libsqlite3-dev
 
 # Add node + yarn repos
 RUN curl -sS https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - >/dev/null && \

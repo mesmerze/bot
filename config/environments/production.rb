@@ -67,5 +67,7 @@ if defined?(FatFreeCRM::Application)
 
     config.action_mailer.delivery_method = :sendmail
     config.action_mailer.default_url_options = { host: ENV['TS_CRM_HOST'] }
+
+    config.active_storage.service = :amazon
   end
 end

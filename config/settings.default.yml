@@ -247,6 +247,11 @@
   :icon: :fa-bar-chart-o
   :url:
     :controller: analysis
+- :active: false
+  :text: :tab_meetings
+  :icon: :fa-bar-chart-o
+  :url:
+    :controller: meetings
 
 :admin_tabs:
 - :active: true
@@ -487,7 +492,22 @@ task_priority_color:
   :high         : Red
   :low          : Green
 
+meeting_type:
+  - :initial_demo
+  - :it_marketing
+  - :executive
+  - :shop_staff
+  - :general_meeting
+
+meeting_type_color:
+  :initial_demo     : Silver
+  :it_marketing     : SpringGreen
+  :executive        : Violet
+  :shop_staff       : CornflowerBlue
+  :general_meeting  : OrangeRed
+
 email_domains:
   - 'kkvesper.jp'
   - 'tablesolution.com'
   - 'tablecheck.com'
+ 

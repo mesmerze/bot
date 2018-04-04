@@ -1,0 +1,13 @@
+= simple_form_for(@meeting, html: one_submit_only, remote: true) do |f|
+  = link_to_close new_meeting_path
+  = f.hidden_field :user_id
+
+  = f.error_messages object_name: t('meeting')
+
+  = render "meetings/top_section", f: f
+  = hook(:entity_form, self, {f: f, entity: @meeting})
+
+  .buttonbar
+    = f.submit t(:create_meeting)
+    #{t :or}
+    = link_to_cancel new_meeting_path

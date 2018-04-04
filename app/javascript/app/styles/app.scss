@@ -9,6 +9,7 @@
 // Node modules css import
 @import "~select2/dist/css/select2.min";
 @import "~font-awesome/scss/font-awesome";
+@import "~fullcalendar/dist/fullcalendar.min";
 
 // Vendor css import
 @import "~stylesheets/jquery-ui.custom";
@@ -16,6 +17,7 @@
 @import "~stylesheets/ransack_ui_bootstrap/search";
 @import "~stylesheets/c3";
 @import "~stylesheets/select2.multi-checkboxes";
+@import "~stylesheets/jquery-ui-timepicker-addon";
 
 // Application css import
 @import "_rails";
@@ -32,3 +34,4 @@
 @import "_orgs";
 @import "_about";
 @import "_print";
+@import "_direct_uploads";

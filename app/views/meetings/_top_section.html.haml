@@ -1,0 +1,49 @@
+= hook(:meeting_top_section, self, f: f) do
+  .section
+    %table
+      %tr
+        %td(colspan="3")
+          .label.top.req #{t :name}:
+          = f.text_field :name, autofocus: true, style: 'width:350px'
+        %td(colspan="2")
+          .label.top #{t :meeting_type}:
+          = f.select :meeting_type,
+            Setting.unroll(:meeting_type),
+            { include_blank: true },
+            { class: 'select2', placeholder: t(:select_type), style: 'width: 160px;' }
+      %tr
+        %td
+          .label.req #{t :account}:
+          = account_select(width: 200, asset: :meeting, attr: :account_id)
+        %td= spacer
+        %td
+          .label.req  #{t :assigned_to}:
+          = user_select(asset: :meeting, users: User.without_user(current_user))
+        %td= spacer
+        %td{ style: 'vertical-align: middle; padding-top: 4%;'}
+          %div{ style: 'white-space:nowrap;' }
+            = f.input_field :important, as: :boolean
+            %label{for: 'meeting_important'}
+              = t(:important)
+              .ui-icon-red.ui-icon.ui-icon-flag{style: 'display:inline-block;'}
+      %tr
+        %td
+          .label #{t :time_zone}:
+          = f.time_zone_select :timezone,
+            ActiveSupport::TimeZone.all,
+            { include_blank: false, prompt: 'Select Time Zone', default: ActiveSupport::TimeZone[session[:timezone_offset]]&.name },
+            { class: 'select2 timezone', style: 'width:200px;' }
+        %td= spacer
+        %td
+          .label.req #{t :meeting_start}:
+          = f.text_field :meeting_start, value: f.object.meeting_start, style: 'width:150px;height:18px', autocomplete: :off, class: 'datetime'
+        %td= spacer
+        %td
+          .label #{t :meeting_document}:
+          = f.file_field :document, multiple: false, direct_upload: true
+      %tr
+        %td(colspan="5")
+          .label #{t :summary}:
+          = f.text_area :summary, style: 'width:500px', rows: 3
+
+      = hook(:meeting_top_section_bottom, self, f: f)

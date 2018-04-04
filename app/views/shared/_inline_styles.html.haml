@@ -33,6 +33,10 @@
     - Setting.shop_stage_color.each do |key, value|
       li.shop .#{key} { background:#{value}; }
 
+  - if models.include?(:meeting)
+    - Setting.meeting_type_color.each do |key, value|
+      li.meeting .#{key} { background:#{value}; }
+
   - if models.include?(:user)
     li.user .admin     { background: lightblue; }
     li.user .suspended { background: gainsboro; }

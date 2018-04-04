@@ -97,10 +97,11 @@ gem 'aws-ses', '0.6.0', require: 'aws/ses'
 gem 'okcomputer'
 gem 'bugsnag'
 gem 'whenever', '~> 0.10.0'
+gem 'aws-sdk-s3', '~> 1'
 gem 'render_async', '~> 1.2'
 gem 'devise', '~>4.4.0'
 gem 'devise-i18n'
 gem "devise-encryptable"
-gem 'google-api-client', require: ['google/apis/plus_v1']
+gem 'google-api-client', require: ['google/apis/plus_v1', 'google/apis/calendar_v3']
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
