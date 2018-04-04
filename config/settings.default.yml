@@ -486,3 +486,8 @@ task_priority_color:
   :blocker      : Black
   :high         : Red
   :low          : Green
+
+email_domains:
+  - 'kkvesper.jp'
+  - 'tablesolution.com'
+  - 'tablecheck.com'

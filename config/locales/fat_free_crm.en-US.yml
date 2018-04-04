@@ -14,6 +14,8 @@ en-US:
   select_none: -- None --
   select_blank: -- Select --
   yes_button: 'Yes'
+  try_again_later: Something went wrong, please try again later
+  access_needed: Please do log in again and give TS CRM requested access rights
 
 
   # Settings.
@@ -816,6 +818,7 @@ en-US:
   closed_revenue: 'Closed Revenue'
   live_shops: 'Live Shops'
   empty_report: 'Sorry, there is nothing to report today'
+  wrong_domain: Email must be hosted by %{emails}
 
   # Views -> Passwords.
   #----------------------------------------------------------------------------

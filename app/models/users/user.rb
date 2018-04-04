@@ -92,7 +92,8 @@ class User < ActiveRecord::Base
             presence: { message: :missing_email },
             length: { minimum: 3, maximum: 254 },
             uniqueness: { message: :email_in_use, case_sensitive: false },
-            format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
+            format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create },
+            domain: true
   validates :username,
             uniqueness: { message: :username_taken, case_sensitive: false },
             presence: { message: :missing_username },
@@ -223,6 +224,7 @@ class User < ActiveRecord::Base
         user.provider = access_token.provider
         user.uid = access_token.uid
         user.oauth_token = access_token.credentials.token
+        user.refresh_token = access_token.credentials.refresh_token
         user.save
         user
       end

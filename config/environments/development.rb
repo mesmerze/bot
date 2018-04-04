@@ -21,7 +21,7 @@ if defined?(FatFreeCRM::Application)
     config.consider_all_requests_local       = true
     config.action_controller.perform_caching = false
 
-    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.delivery_method = :file
     config.action_mailer.default_url_options = { host: ENV['TS_CRM_HOST'] }
 
     # Don't care if the mailer can't send
