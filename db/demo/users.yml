@@ -36,7 +36,7 @@
 aaron:
   id: 1
   username: aaron
-  email: aaron@example.com
+  email: aaron@tablesolution.com
   first_name: Aaron
   last_name: Assembler
   title: VP of Sales
@@ -61,7 +61,7 @@ aaron:
 ben:
   id: 2
   username: ben
-  email: ben@example.com
+  email: ben@tablesolution.com
   first_name: Ben
   last_name: Bootloader
   title: Customer Support
@@ -86,7 +86,7 @@ ben:
 cindy:
   id: 3
   username: cindy
-  email: cindy@example.com
+  email: cindy@tablesolution.com
   first_name: Cindy
   last_name: Cluster
   title: Product Manager
@@ -111,7 +111,7 @@ cindy:
 dan:
   id: 4
   username: dan
-  email: dan@example.com
+  email: dan@tablesolution.com
   first_name: Dan
   last_name: Debugger
   title: Marketing Manager
@@ -136,7 +136,7 @@ dan:
 elizabeth:
   id: 5
   username: elizabeth
-  email: elizabeth@example.com
+  email: elizabeth@tablesolution.com
   first_name: Elizabeth
   last_name: Emulator
   title: Sales Associate
@@ -161,7 +161,7 @@ elizabeth:
 frank:
   id: 6
   username: frank
-  email: frank@example.com
+  email: frank@tablesolution.com
   first_name: Frank
   last_name: Formatter
   title: Project Manager
@@ -186,7 +186,7 @@ frank:
 george:
   id: 7
   username: george
-  email: george@example.com
+  email: george@tablesolution.com
   first_name: George
   last_name: Globals
   title: Sales Manager
@@ -211,7 +211,7 @@ george:
 heather:
   id: 8
   username: heather
-  email: heather@example.com
+  email: heather@tablesolution.com
   first_name: Heather
   last_name: Hash
   title: Account Manager

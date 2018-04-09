@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe SummaryMailer do
   before do
-    @admin = create(:user, email: 'admin@example.com', admin: true)
+    @admin = create(:user, email: 'admin@tablesolution.com', admin: true)
     @fresh_opportunity = create(:opportunity, user: @admin, assigned_to: @admin.id, updated_at: Time.current, stage: 'won')
     @old_opportunity = create(:opportunity, user: @admin, assigned_to: @admin.id, updated_at: Time.current - 1.day, stage: 'won')
   end
@@ -12,8 +12,8 @@ describe SummaryMailer do
   context 'daily report' do
     let(:mail) { SummaryMailer.daily_report(@admin.id) }
 
-    it "sets admin 'admin@example.com' as recipient" do
-      expect(mail.to).to eq(["admin@example.com"])
+    it "sets admin 'admin@tablesolution.com' as recipient" do
+      expect(mail.to).to eq(["admin@tablesolution.com"])
     end
 
     it "includes fresh opportunity in body" do
@@ -28,8 +28,8 @@ describe SummaryMailer do
   context 'weekly report' do
     let(:mail) { SummaryMailer.weekly_report(@admin.id) }
 
-    it "sets admin 'admin@example.com' as recipient" do
-      expect(mail.to).to eq(["admin@example.com"])
+    it "sets admin 'admin@tablesolution.com' as recipient" do
+      expect(mail.to).to eq(["admin@tablesolution.com"])
     end
 
     it "count closed opportunities in body" do

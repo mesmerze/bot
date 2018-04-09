@@ -9,7 +9,7 @@ require 'spec_helper'
 
 describe DeviseMailer do
   describe "reset_password_instructions" do
-    let(:user) { build(:user, email: "forgot_my_password@example.com") }
+    let(:user) { build(:user, email: "forgot_my_password@tablesolution.com") }
     let(:mail) { DeviseMailer.reset_password_instructions(user, user.reset_password_token) }
 
     before(:each) do
@@ -20,8 +20,8 @@ describe DeviseMailer do
       expect(mail.from).to eql(["noreply@fatfreecrm.com"])
     end
 
-    it "sets user 'forgot_my_password@example.com' as recipient" do
-      expect(mail.to).to eq(["forgot_my_password@example.com"])
+    it "sets user 'forgot_my_password@tablesolution.com' as recipient" do
+      expect(mail.to).to eq(["forgot_my_password@tablesolution.com"])
     end
 
     it "sets the subject" do

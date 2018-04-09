@@ -13,7 +13,8 @@ class DashboardController < ApplicationController
     @users_with_opportunities = User.joins(:groups)
                                     .where('groups.id IN (?)', @groups.ids)
                                     .have_assigned_opportunities.select('groups.id as group_id, groups.name as group_name')
-                                    .order('groups.name, users.first_name').group_by(&:group_id)
+                                    .order('groups.name, users.first_name')
+                                    .current_user_first(current_user).group_by(&:group_id)
     @unassigned_opportunities = Opportunity.my(current_user).unassigned.pipeline.order(:stage).includes(:account, :user, :tags)
 
     respond_to do |format|
@@ -28,7 +29,8 @@ class DashboardController < ApplicationController
     @users_with_opportunities = User.joins(:groups)
                                     .where('groups.id IN (?) AND users.id IN (?)', group_ids, user_ids)
                                     .have_assigned_opportunities.select('groups.id as group_id, groups.name as group_name')
-                                    .order('groups.name, users.first_name').includes(:opportunities).group_by(&:group_id)
+                                    .order('groups.name, users.first_name').includes(:opportunities)
+                                    .current_user_first(current_user).group_by(&:group_id)
     @groups = Group.where(id: group_ids).order("name")
     respond_to do |format|
       format.js

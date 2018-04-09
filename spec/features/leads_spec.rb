@@ -33,7 +33,7 @@ feature 'Leads', '
       expect(page).to have_selector('#lead_first_name', visible: true)
       fill_in 'lead_first_name', with: 'Mr'
       fill_in 'lead_last_name', with: 'Lead'
-      fill_in 'lead_email', with: 'mr_lead@example.com'
+      fill_in 'lead_email', with: 'mr_lead@tablesolution.com'
       fill_in 'lead_phone', with: '+44 1234 567890'
       click_link 'Status'
       select 'Myself', from: 'lead_assigned_to'
@@ -48,7 +48,7 @@ feature 'Leads', '
 
       leads_element.click_link('Mr Lead')
       expect(summary_element).to have_content('Contacted')
-      expect(summary_element).to have_content('mr_lead@example.com')
+      expect(summary_element).to have_content('mr_lead@tablesolution.com')
       expect(summary_element).to have_content('+44 1234 567890')
       expect(main_element).to have_content('This is an important lead.')
 
@@ -70,7 +70,7 @@ feature 'Leads', '
   end
 
   scenario 'should view and edit a lead', js: true do
-    create(:lead, first_name: "Mr", last_name: "Lead", email: "mr_lead@example.com")
+    create(:lead, first_name: "Mr", last_name: "Lead", email: "mr_lead@tablesolution.com")
     with_versioning do
       visit leads_page
       click_link 'Mr Lead'
@@ -89,7 +89,7 @@ feature 'Leads', '
   end
 
   scenario 'should delete a lead', js: true do
-    create(:lead, first_name: "Mr", last_name: "Lead", email: "mr_lead@example.com")
+    create(:lead, first_name: "Mr", last_name: "Lead", email: "mr_lead@tablesolution.com")
     visit leads_page
     click_link 'Mr Lead'
     click_link 'Delete?'
@@ -97,11 +97,11 @@ feature 'Leads', '
     click_link 'Yes'
     expect(page).to have_content('Mr Lead has been deleted.')
     expect(page).not_to have_content('Mr Lead')
-    expect(page).not_to have_content('mr_lead@example.com')
+    expect(page).not_to have_content('mr_lead@tablesolution.com')
   end
 
   scenario 'should search for a lead', js: true do
-    2.times { |i| create(:lead, first_name: "Lead", last_name: "\##{i}", email: "lead#{i}@example.com") }
+    2.times { |i| create(:lead, first_name: "Lead", last_name: "\##{i}", email: "lead#{i}@tablesolution.com") }
     visit leads_page
     expect(leads_element).to have_content('Lead #0')
     expect(leads_element).to have_content('Lead #1')

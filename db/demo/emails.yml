@@ -22,7 +22,7 @@
 #  state           :string(16)      default("Expanded"), not null
 #
 
-<% 
+<%
   require "ffaker"
   puts "Loading emails..."
 
@@ -39,9 +39,9 @@ email_<%= i %>:
   mediator_id     : <%= rand(80) + 1 %>
   mediator_type   : <%= mediators.sample %>
   sent_from       : <%= FFaker::Internet.email %>
-  sent_to         : <%= users[user] + "@example.com" %>
-  cc              : <%= users.sample + "@example.com" %>
-  bcc             : <%= users.sample + "@example.com" %>
+  sent_to         : <%= users[user] + "@tablesolution.com" %>
+  cc              : <%= users.sample + "@tablesolution.com" %>
+  bcc             : <%= users.sample + "@tablesolution.com" %>
   subject         : <%= FFaker::Lorem.sentence[0..-2] %>
   body            : |
                      <%= FFaker::Lorem.paragraph(rand(10) + 5) %>

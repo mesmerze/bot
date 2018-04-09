@@ -97,9 +97,9 @@ describe Admin::UsersController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested user, assigns it to @user, and renders [update] template" do
-        @user = create(:user, username: "flip", email: "flip@example.com")
+        @user = create(:user, username: "flip", email: "flip@tablesolution.com")
 
-        put :update, params: { id: @user.id, user: { username: "flop", email: "flop@example.com" } }, xhr: true
+        put :update, params: { id: @user.id, user: { username: "flop", email: "flop@tablesolution.com" } }, xhr: true
         expect(assigns[:user]).to eq(@user.reload)
         expect(assigns[:user].username).to eq("flop")
         expect(response).to render_template("admin/users/update")
@@ -109,7 +109,7 @@ describe Admin::UsersController do
         @user = create(:user)
         @user.destroy
 
-        put :update, params: { id: @user.id, user: { username: "flop", email: "flop@example.com" } }, xhr: true
+        put :update, params: { id: @user.id, user: { username: "flop", email: "flop@tablesolution.com" } }, xhr: true
         expect(flash[:warning]).not_to eq(nil)
         expect(response.body).to eq("window.location.reload();")
       end
@@ -133,7 +133,7 @@ describe Admin::UsersController do
 
     describe "with invalid params" do
       it "doesn't update the requested user, but assigns it to @user and renders [update] template" do
-        @user = create(:user, username: "flip", email: "flip@example.com")
+        @user = create(:user, username: "flip", email: "flip@tablesolution.com")
 
         put :update, params: { id: @user.id, user: {} }, xhr: true
         expect(assigns[:user]).to eq(@user.reload)

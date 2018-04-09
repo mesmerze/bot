@@ -157,9 +157,9 @@ describe HomeController do
     end
 
     it "should find a user by email" do
-      allow(@cur_user).to receive(:pref).and_return(activity_user: 'billy@example.com')
+      allow(@cur_user).to receive(:pref).and_return(activity_user: 'billy@tablesolution.com')
       allow(controller).to receive(:current_user).and_return(@cur_user)
-      expect(User).to receive(:where).with(email: 'billy@example.com').and_return([@user])
+      expect(User).to receive(:where).with(email: 'billy@tablesolution.com').and_return([@user])
       expect(controller.send(:activity_user)).to eq(1)
     end
 

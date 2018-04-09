@@ -14,7 +14,7 @@ feature 'Devise Sign-in' do
                    username: 'john',
                    password: 'password',
                    password_confirmation: 'password',
-                   email: 'john@example.com',
+                   email: 'john@tablesolution.com',
                    sign_in_count: 0
   end
 
@@ -45,7 +45,7 @@ feature 'Devise Sign-in' do
   scenario 'login with email' do
     @user.confirm
     @user.update_attribute(:suspended_at, nil)
-    login_process('john@example.com', 'password')
+    login_process('john@tablesolution.com', 'password')
     expect(page).to have_content("Signed in successfully")
   end
 

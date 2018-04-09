@@ -22,7 +22,7 @@ feature 'Users tab', '
     click_link 'Create User'
     expect(page).to have_selector('#user_username', visible: true)
     fill_in 'user_username', with: 'captainthunder'
-    fill_in 'user_email', with: 'lightning@example.com'
+    fill_in 'user_email', with: 'lightning@tablesolution.com'
     fill_in 'user_first_name', with: 'Captain'
     fill_in 'user_last_name', with: 'Thunder'
     fill_in 'user_password', with: 'password'
@@ -35,6 +35,6 @@ feature 'Users tab', '
     expect(find('#users')).to have_content('Captain Thunder')
     expect(find('#users')).to have_content('Weather Inc.')
     expect(find('#users')).to have_content('Superheroes')
-    expect(find('#users')).to have_content('lightning@example.com')
+    expect(find('#users')).to have_content('lightning@tablesolution.com')
   end
 end

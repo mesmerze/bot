@@ -52,7 +52,7 @@ describe User do
   it "should create a new instance given valid attributes" do
     expect(User.new(
       username: "username",
-      email:    "user@example.com",
+      email:    "user@tablesolution.com",
       password: "password",
       password_confirmation: "password"
     ).valid?).to eq true
@@ -231,8 +231,8 @@ describe User do
 
   describe "text_search" do
     it "should find user by email" do
-      create(:user, email: 'no-reply@example.com')
-      user = create(:user, email: 'test@example.com')
+      create(:user, email: 'no-reply@tablesolution.com')
+      user = create(:user, email: 'test@tablesolution.com')
       search = User.text_search('test')
       expect(search.size).to eql(1)
       expect(search.first).to eql(user)

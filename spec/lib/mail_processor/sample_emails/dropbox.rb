@@ -7,8 +7,8 @@
 #------------------------------------------------------------------------------
 DROPBOX_EMAILS = {
   plain: <<~EMAIL,
-    From: Aaron Assembler <aaron@example.com>
-    To: Ben Bootloader <ben@example.com>
+    From: Aaron Assembler <aaron@tablesolution.com>
+    To: Ben Bootloader <ben@tablesolution.com>
     Subject: Hi there
     Date: Mon, 26 May 2003 11:22:33 -0600
     Message-ID: <1234@local.machine.example>
@@ -20,8 +20,8 @@ DROPBOX_EMAILS = {
 EMAIL
 
   html: <<~EMAIL,
-    From: Aaron Assembler <aaron@example.com>
-    To: Ben Bootloader <ben@example.com>
+    From: Aaron Assembler <aaron@tablesolution.com>
+    To: Ben Bootloader <ben@tablesolution.com>
     Subject: Hi there
     Date: Mon, 26 May 2003 11:22:33 -0600
     Message-ID: <1234@local.machine.example>
@@ -37,8 +37,8 @@ EMAIL
 EMAIL
 
   first_line: <<~EMAIL,
-    From: Aaron Assembler <aaron@example.com>
-    To: Ben Bootloader <ben@example.com>
+    From: Aaron Assembler <aaron@tablesolution.com>
+    To: Ben Bootloader <ben@tablesolution.com>
     Subject: Hi there
     Date: Mon, 26 May 2003 11:22:33 -0600
     Message-ID: <1234@local.machine.example>
@@ -51,8 +51,8 @@ EMAIL
 EMAIL
 
   first_line_lead: <<~EMAIL,
-    From: Aaron Assembler <aaron@example.com>
-    To: Ben Bootloader <ben@example.com>
+    From: Aaron Assembler <aaron@tablesolution.com>
+    To: Ben Bootloader <ben@tablesolution.com>
     Subject: Hi there
     Date: Mon, 26 May 2003 11:22:33 -0600
     Message-ID: <1234@local.machine.example>
@@ -65,8 +65,8 @@ EMAIL
 EMAIL
 
   first_line_contact: <<~EMAIL,
-    From: Aaron Assembler <aaron@example.com>
-    To: Ben Bootloader <ben@example.com>
+    From: Aaron Assembler <aaron@tablesolution.com>
+    To: Ben Bootloader <ben@tablesolution.com>
     Subject: Hi there
     Date: Mon, 26 May 2003 11:22:33 -0600
     Message-ID: <1234@local.machine.example>
@@ -79,7 +79,7 @@ EMAIL
 EMAIL
 
   forwarded: <<~EMAIL,
-    From: Aaron Assembler <aaron@example.com>
+    From: Aaron Assembler <aaron@tablesolution.com>
     To: dropbox@example.com
     Subject: Hi there
     Date: Mon, 26 May 2003 11:22:33 -0600
@@ -87,10 +87,10 @@ EMAIL
     Content-Type: text/plain
 
     ---------- Forwarded message ----------
-    From: Ben Bootloader <ben@example.com>
+    From: Ben Bootloader <ben@tablesolution.com>
     Date: Sun, Mar 22, 2009 at 3:28 PM
     Subject: Fwd:
-    To: Cindy Cluster <cindy@example.com>
+    To: Cindy Cluster <cindy@tablesolution.com>
 
     #{FFaker::Lorem.paragraph}
 
@@ -98,8 +98,8 @@ EMAIL
 EMAIL
 
   multipart: <<~EMAIL,
-    From: Aaron Assembler <aaron@example.com>
-    To: Ben Bootloader <ben@example.com>
+    From: Aaron Assembler <aaron@tablesolution.com>
+    To: Ben Bootloader <ben@tablesolution.com>
     Subject: Hi there
     Date: Fri, 30 Mar 2012 15:04:05 +0800
     Message-ID: <1234@local.machine.example>

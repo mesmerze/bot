@@ -23,7 +23,7 @@ describe FatFreeCRM::MailProcessor::CommentReplies do
   #------------------------------------------------------------------------------
   describe "Processing new emails" do
     before do
-      create(:user, email: "aaron@example.com")
+      create(:user, email: "aaron@tablesolution.com")
     end
 
     before(:each) do
@@ -35,7 +35,7 @@ describe FatFreeCRM::MailProcessor::CommentReplies do
       @contact = create(:contact)
       comment_reply = "This is a new comment reply via email"
 
-      mail = Mail.new from:    "Aaron Assembler <aaron@example.com>",
+      mail = Mail.new from:    "Aaron Assembler <aaron@tablesolution.com>",
                       to:      "FFCRM Comments <crm-commment@example.com>",
                       subject: "[contact:#{@contact.id}] Test Contact",
                       body:    comment_reply
@@ -53,7 +53,7 @@ describe FatFreeCRM::MailProcessor::CommentReplies do
       @opportunity = create(:opportunity)
       comment_reply = "This is a new comment reply via email"
 
-      mail = Mail.new from:    "Aaron Assembler <aaron@example.com>",
+      mail = Mail.new from:    "Aaron Assembler <aaron@tablesolution.com>",
                       to:      "FFCRM Comments <crm-commment@example.com>",
                       subject: "[op:#{@opportunity.id}] Test Opportunity",
                       body:    comment_reply

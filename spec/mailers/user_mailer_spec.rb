@@ -10,7 +10,7 @@ require 'spec_helper'
 describe UserMailer do
   describe "assigned_entity_notification" do
     let(:assigner) { create(:user, first_name: "Bob", last_name: "Hope") }
-    let(:assignee) { create(:user, email: "assignee@example.com") }
+    let(:assignee) { create(:user, email: "assignee@tablesolution.com") }
 
     context "for an account" do
       let(:account) { build_stubbed(:account, id: 16, name: 'Ghostbusters', user: assigner, assignee: assignee) }
@@ -20,8 +20,8 @@ describe UserMailer do
         expect(mail.from).to eql(["no-reply@tablesolution.com"])
       end
 
-      it "sets user 'assignee@example.com' as recipient" do
-        expect(mail.to).to eq(["assignee@example.com"])
+      it "sets user 'assignee@tablesolution.com' as recipient" do
+        expect(mail.to).to eq(["assignee@tablesolution.com"])
       end
 
       it "sets the subject" do
@@ -45,8 +45,8 @@ describe UserMailer do
         expect(mail.from).to eql(["no-reply@tablesolution.com"])
       end
 
-      it "sets user 'assignee@example.com' as recipient" do
-        expect(mail.to).to eq(["assignee@example.com"])
+      it "sets user 'assignee@tablesolution.com' as recipient" do
+        expect(mail.to).to eq(["assignee@tablesolution.com"])
       end
 
       it "sets the subject" do
@@ -70,8 +70,8 @@ describe UserMailer do
         expect(mail.from).to eql(["no-reply@tablesolution.com"])
       end
 
-      it "sets user 'assignee@example.com' as recipient" do
-        expect(mail.to).to eq(["assignee@example.com"])
+      it "sets user 'assignee@tablesolution.com' as recipient" do
+        expect(mail.to).to eq(["assignee@tablesolution.com"])
       end
 
       it "sets the subject" do
@@ -95,8 +95,8 @@ describe UserMailer do
         expect(mail.from).to eql(["no-reply@tablesolution.com"])
       end
 
-      it "sets user 'assignee@example.com' as recipient" do
-        expect(mail.to).to eq(["assignee@example.com"])
+      it "sets user 'assignee@tablesolution.com' as recipient" do
+        expect(mail.to).to eq(["assignee@tablesolution.com"])
       end
 
       it "sets the subject" do

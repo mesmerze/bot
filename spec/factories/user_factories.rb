@@ -8,9 +8,9 @@
 FactoryBot.define do
   factory :user do
     username            { FactoryBot.generate(:username) }
-    email               { FFaker::Internet.email }
     first_name          { FFaker::Name.first_name }
     last_name           { FFaker::Name.last_name }
+    email               { "#{FFaker::Internet.user_name}@tablesolution.com" }
     title               { FactoryBot.generate(:title) }
     company             { FFaker::Company.name }
     alt_email           { FFaker::Internet.email }

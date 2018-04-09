@@ -77,7 +77,7 @@ Vagrant.configure("2") do |config|
     sed -i 's/  username:/  username: postgres/g' 'config/database.yml'
     sed -i 's/  password:/  password: '123456'/g' 'config/database.yml'
     rake db:setup
-    rake ffcrm:setup:admin USERNAME=admin PASSWORD=password EMAIL=admin@example.com
+    rake ffcrm:setup:admin USERNAME=admin PASSWORD=password EMAIL=admin@tablesolution.com
     rm -rf /etc/nginx/sites-available/default
     echo "server {" > /etc/nginx/sites-available/default
     echo "  listen 80;" >> /etc/nginx/sites-available/default

@@ -130,7 +130,7 @@ describe FatFreeCRM::MailProcessor::Base do
   #------------------------------------------------------------------------------
   describe "Finding email sender among users" do
     before(:each) do
-      @from = ["Aaron@Example.Com", "Ben@Example.com"]
+      @from = ["Aaron@Tablesolution.Com", "Ben@Tablesolution.com"]
       @email = double
       allow(@email).to receive(:from).and_return(@from)
     end
@@ -142,7 +142,7 @@ describe FatFreeCRM::MailProcessor::Base do
     end
 
     it "should not find user if his email doesn't match From: field" do
-      create(:user, email: "nobody@example.com")
+      create(:user, email: "nobody@tablesolution.com")
       expect(@crawler.send(:sent_from_known_user?, @email)).to eq(false)
       expect(@crawler.instance_variable_get("@sender")).to eq(nil)
     end

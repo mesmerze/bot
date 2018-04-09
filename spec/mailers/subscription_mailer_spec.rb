@@ -9,15 +9,15 @@ require 'spec_helper'
 
 describe SubscriptionMailer do
   describe "comment notification" do
-    let(:user) { build(:user, email: 'notify_me@example.com') }
+    let(:user) { build(:user, email: 'notify_me@tablesolution.com') }
     let(:campaign) { build(:campaign, user: user) }
     let(:account) { build(:account, user: user) }
     let(:commentable) { build_stubbed(:opportunity, id: 47, name: 'Opportunity name', account: account, campaign: campaign, user: user) }
     let(:comment) { build(:comment, commentable: commentable, user: user) }
     let(:mail) { SubscriptionMailer.comment_notification(user, comment) }
 
-    it "sets user 'notify_me@example.com' as recipient" do
-      expect(mail.to).to eq(["notify_me@example.com"])
+    it "sets user 'notify_me@tablesolution.com' as recipient" do
+      expect(mail.to).to eq(["notify_me@tablesolution.com"])
     end
 
     it "sets the subject" do

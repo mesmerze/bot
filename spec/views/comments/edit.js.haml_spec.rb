@@ -18,7 +18,7 @@ describe "/comments/edit" do
                                 commentable: stub_model(Contact, id: '123')))
     # params["contact_id"] = "123"
     assign(:current_user, stub_model(User,
-                                     email: 'test@example.com'))
+                                     email: 'test@tablesolution.com'))
   end
 
   it "should render edit form" do

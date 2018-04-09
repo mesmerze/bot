@@ -11,7 +11,7 @@ feature 'Devise Sign-up' do
   scenario 'with valid credentials' do
     visit "/users/sign_up"
 
-    fill_in "user[email]", with: "john@example.com"
+    fill_in "user[email]", with: "john@tablesolution.com"
     fill_in "user[username]", with: "john"
     fill_in "user[password]", with: "password"
     fill_in "user[password_confirmation]", with: "password"
@@ -23,14 +23,14 @@ feature 'Devise Sign-up' do
 
   scenario 'without credentials' do
     visit "/users/sign_up"
+
+    fill_in "user[username]", with: "john@google.com"
+    fill_in "user[email]", with: "john@google.com"
+
     click_button("Sign Up")
 
-    expect(page).to have_content("6 errors prohibited this User from being saved")
-    expect(page).to have_content("Please specify email address")
-    expect(page).to have_content("Email is too short (minimum is 3 characters)")
-    expect(page).to have_content("Email is invalid")
-    expect(page).to have_content("Please specify username")
-    expect(page).to have_content("Username is invalid")
+    expect(page).to have_content("2 errors prohibited this User from being saved")
+    expect(page).to have_content("Email must be hosted by kkvesper.jp, tablesolution.com, tablecheck.com")
     expect(page).to have_content("Password can't be blank")
   end
 end

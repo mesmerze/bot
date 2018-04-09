@@ -88,6 +88,12 @@ class User < ActiveRecord::Base
 
   scope :have_assigned_tasks, -> { joins("INNER JOIN tasks ON users.id = tasks.assigned_to").select('DISTINCT(users.id), users.*') }
 
+  scope :current_user_first, ->(current_user) do
+    users = to_a
+    user = users.delete(current_user)
+    user ? users.prepend(user) : self
+  end
+
   validates :email,
             presence: { message: :missing_email },
             length: { minimum: 3, maximum: 254 },

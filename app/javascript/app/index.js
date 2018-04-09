@@ -27,7 +27,8 @@ import 'javascripts/ransack_ui_jquery/search_form';
 import 'javascripts/ransack_ui_jquery/search_form';
 import 'javascripts/select2.multi-checkboxes';
 
-// Application js import import d3 from "d3";
+// Application js import
+import d3 from "d3";
 import c3 from 'javascripts/c3';
 global.c3 = c3;
 import './js/timeago.coffee';

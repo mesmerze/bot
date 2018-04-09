@@ -28,7 +28,7 @@ describe FatFreeCRM::MailProcessor::Dropbox do
 
     it "should discard a message if it's invalid" do
       expect(@crawler).to receive(:is_valid?).once.and_return(false)
-      create(:user, email: "aaron@example.com")
+      create(:user, email: "aaron@tablesolution.com")
       expect(@crawler).not_to receive(:archive)
       expect(@crawler).to receive(:discard).once
       @crawler.run
@@ -42,7 +42,7 @@ describe FatFreeCRM::MailProcessor::Dropbox do
     end
 
     it "should process a message if it finds the user" do
-      create(:user, email: "aaron@example.com")
+      create(:user, email: "aaron@tablesolution.com")
       expect(@crawler).to receive(:archive).once
       expect(@crawler).not_to receive(:discard)
       @crawler.run
@@ -54,7 +54,7 @@ describe FatFreeCRM::MailProcessor::Dropbox do
     before(:each) do
       mock_connect
       mock_disconnect
-      create(:user, email: "aaron@example.com")
+      create(:user, email: "aaron@tablesolution.com")
     end
 
     it "should find the named asset and attach the email message" do
@@ -141,11 +141,11 @@ describe FatFreeCRM::MailProcessor::Dropbox do
       mock_connect
       mock_disconnect
       mock_message(DROPBOX_EMAILS[:plain])
-      create(:user, email: "aaron@example.com")
+      create(:user, email: "aaron@tablesolution.com")
     end
 
     it "should find the asset and attach the email message" do
-      @lead = create(:lead, email: "ben@example.com", access: "Public")
+      @lead = create(:lead, email: "ben@tablesolution.com", access: "Public")
       expect(@crawler).to receive(:archive).once
       expect(@crawler).not_to receive(:with_forwarded_recipient)
       @crawler.run
@@ -169,12 +169,12 @@ describe FatFreeCRM::MailProcessor::Dropbox do
     before(:each) do
       mock_connect
       mock_disconnect
-      create(:user, email: "aaron@example.com")
+      create(:user, email: "aaron@tablesolution.com")
       mock_message(DROPBOX_EMAILS[:forwarded])
     end
 
     it "should find the asset and attach the email message" do
-      @lead = create(:lead, email: "ben@example.com", access: "Public")
+      @lead = create(:lead, email: "ben@tablesolution.com", access: "Public")
       expect(@crawler).to receive(:archive).once
       @crawler.run
 
@@ -187,7 +187,7 @@ describe FatFreeCRM::MailProcessor::Dropbox do
       timezone = ActiveRecord::Base.default_timezone
       begin
         ActiveRecord::Base.default_timezone = :utc
-        @lead = create(:lead, email: "ben@example.com", access: "Public", updated_at: 5.day.ago)
+        @lead = create(:lead, email: "ben@tablesolution.com", access: "Public", updated_at: 5.day.ago)
 
         @crawler.run
         expect(@lead.reload.updated_at.to_i).to be >= now.to_i
@@ -197,7 +197,7 @@ describe FatFreeCRM::MailProcessor::Dropbox do
     end
 
     it "should change lead's status (:new => :contacted)" do
-      @lead = create(:lead, email: "ben@example.com", access: "Public", status: "new")
+      @lead = create(:lead, email: "ben@tablesolution.com", access: "Public", status: "new")
 
       @crawler.run
       expect(@lead.reload.status).to eq("contacted")
@@ -219,12 +219,12 @@ describe FatFreeCRM::MailProcessor::Dropbox do
       @settings = @crawler.instance_variable_get("@settings")
       @settings[:address_aliases] = ["dropbox@example.com"]
 
-      create(:user, email: "aaron@example.com")
+      create(:user, email: "aaron@tablesolution.com")
       mock_message(DROPBOX_EMAILS[:forwarded])
     end
 
     it "should not match the dropbox email address if routed to an alias" do
-      @lead = create(:lead, email: "ben@example.com", access: "Public")
+      @lead = create(:lead, email: "ben@tablesolution.com", access: "Public")
       @lead_dropbox = create(:lead, email: "dropbox@example.com", access: "Public")
 
       expect(@crawler).to receive(:archive).once
@@ -240,7 +240,7 @@ describe FatFreeCRM::MailProcessor::Dropbox do
     before(:each) do
       mock_connect
       mock_disconnect
-      create(:user, email: "aaron@example.com")
+      create(:user, email: "aaron@tablesolution.com")
     end
 
     it "should create a contact from the email recipient (To: recipient, Bcc: dropbox)" do
@@ -249,7 +249,7 @@ describe FatFreeCRM::MailProcessor::Dropbox do
       @crawler.run
 
       @contact = Contact.first
-      expect(@contact.email).to eq("ben@example.com")
+      expect(@contact.email).to eq("ben@tablesolution.com")
       expect(@contact.emails.size).to eq(1)
       expect(@contact.emails.first.mediator).to eq(@contact)
     end
@@ -260,7 +260,7 @@ describe FatFreeCRM::MailProcessor::Dropbox do
       @crawler.run
 
       @contact = Contact.first
-      expect(@contact.email).to eq("ben@example.com")
+      expect(@contact.email).to eq("ben@tablesolution.com")
       expect(@contact.emails.size).to eq(1)
       expect(@contact.emails.first.mediator).to eq(@contact)
     end
