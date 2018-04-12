@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/lizzyaustad/cancancan.git
-  revision: c80a563208f43c41972db4af20f4e2474cf7b0c6
+  revision: 8b32f039b4314e7543a158edf3f7aff68d47f267
   branch: rails_5_2_upgrade_fixes
   specs:
     cancancan (2.1.3)

@@ -354,6 +354,8 @@ opportunity_stage:
   - :analysis
   - :presentation
   - :proposal
+  - :no_reply
+  - :revisit
   - :negotiation
   - :final_review
   - :won
@@ -364,6 +366,8 @@ opportunity_stage_color:
   :analysis     : PaleGoldenRod
   :presentation : Salmon
   :proposal     : Gold
+  :no_reply     : Tomato
+  :revisit      : LavenderBlush
   :negotiation  : Orchid
   :final_review : Turquoise
   :won          : Lime
@@ -510,4 +514,3 @@ email_domains:
   - 'kkvesper.jp'
   - 'tablesolution.com'
   - 'tablecheck.com'
- 

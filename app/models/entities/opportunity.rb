@@ -56,10 +56,12 @@ class Opportunity < ActiveRecord::Base
                                         when stage = 'analysis' then '2'
                                         when stage = 'presentation' then '3'
                                         when stage = 'proposal' then '4'
-                                        when stage = 'negotiation' then '5'
-                                        when stage = 'final_review' then '6'
-                                        when stage = 'won' then '7'
-                                        when stage = 'lost' then '8'
+                                        when stage = 'no_reply' then '5'
+                                        when stage = 'revisit' then '6'
+                                        when stage = 'negotiation' then '7'
+                                        when stage = 'final_review' then '8'
+                                        when stage = 'won' then '9'
+                                        when stage = 'lost' then '10'
                                         else stage end as stage_sort")
   end
 

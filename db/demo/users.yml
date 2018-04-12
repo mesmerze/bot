@@ -248,11 +248,11 @@ shields:
   month_revenue: <%= rand(10000..100000) %>
   encrypted_password: 6c5f1bbbbc6c1eaca96fad6f09796dda9597370771da790ada1702eb59f7ccdc1838236c9cb2f014eb7847e8fca8b06c818b07d9efbffb4efbb14ccb37c227e1
   password_salt: TKfx36TiMFglOgsUkB
-  last_login_at: <%= login = Date.today - rand(15).days %>
-  current_login_at:
-  last_login_ip: 127.0.0.1
-  current_login_ip: 127.0.0.1
-  login_count: <%= 1 + rand(100) %>
+  last_sign_in_at: <%= login = Date.today - rand(15).days %>
+  current_sign_in_at:
+  last_sign_in_ip: 127.0.0.1
+  current_sign_in_ip: 127.0.0.1
+  sign_in_count: <%= 1 + rand(100) %>
   deleted_at:
   created_at: <%= login - rand(5).days %>
   updated_at: <%= login + rand(5).days %>
