@@ -45,6 +45,8 @@ class Account < ActiveRecord::Base
   has_many :emails, as: :mediator
   has_many :shops
   has_many :meetings, dependent: :destroy
+  has_many :account_systems, dependent: :destroy
+  has_many :systems, through: :account_systems
 
   serialize :subscribed_users, Set
 

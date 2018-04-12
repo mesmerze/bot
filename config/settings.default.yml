@@ -274,6 +274,11 @@
   :icon: :fa-tags
   :url:
     :controller: admin/tags
+- :active: false
+  :text: :admin_tab_systems
+  :icon: :fa-terminal
+  :url:
+    :controller: admin/systems
 #- :active: false
 #  :text: :admin_tab_settings
 #  :icon: :fa-cogs
@@ -514,3 +519,23 @@ email_domains:
   - 'kkvesper.jp'
   - 'tablesolution.com'
   - 'tablecheck.com'
+
+system_types:
+  - :tms
+  - :crm
+  - :loyalty
+  - :pos
+  - :pms
+
+satisfaction:
+  - :happy
+  - :moderate
+  - :unhappy
+
+system_types_color:
+  :tms        : Tomato
+  :online_res : PaleVioletRed
+  :pos        : CornflowerBlue
+  :pms        : LavenderBlush
+  :crm        : SpringGreen
+  :marketing  : Violet

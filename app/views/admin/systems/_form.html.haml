@@ -1,0 +1,36 @@
+= hook(:meeting_form, self, f: f) do
+  .section
+    %table
+      %tr
+        %td(colspan="3")
+          .label.top.req #{t :name}:
+          = f.text_field :name, autofocus: true, style: 'width:270px'
+        %td.system-type{ invisible_if(f.object.account_systems.present?)}
+          .label.top.req #{t :system_type}:
+          = f.select :system_type,
+            Setting.unroll(:system_types),
+            {},
+            { class: 'select2', placeholder: t(:select_type), style: 'width: 100px;' }
+        %td= spacer
+      %tr
+        %td
+          .label.top #{t :maker}:
+          = f.text_field :maker, { "data-autocomplete" => auto_complete_admin_systems_path, size: 10, style: 'width:160px;' }
+        %td= spacer
+        %td
+          .label.top #{t :monthly_cost} #{t :currency}:
+          = f.text_field :monthly_cost, { style: 'width:110px;' }
+      %tr
+        %td
+          %div{ style: 'padding: 10px 0 0 0;' }
+            = f.input_field :has_api_realtime, as: :boolean
+            %label{for: 'meeting_has_api_realtime'}
+              = t(:has_api_realtime)
+        %td= spacer
+        %td
+          %div{ style: 'padding: 10px 0 0 0;' }
+            = f.input_field :has_api_batch, as: :boolean
+            %label{for: 'meeting_has_api_batch'}
+              = t(:has_api_batch)
+
+      = hook(:meeting_form_bottom, self, f: f)

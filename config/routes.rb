@@ -211,6 +211,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :account_systems, id: /\d+/
+
   namespace :admin do
     resources :groups
 
@@ -247,6 +249,12 @@ Rails.application.routes.draw do
     resources :tags, except: [:show] do
       member do
         get :confirm
+      end
+    end
+
+    resources :systems, id: /\d+/ do
+      collection do
+        match :auto_complete, via: %i[get post]
       end
     end
 

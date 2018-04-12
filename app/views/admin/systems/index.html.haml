@@ -1,0 +1,16 @@
+= styles_for :system
+
+.title_tools
+  = link_to_inline(:create_system, new_admin_system_path, text: t(:create_system))
+
+.title
+  %span#create_system_title #{t :systems}
+  = image_tag("loading.gif", size: :thumb, id: "loading", style: "display: none;")
+
+.remote#create_system{ hidden }
+
+%ul.list#systems
+  - if @systems.any?
+    = render partial: "system", collection: @systems
+  - else
+    = render "shared/empty"

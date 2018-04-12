@@ -1,0 +1,9 @@
+- id = dom_id(@system)
+
+- if @system.errors.empty?
+  $('##{id}').replaceWith('#{ j render(partial: 'system', collection: [ @system ]) }')
+  $('##{id}').effect("highlight", { duration:1000 });
+- else
+  $('##{id}').html('#{j render(partial: 'edit') }')
+  $('##{id}').effect("shake", { duration:250, distance: 6 });
+  $('#system_name').focus()

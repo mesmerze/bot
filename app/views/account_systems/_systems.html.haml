@@ -1,0 +1,7 @@
+= styles_for :system
+
+= systems_section(object, :account_system)
+
+.list#systems
+  - systems = object.account_systems.order('updated_at desc')
+  = render partial: "account_systems/system", collection: systems

@@ -1,0 +1,17 @@
+<%
+
+  satisfaction = %w(happy moderate unhappy)
+  for i in Account.ids do
+    system_id = rand(1..10)
+%>
+account_systems<%= i %>:
+  id              : <%= i %>
+  account_id      : <%= i %>
+  monthly_cost    : <%= system_id * 42 %>
+  expiration_date : <%= (system_id <= 3) ? Date.today + rand(100).days : nil %>
+  satisfaction    : <%= (system_id <= 3) ? satisfaction.sample : nil %>
+  is_api_required : <%= (system_id > 3) ? [true, false].sample : nil %>
+  system_id       : <%= system_id %>
+  created_at      : <%= starts = Date.today - rand(15).days %>
+  updated_at      : <%= starts + rand(5).days %>
+<% end %>

@@ -1,0 +1,9 @@
+- id = dom_id(@system)
+
+- if params[:cancel].true?
+  $('##{id}').replaceWith('#{ j (render(partial: 'system', collection: [ @system ])) }');
+- else
+  crm.highlight_off('#{id}');
+  crm.hide_form('create_system');
+  $('##{id}').html('#{ j render(partial: 'edit') }');
+  $('#system_name').focus();

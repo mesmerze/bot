@@ -1,0 +1,16 @@
+- entity_name = controller.controller_name.singularize.underscore
+- @entity = instance_variable_get("@#{entity_name}")
+- id = dom_id(@account_system)
+
+- if params[:cancel].true?
+  $('##{id}').replaceWith('#{ j (render(partial: 'system', collection: [ @account_system ])) }');
+- else
+  - if @previous                                  # Hide open [Edit] form if any.
+    - if @previous.is_a?(@entity.class)
+      $('##{dom_id(@previous)}').replaceWith('#{ j render(partial: 'account_systems/system', collection: [ @previous ]) }');
+    - else
+      crm.flick('#{entity_name}_#{@previous}', 'remove');
+  crm.highlight_off('#{id}');
+  crm.hide_form('create_account_system');
+  $('##{id}').html('#{ j render(partial: 'edit') }');
+  crm.toggle_settings('#account_system_system_id');

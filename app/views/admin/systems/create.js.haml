@@ -1,0 +1,10 @@
+- if @system.valid?
+  $('#create_system_arrow').html(crm.COLLAPSED);
+  $('#create_system_title').html('#{ j t(:systems) }');
+  $('#create_system').slideUp(250);
+  $('#systems').prepend('#{ j (render partial: 'system', collection: [ @system]) }');
+  $('##{dom_id(@system)}').effect("highlight", { duration:1500 });
+- else
+  $('#create_system').html('#{ j render(partial: "new") }');
+  $('#create_system').effect("shake", { duration:250, distance: 6 });
+  $('#system_name').focus();

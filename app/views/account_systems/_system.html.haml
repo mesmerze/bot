@@ -1,0 +1,29 @@
+%li.highlight[system]
+  - former = system.system
+  - if former.system_type
+    .strip{:class => former.system_type} #{t(former.system_type)}
+  - else
+    .strip{:style => "color: gray;"} #{t :other}
+
+  %ul.tools
+    %li= link_to_edit(system)
+    %li= link_to_delete(system)
+
+  .indent
+    = former.maker + ': '
+    = former.name
+    &ndash;
+    = number_to_currency(system.monthly_cost, precision: 0)
+    - if former.system_type == 'tms'
+      %tt
+        &ndash;
+        = t(:system_expires_at, date: l(system.expiration_date, format: :mmddyy))
+        = satisfaction_level(system.satisfaction)
+    - if former.system_type != 'tms' && system.is_api_required
+      = content_tag(:span, " | ") + content_tag(:div, t(:api_required), class: 'type-strip', style: 'border: 1px solid')
+      %tt
+    %tt
+      - if former.has_api_realtime
+        = content_tag(:span, " | ") + content_tag(:div, t(:has_api_realtime), class: 'type-strip', style: 'background-color: #d6f5d6;')
+      - if former.has_api_batch
+        = content_tag(:span, " | ") + content_tag(:div, t(:has_api_batch), class: 'type-strip', style: 'background-color: #ffe6e6;')

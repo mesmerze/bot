@@ -1,0 +1,10 @@
+= simple_form_for([:admin, @system], html: one_submit_only, remote: true) do |f|
+  = link_to_close new_admin_system_path
+  = f.error_messages object_name: t('systems')
+
+  = render "admin/systems/form", f: f
+
+  .buttonbar
+    = f.submit t(:create_system)
+    #{t :or}
+    = link_to_cancel new_admin_system_path

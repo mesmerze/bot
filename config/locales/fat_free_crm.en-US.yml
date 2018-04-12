@@ -32,6 +32,7 @@ en-US:
   tab_shops: Shops
   tab_kpi: Analysis
   tab_meetings: Meetings
+  admin_tab_systems: Systems
   admin_tab_groups: Groups
   admin_tab_users: Users
   admin_tab_fields: Custom Fields
@@ -228,6 +229,10 @@ en-US:
               missing_meeting_date: ^Please specify meeting start
             timezone:
               missing_timezone: ^Please specify timezone
+        system:
+          attributes:
+            name:
+              missing_system_name: ^Please specify system name.
         custom_field:
           required: ^%{field} is required.
           minlength: ^%{field} is too short.
@@ -708,6 +713,34 @@ en-US:
   meeting_start: Meeting Start
   meeting_document: Attachment
   ts_crm: TS CRM
+
+  # View -> Systems.
+  #----------------------------------------------------------------------------
+  system_type: System type
+  tms: TMS
+  crm: CRM
+  loyalty: Loyalty
+  pos: POS
+  pms: PMS
+  satisfaction: Satisfaction
+  happy: Happy
+  moderate: Moderate
+  unhappy: Unhappy
+  systems: Systems
+  system_small: system
+  create_system: Create System
+  monthly_cost: Monthly cost
+  maker: Maker
+  has_api_realtime: API Realtime
+  has_api_batch: API Batch
+  save_system: Save system
+  is_api_required: Requires API?
+  api_required: Requires API
+  system: System
+  expiration_date: Expiration date
+  create_account_system: Add system
+  add_system: Add system
+  system_expires_at: Expires at %{date}
 
   # Views -> Home.
   #----------------------------------------------------------------------------

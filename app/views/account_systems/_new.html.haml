@@ -1,0 +1,11 @@
+= simple_form_for(@account_system, html: one_submit_only, remote: true) do |f|
+  = link_to_close new_account_system_path
+  = f.error_messages object_name: t('systems')
+  = f.hidden_field :account_id
+
+  = render 'account_systems/form', f: f
+
+  .buttonbar
+    = f.submit t(:add_system)
+    #{t :or}
+    = link_to_cancel new_account_system_path

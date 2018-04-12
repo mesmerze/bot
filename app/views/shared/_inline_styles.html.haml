@@ -37,6 +37,11 @@
     - Setting.meeting_type_color.each do |key, value|
       li.meeting .#{key} { background:#{value}; }
 
+  - if models.include?(:system)
+    - Setting.system_types_color.each do |key, value|
+      li.system .#{key} { background:#{value}; }
+      li.account_system .#{key} { background:#{value}; }
+
   - if models.include?(:user)
     li.user .admin     { background: lightblue; }
     li.user .suspended { background: gainsboro; }

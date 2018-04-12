@@ -578,6 +578,24 @@
           $("#loading").hide()
       )
 
+    toggle_settings: (id) ->
+      opt = $(id).find(':selected')
+      og = opt.closest('optgroup').attr('label')
+      if og == 'TMS'
+        $('#account_system_expiration_date').prop('disabled', false)
+        $('#account_system_satisfaction').prop('disabled', false)
+        $('#account_system_is_api_required').prop('disabled', true)
+
+        $('.tms_settings').show()
+        $('.no_tms_settings').hide()
+      else
+        $('#account_system_expiration_date').prop('disabled', true)
+        $('#account_system_satisfaction').prop('disabled', true)
+        $('#account_system_is_api_required').prop('disabled', false)
+
+        $('.tms_settings').hide()
+        $('.no_tms_settings').show()
+
   $ ->
     crm.focus_on_first_field()
 

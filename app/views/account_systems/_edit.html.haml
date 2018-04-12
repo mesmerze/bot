@@ -1,0 +1,12 @@
+.remote
+  = simple_form_for(@account_system, html: one_submit_only, remote: true) do |f|
+    = link_to_close edit_account_system_path
+    = f.error_messages object_name: t('systems')
+    = f.hidden_field :account_id
+
+    = render 'account_systems/form', f: f, edit: true
+
+    .buttonbar
+      = f.submit t(:save_system)
+      #{t :or}
+      = link_to_cancel edit_account_system_path(@account_system)

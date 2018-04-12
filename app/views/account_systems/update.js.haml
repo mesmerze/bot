@@ -1,0 +1,9 @@
+- id = dom_id(@account_system)
+
+- if @account_system.errors.empty?
+  $('##{id}').replaceWith('#{ j render(partial: 'account_systems/system', collection: [ @account_system ]) }')
+  $('##{id}').effect("highlight", { duration:1000 });
+- else
+  $('##{id}').html('#{j render(partial: 'account_systems/edit') }')
+  $('##{id}').effect("shake", { duration:250, distance: 6 });
+  crm.toggle_settings('#account_system_system_id');

@@ -1,0 +1,15 @@
+- entity_name = controller.controller_name.singularize.underscore
+- @entity = instance_variable_get("@#{entity_name}")
+- create_id = "create_#{entity_name}"
+
+- if @entity.valid?
+  $('##{create_id}_arrow').html(crm.COLLAPSED);
+  $('##{create_id}_title').html('#{ j t(:systems) }');
+  $('##{create_id}').slideUp(250);
+  $('#systems').prepend('#{ j render(partial: 'account_systems/system', collection: [ @entity ]) }');
+  $('##{dom_id(@entity)}').effect("highlight", { duration:1500 });
+
+- else
+  $('##{create_id}').html('#{ j render(partial: "new") }');
+  $('##{create_id}').effect("shake", { duration:250, distance: 6 });
+  crm.toggle_settings('#account_system_system_id');

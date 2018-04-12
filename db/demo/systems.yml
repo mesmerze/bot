@@ -1,0 +1,20 @@
+<%
+  require "ffaker"
+  puts "Loading systems..."
+
+  system_types = %w(crm loyalty pos pms)
+  for i in (1..10) do
+%>
+account<%= i %>:
+  id               : <%= i %>
+  maker            : <%= FFaker::InternetSE.company_name_single_word %>
+  name             : <%= FFaker::Lorem.word %>
+  system_type      : <%= (i <= 3) ? 'tms' : system_types.sample %>
+  monthly_cost     : <%= i * 42 %>
+  has_api_realtime : <%= [true, false].sample %>
+  has_api_batch    : <%= [true, false].sample %>
+  access           : Public
+
+  created_at       : <%= created_at = (rand(360) + 2).days.ago + rand(600).minutes; created_at.to_s(:db) %>
+  updated_at       : <%= (created_at + rand(60).days).to_s(:db) %>
+<% end %>

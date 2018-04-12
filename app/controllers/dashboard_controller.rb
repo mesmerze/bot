@@ -42,7 +42,7 @@ class DashboardController < ApplicationController
     opportunities = user.assigned_opportunities
                         .pipeline.where(id: params[:ids]&.map(&:to_i), stage: params[:stages])
                         .stage_sort.order(params[:sort])
-                        .includes(:user, :tasks, :comments, :account, :tags, :emails)
+                        .includes(:user, :tasks, :comments, :account, :tags, :emails, account: :systems)
 
     respond_to do |format|
       if opportunities.blank?

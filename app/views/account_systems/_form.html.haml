@@ -1,0 +1,30 @@
+= hook(:account_system_top_section, self, f: f) do
+
+  .section
+    %table
+      %tr
+        %td{ style: 'width:200px' }
+          .label.top.req #{t :system}:
+          = f.select :system_id,
+            option_groups_from_collection_for_select(System.options, :systems, :name, :id, :name, @account_system.system_id),
+            {},
+            { style: 'width:200px', class: 'select2' }
+        %td{ class: 'tms_settings' }= spacer
+        %td{ style: 'width:100px', class: 'tms_settings' }
+          .label.top.req #{t :expiration_date}:
+          = f.text_field :expiration_date, value: f.object.expiration_date, style: 'width:100px', autocomplete: :off, class: 'date'
+        %td{ class: 'tms_settings' }= spacer
+        %td{ style: 'width:100px', class: 'tms_settings' }
+          .label.top.req #{t :satisfaction}:
+          = f.select :satisfaction,
+            Setting.unroll(:satisfaction),
+            { include_blank: t(:select_blank) },
+            { style: 'width: 100px;' }
+        %td{ class: 'no_tms_settings' }= spacer
+        %td{ style: 'width:100px', class: 'no_tms_settings' }
+          %div{ style: 'width: 100px; padding: 25px 150px 0 0;' }
+            = f.input_field :is_api_required, as: :boolean
+            %label{for: 'is_api_required'}
+              = t(:is_api_required)
+
+    = hook(:account_system_top_section_bottom, self, f: f)

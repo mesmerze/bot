@@ -1,0 +1,21 @@
+%li.highlight[system]
+  - if system.system_type
+    .strip{:class => system.system_type} #{t(system.system_type)}
+  - else
+    .strip{:style => "color: gray;"} #{t :other}
+
+  %ul.tools
+    %li= link_to_edit [:admin, system]
+    %li= link_to_delete [:admin, system]
+
+  .indent
+    = system.maker + ': '
+    = link_to(system.name, {action: :edit, id: system.id}, {remote: true,
+          onclick: "this.href = this.href.split('?')[0] + '?previous='+crm.find_form('edit_system');"})
+    &ndash;
+    = number_to_currency(system.monthly_cost, precision: 0)
+    %tt
+      - if system.has_api_realtime
+        = content_tag(:span, " | ") + content_tag(:div, t(:has_api_realtime), class: 'type-strip', style: 'background-color: #d6f5d6;')
+      - if system.has_api_batch
+        = content_tag(:span, " | ") + content_tag(:div, t(:has_api_batch), class: 'type-strip', style: 'background-color: #ffe6e6;')

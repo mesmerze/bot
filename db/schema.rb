@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_02_130138) do
+ActiveRecord::Schema.define(version: 2018_04_05_084531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,20 @@ ActiveRecord::Schema.define(version: 2018_04_02_130138) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["account_id", "opportunity_id"], name: "index_account_opportunities_on_account_id_and_opportunity_id"
+  end
+
+  create_table "account_systems", force: :cascade do |t|
+    t.bigint "account_id"
+    t.bigint "system_id"
+    t.decimal "monthly_cost", precision: 12, scale: 2
+    t.date "expiration_date"
+    t.string "satisfaction"
+    t.boolean "is_api_required"
+    t.text "memo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_account_systems_on_account_id"
+    t.index ["system_id"], name: "index_account_systems_on_system_id"
   end
 
   create_table "accounts", id: :serial, force: :cascade do |t|
@@ -453,6 +467,20 @@ ActiveRecord::Schema.define(version: 2018_04_02_130138) do
     t.datetime "updated_at", null: false
     t.index ["opportunity_id"], name: "index_shops_opportunities_on_opportunity_id"
     t.index ["shop_id"], name: "index_shops_opportunities_on_shop_id"
+  end
+
+  create_table "systems", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "maker"
+    t.string "system_type", null: false
+    t.decimal "monthly_cost", precision: 12, scale: 2
+    t.boolean "has_api_realtime", default: false, null: false
+    t.boolean "has_api_batch", default: false, null: false
+    t.string "access", default: "Public"
+    t.text "subscribed_users"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_systems_on_name"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
