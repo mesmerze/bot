@@ -40,9 +40,9 @@ class DashboardController < ApplicationController
   def opportunities
     user = User.find(params[:id])
     opportunities = user.assigned_opportunities
-                        .pipeline.where(id: params[:ids]&.map(&:to_i), stage: params[:stages])
+                        .includes(:user, :tasks, :comments, :account, :tags, :emails, account: { account_systems: :system })
+                        .where(id: params[:ids]&.map(&:to_i), stage: params[:stages])
                         .stage_sort.order(params[:sort])
-                        .includes(:user, :tasks, :comments, :account, :tags, :emails, account: :systems)
 
     respond_to do |format|
       if opportunities.blank?
@@ -71,7 +71,7 @@ class DashboardController < ApplicationController
                     else
                       Opportunity.all.ids
                     end
-    @stages = params[:stages] || Setting.opportunity_stage
+    @stages = params[:stages] || Setting.opportunity_stage.without(:lost)
     @search_results_count = @searched_ids.size
   end
 

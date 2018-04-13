@@ -52,17 +52,20 @@ class Opportunity < ActiveRecord::Base
   scope :pipeline,    -> { where("opportunities.stage IS NULL OR (opportunities.stage != 'won' AND opportunities.stage != 'lost')") }
   scope :unassigned,  -> { where("opportunities.assigned_to IS NULL") }
   scope :stage_sort, -> do
-    select("*, amount*probability, CASE when stage = 'prospecting' then '1'
-                                        when stage = 'analysis' then '2'
-                                        when stage = 'presentation' then '3'
-                                        when stage = 'proposal' then '4'
-                                        when stage = 'no_reply' then '5'
-                                        when stage = 'revisit' then '6'
-                                        when stage = 'negotiation' then '7'
-                                        when stage = 'final_review' then '8'
-                                        when stage = 'won' then '9'
-                                        when stage = 'lost' then '10'
-                                        else stage end as stage_sort")
+    joins(:account).select("opportunities.*,
+                            opportunities.amount*probability,
+                            accounts.category as account_category,
+                            CASE when stage = 'prospecting' then '1'
+                                 when stage = 'analysis' then '2'
+                                 when stage = 'presentation' then '3'
+                                 when stage = 'proposal' then '4'
+                                 when stage = 'no_reply' then '5'
+                                 when stage = 'revisit' then '6'
+                                 when stage = 'negotiation' then '7'
+                                 when stage = 'final_review' then '8'
+                                 when stage = 'won' then '9'
+                                 when stage = 'lost' then '10'
+                                 else stage end as stage_sort")
   end
 
   # Search by name OR id
@@ -74,7 +77,7 @@ class Opportunity < ActiveRecord::Base
              else
                ransack('name_cont' => query).result
              end
-    result.or(Opportunity.where('id IN (?)', ids))
+    result.or(Opportunity.where('opportunities.id IN (?)', ids))
   }
 
   scope :visible_on_dashboard, ->(user) {
@@ -92,7 +95,16 @@ class Opportunity < ActiveRecord::Base
   has_paper_trail class_name: 'Version', ignore: [:subscribed_users]
   has_fields
   exportable
-  sortable by: ["name ASC", "amount DESC", "amount*probability DESC", "probability DESC", "closes_on ASC", "created_at DESC", "updated_at DESC", "stage_sort ASC", "Stage_sort DESC"], default: "created_at DESC"
+  sortable by: ["name ASC",
+                "amount DESC",
+                "amount*probability DESC",
+                "probability DESC",
+                "closes_on ASC",
+                "created_at DESC",
+                "updated_at DESC",
+                "stage_sort ASC",
+                "Stage_sort DESC",
+                "account_category ASC"], default: "created_at DESC"
 
   has_ransackable_associations %w[account contacts tags campaign activities emails comments]
   ransack_can_autocomplete

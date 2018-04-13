@@ -2,10 +2,11 @@
 
 module DashboardHelper
   def dashboard_stage_checkbox(value)
+    enabled = value != :lost
     onclick = %{
       crm.grab_filters();
     }.html_safe
-    check_box_tag("stage[]", value, true, id: value, onclick: onclick)
+    check_box_tag("stage[]", value, enabled, id: value, onclick: onclick)
   end
 
   def dashboard_buttons(related, assets)

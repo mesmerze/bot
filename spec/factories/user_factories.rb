@@ -10,7 +10,7 @@ FactoryBot.define do
     username            { FactoryBot.generate(:username) }
     first_name          { FFaker::Name.first_name }
     last_name           { FFaker::Name.last_name }
-    email               { "#{FFaker::Internet.user_name}@tablesolution.com" }
+    email               { "#{FFaker::InternetSE.user_name_variant_long}@tablesolution.com" }
     title               { FactoryBot.generate(:title) }
     company             { FFaker::Company.name }
     alt_email           { FFaker::Internet.email }
