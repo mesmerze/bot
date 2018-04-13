@@ -7,7 +7,7 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^3.3.0",
-    "activestorage": "^0.1.1",
+    "activestorage": "^5.2.0",
     "cocoon": "github:nathanvda/cocoon",
     "coffee-loader": "^0.9.0",
     "coffeescript": "1.12.7",

@@ -56,7 +56,7 @@ import './js/shops_picker.coffee';
 import './js/meetings.coffee';
 import './js/systems.coffee';
 
-import * as ActiveStorage from 'javascripts/activestorage'
+import * as ActiveStorage from 'activestorage'
 import './js/direct_uploads';
 ActiveStorage.start();
 
