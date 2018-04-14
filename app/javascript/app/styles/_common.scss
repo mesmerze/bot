@@ -289,7 +289,9 @@ $sidebar_width: 210px;
     bottomleft: 7px; };
   -webkit-border: {
     top-left-radius: 7px;
-    bottom-left-radius: 7px; }; }
+    bottom-left-radius: 7px; };
+  &.account-strip {
+    width: 115px; } }
 
 .priority-strip {
   float: left;

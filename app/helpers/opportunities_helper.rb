@@ -66,10 +66,6 @@ module OpportunitiesHelper
         if opportunity.amount.to_f != 0
           msg << number_to_currency(opportunity.amount.to_f, precision: 0)
         end
-
-        if opportunity.discount.to_f != 0
-          msg << t(:discount) + ' ' + number_to_currency(opportunity.discount, precision: 0)
-        end
       end
 
       if opportunity.probability.to_i != 0
@@ -80,6 +76,14 @@ module OpportunitiesHelper
     msg << opportunity_closes_on_message(opportunity, won_or_lost)
 
     msg.join(' | ').html_safe
+  end
+
+  def opportunity_shops(opportunity)
+    msg = ''
+    if opportunity.shops_count.present?
+      msg += content_tag(:b, pluralize(opportunity.shops_count, t(:shop), t(:shops)))
+      msg += ' | '
+    end && msg.html_safe
   end
 
   private

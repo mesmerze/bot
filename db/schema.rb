@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_05_084531) do
+ActiveRecord::Schema.define(version: 2018_04_14_082356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -363,6 +363,7 @@ ActiveRecord::Schema.define(version: 2018_04_05_084531) do
     t.text "subscribed_users"
     t.string "category"
     t.date "projected_close_date"
+    t.integer "shops_count"
     t.index ["assigned_to"], name: "index_opportunities_on_assigned_to"
     t.index ["user_id", "name", "deleted_at"], name: "id_name_deleted", unique: true
   end

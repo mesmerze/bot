@@ -594,6 +594,7 @@ en-US:
   opportunity_categories:
     new: New Rollout
     upsell: Upsell
+  shops_count: Number of Shops
 
   # Views -> Orgs.
   #----------------------------------------------------------------------------

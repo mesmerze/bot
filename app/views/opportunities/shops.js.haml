@@ -1,1 +1,8 @@
 $("#shops_partial").html('#{ j render(partial: "opportunities/shops_partial") }')
+
+- if @shops.present?
+  if ($('#shops').is(':hidden')) { crm.flip_subtitle($('#shops').parent().prev().find('a')) };
+
+if ($('#create_opportunity #opportunity_amount').val() === '') {
+$('#create_opportunity #opportunity_amount').val('#{@shops.size * 150}');
+$('#create_opportunity #opportunity_shops_count').val('#{@shops.size}'); };

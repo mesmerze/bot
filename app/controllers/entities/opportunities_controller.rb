@@ -173,7 +173,11 @@ class OpportunitiesController < EntitiesController
   def shops
     @opportunity = Opportunity.find_by(id: params[:opportunity_id]) || Opportunity.new
     @shops = Shop.where(account_id: params[:account_id])
-    @options = @shops.map { |a| [a.name, a.id] }
+    @options = @shops.pluck(:name, :id)
+
+    respond_to do |format|
+      format.js { render 'opportunities/shops' }
+    end
   end
 
   private

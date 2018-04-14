@@ -27,6 +27,8 @@
         = t(:added_ago, value: timeago(opportunity.created_at)).html_safe
 
     %dt
+      = opportunity_shops(opportunity)
+
       = opportunity_revenue_message(opportunity, true)
 
       = account_type(account&.category)

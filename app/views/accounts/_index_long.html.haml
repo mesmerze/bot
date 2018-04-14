@@ -1,9 +1,9 @@
 - amount = account.pipeline_opportunities.map(&:weighted_amount).sum
 %li.highlight[account]
   - if account.category
-    .strip{class: account.category, style: "width:115px;"} #{t(account.category)}
+    .strip.account-strip{ class: account.category } #{t(account.category)}
   - else
-    .strip{style: "color: gray; width:115px;"} #{t :other}
+    .strip.account-strip{ style: "color: gray;" } #{t :other}
 
   %ul.tools
     = hook(:account_tools_before, self, account: account)
@@ -14,7 +14,7 @@
     - if can?(:destroy, account)
       %li= link_to_delete(account)
 
-  .indent
+  .indentfull
     = link_to(account.name, account)
     - if amount != 0.0
       %span.amount= number_to_currency(amount, precision: 0)

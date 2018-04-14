@@ -122,6 +122,7 @@ class Opportunity < ActiveRecord::Base
 
   after_create :increment_opportunities_count
   after_destroy :decrement_opportunities_count
+  after_initialize :fast_defaults
 
   def shops_attributes=(attributes)
     collection = attributes.map { |s| Shop.find_by(id: s[:id]) }
@@ -247,6 +248,13 @@ class Opportunity < ActiveRecord::Base
   #----------------------------------------------------------------------------
   def decrement_opportunities_count
     Campaign.decrement_counter(:opportunities_count, campaign_id) if campaign_id
+  end
+
+  def fast_defaults
+    return unless new_record?
+    self.name = 'Initial Sign Up' unless name.blank?
+    self.projected_close_date ||= Date.current + 1.month
+    self.probability ||= 100
   end
 
   ActiveSupport.run_load_hooks(:fat_free_crm_opportunity, self)
