@@ -155,6 +155,7 @@ Rails.application.routes.draw do
       get :redraw
       get :field_group
       get :versions
+      match :auto_complete, via: %i[get post]
     end
     member do
       put :attach

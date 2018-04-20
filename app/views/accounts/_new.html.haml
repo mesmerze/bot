@@ -14,7 +14,7 @@
 
   .buttonbar
     - if Setting.compound_address
-      = f.submit t(:create_account_opportunity), onclick: "crm.clear_all_hints()"
+      = f.submit t(:create_account_opportunity), onclick: %/crm.clear_all_hints(); $("#org_assigned_to").val($("#account_assigned_to").val()); if ($("#org_id").css('display') != 'none') { $("#org_id").enable(); }/
     - else
       = f.submit t(:create_account_opportunity)
     #{t :or}

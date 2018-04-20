@@ -13,6 +13,7 @@ describe "/accounts/_new" do
   before do
     login
     assign(:account, Account.new)
+    assign(:org, create(:org))
     assign(:users, [current_user])
   end
 

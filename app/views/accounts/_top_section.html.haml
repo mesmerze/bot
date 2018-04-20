@@ -19,9 +19,16 @@
           = rating_select "account[rating]", { id: :account_rating, selected: @account.rating, style: "width:160px" }
       %tr
         %td
-          .label #{t :select_org}:
-          = f.fields_for :org, @org do |o|
-            = o.select :id, @orgs.map{|a| [a.name, a.id]}, :selected => @account.org&.id, :include_blank => t(:select_org)
+          = fields_for(@org) do |o|
+            = o.hidden_field :user_id
+            = o.hidden_field :access
+            = o.hidden_field :assigned_to
+            != org_select_or_create(o) do |options|
+              -# Add [-- None --] org choice when editing existing opportunity that has an org.
+              - options[:selected] = @org.id.to_i
+              - options[:label] = 'req'
+
+
         %td= spacer
         %td
           .label{ style: "display:inline-block" } #{t :country}:

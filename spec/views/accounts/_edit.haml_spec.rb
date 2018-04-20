@@ -12,6 +12,7 @@ describe "/accounts/_edit" do
 
   before do
     login
+    assign(:org, @org = create(:org))
     assign(:account, @account = create(:account))
   end
 

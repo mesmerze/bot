@@ -34,7 +34,7 @@ class AccountsController < EntitiesController
   # GET /accounts/new
   #----------------------------------------------------------------------------
   def new
-    @org = Org.new
+    @org = Org.new(user: current_user)
     @account.attributes = { user: current_user, access: Setting.default_access, assigned_to: nil }
 
     if params[:related]
@@ -48,7 +48,7 @@ class AccountsController < EntitiesController
   # GET /accounts/1/edit                                                   AJAX
   #----------------------------------------------------------------------------
   def edit
-    @org = Org.new
+    @org = @account.org || Org.new(user: current_user)
     if params[:previous].to_s =~ /(\d+)\z/
       @previous = Account.my(current_user).find_by_id(Regexp.last_match[1]) || Regexp.last_match[1].to_i
     end
@@ -61,12 +61,23 @@ class AccountsController < EntitiesController
   def create
     @comment_body = params[:comment_body]
     respond_with(@account) do |_format|
-      if @account.save_with_opportunity
+      if @account.save_with_org_and_opportunity(params.permit!)
         @account.add_comment_by_user(@comment_body, current_user)
         # None: account can only be created from the Accounts index page, so we
         # don't have to check whether we're on the index page.
         @accounts = get_accounts
         get_data_for_sidebar
+      else
+        @orgs = Org.order('name')
+        @org = if params[:org][:id].blank?
+                 if request.referer =~ %r{ \/accounts\/(\d+)\z }
+                   Org.find(Regexp.last_match[1]) # related
+                 else
+                   Org.new(user: current_user)
+                 end
+               else
+                 Org.find(params[:org][:id])
+               end
       end
     end
   end
@@ -77,7 +88,16 @@ class AccountsController < EntitiesController
     respond_with(@account) do |_format|
       # Must set access before user_ids, because user_ids= method depends on access value.
       @account.access = params[:account][:access] if params[:account][:access]
-      get_data_for_sidebar if @account.update_attributes(resource_params)
+      if @account.update_with_org(params.permit!)
+        get_data_for_sidebar
+      else
+        @orgs = Org.order('name')
+        @org = if @account.org
+                 Org.find(@account.org.id)
+               else
+                 Org.new(user: current_user)
+               end
+      end
     end
   end
 
@@ -138,7 +158,7 @@ class AccountsController < EntitiesController
   private
 
   def set_orgs
-    @orgs = Org.my(current_user).order('name')
+    @orgs = Org.order('name')
   end
 
   def set_shops

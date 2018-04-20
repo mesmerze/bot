@@ -334,10 +334,12 @@ describe AccountsController do
 
     describe "with invalid params" do
       it "should expose a newly created but unsaved account as @account and still render [create] template" do
+        @org = Org.new(user: current_user)
         @account = build(:account, name: nil, user: nil)
+        @orgs = [create(:org, user: current_user)]
         allow(Account).to receive(:new).and_return(@account)
 
-        post :create, params: { account: {} }, xhr: true
+        post :create, params: { account: {}, org: { user_id: current_user.id } }, xhr: true
         expect(assigns(:account)).to eq(@account)
         expect(response).to render_template("accounts/create")
       end

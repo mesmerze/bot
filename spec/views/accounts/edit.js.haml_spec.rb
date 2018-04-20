@@ -14,6 +14,7 @@ describe "/accounts/edit" do
     login
     assign(:account, @account = build_stubbed(:account, user: current_user))
     assign(:users, [current_user])
+    assign(:org, build_stubbed(:org))
   end
 
   it "cancel from accounts index page: should replace [Edit Account] form with account partial" do

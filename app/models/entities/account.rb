@@ -154,8 +154,14 @@ class Account < ActiveRecord::Base
     end
   end
 
-  def save_with_opportunity
-    return false unless save
+  def save_with_org_and_opportunity(params)
+    if params[:org] && (params[:org][:id] == "" || params[:org][:name] == "")
+      self.org = nil
+    elsif params[:org]
+      self.org = Org.create_or_select_for(self, params[:org])
+      self.org_account = OrgAccount.new(org: org, account: self) unless org.id.blank?
+    end
+    result = save
     Opportunity.create(name: 'Initial Sign Up',
                        user: user,
                        account: self,
@@ -165,6 +171,7 @@ class Account < ActiveRecord::Base
                        category: 'new',
                        stage: 'prospecting',
                        shops: shops)
+    result
   end
 
   # Class methods.
@@ -186,6 +193,16 @@ class Account < ActiveRecord::Base
       account.save_with_model_permissions(model)
     end
     account
+  end
+
+  def update_with_org(params)
+    if params[:org] && (params[:org][:id] == "" || params[:org][:name] == "")
+      self.org = nil
+    elsif params[:org]
+      self.org = Org.create_or_select_for(self, params[:org])
+    end
+    self.attributes = params[:account].permit!
+    save
   end
 
   private

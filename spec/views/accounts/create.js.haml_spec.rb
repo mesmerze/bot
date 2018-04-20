@@ -43,6 +43,7 @@ describe "/accounts/create" do
   describe "create failure" do
     it "should re-render [create] template in :create_account div" do
       assign(:account, build(:account, name: nil)) # make it invalid
+      assign(:org, create(:org))
       assign(:users, [current_user])
       render
 

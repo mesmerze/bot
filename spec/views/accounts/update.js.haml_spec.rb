@@ -14,6 +14,7 @@ describe "/accounts/update" do
     login
 
     assign(:account, @account = build_stubbed(:account, user: current_user))
+    assign(:org, build_stubbed(:org))
     assign(:users, [current_user])
     assign(:account_category_total, Hash.new(1))
   end

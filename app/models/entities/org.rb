@@ -53,4 +53,15 @@ class Org < ActiveRecord::Base
   def discard!(attachment)
     attachment.update_attribute(:asset, nil)
   end
+
+  def self.create_or_select_for(model, params)
+    # Attempt to find existing org
+    if params[:id].present?
+      return Org.find(params[:id])
+    elsif params[:name].present?
+      org = Org.find_by(name: params[:name])
+      return org if org
+    end
+    Org.create(params.merge(category: model.category.present? ? model.category.split('_').last : :other))
+  end
 end

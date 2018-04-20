@@ -14,6 +14,7 @@ describe "/accounts/new" do
     login
     assign(:account, Account.new(user: current_user))
     assign(:users, [current_user])
+    assign(:org, build(:org))
   end
 
   it "should toggle empty message div if it exists" do

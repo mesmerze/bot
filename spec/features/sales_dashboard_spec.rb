@@ -32,7 +32,7 @@ feature 'Sales Dashboard', "
 
     user1 = create(:user, first_name: "Brian", last_name: 'Doyle-Murray', groups: [group])
     create(:opportunity, name: "Acting", stage: 'prospecting', assignee: user1)
-    create(:opportunity, name: "Directing", stage: 'won', assignee: user1)
+    create(:opportunity, name: "Directing", stage: 'lost', assignee: user1)
 
     user2 = create(:user, first_name: "Dean", last_name: 'Stockwell', groups: [group])
     account1 = create(:account, name: 'Quantum Leap')

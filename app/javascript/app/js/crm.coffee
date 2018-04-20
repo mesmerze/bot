@@ -222,6 +222,58 @@
       else
         @show_select_lead_account() # accounts dropdown
 
+
+    # Hide accounts dropdown and show create new account edit field instead.
+    #----------------------------------------------------------------------------
+    show_create_org: ->
+      $("#org_disabled_title").hide()
+      $("#org_create_title").show()
+      $("#org_select_title").hide()
+      $("#org_id").prop('disabled', true)
+      $("#org_id").next(".select2-container").disable()
+      $("#org_id").next(".select2-container").hide()
+      $("#org_name").prop('disabled', false)
+      $("#org_name").html ""
+      $("#org_name").show()
+
+    # Hide create org edit field and show orgs dropdown instead.
+    #----------------------------------------------------------------------------
+    show_select_org: ->
+      $("#org_disabled_title").hide()
+      $("#org_create_title").hide()
+      $("#org_select_title").show()
+      $("#org_name").hide()
+      $("#org_name").prop('disabled', true)
+      $("#org_id").prop('disabled', false)
+      $("#org_id").next(".select2-container").enable()
+      $("#org_id").next(".select2-container").show()
+
+
+    # Show accounts dropdown and disable it to prevent changing the account.
+    #----------------------------------------------------------------------------
+    show_disabled_select_org: ->
+      $("#org_disabled_title").show()
+      $("#org_create_title").hide()
+      $("#org_select_title").hide()
+      $("#org_name").hide()
+      $("#org_name").prop('disabled', true)
+
+      # Disable select2 account select but enable hidden
+      # account_id select so that value is POSTed
+      $("#org_id").next(".select2-container").disable()
+      $("#org_id").next(".select2-container").show()
+      $("#org_id").prop('disabled', false)
+
+
+    #----------------------------------------------------------------------------
+    create_or_select_org: (selector) ->
+      if selector isnt true and selector > 0
+        @show_disabled_select_org() # disabled accounts dropdown
+      else if selector
+        @show_create_org() # create account edit field
+      else
+        @show_select_org() # accounts dropdown
+
     #----------------------------------------------------------------------------
     create_contact: ->
       @clear_all_hints()  if $("#contact_business_address_attributes_country")
