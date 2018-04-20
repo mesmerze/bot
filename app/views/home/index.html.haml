@@ -6,6 +6,9 @@
 %ul.list#tasks
   - unless @my_tasks.empty?
     = render partial: "home/task", collection: @my_tasks.limit(10)
+    .hidden_entities
+      = render partial: "home/task", collection: @my_tasks.offset(10)
+      = hide_showed_entities_message(@my_tasks.count, 'task', 10)
     = show_hidden_entities_message(@my_tasks.count, 'task', 10)
   - else
     #{t :no_task_records}
@@ -15,6 +18,9 @@
 %ul.list#opportunities
   - unless @my_opportunities.empty?
     = render partial: "home/opportunity", collection: @my_opportunities.limit(10)
+    .hidden_entities
+      = render partial: "home/opportunity", collection: @my_opportunities.offset(10)
+      = hide_showed_entities_message(@my_opportunities.count, 'opportunity', 10)
     = show_hidden_entities_message(@my_opportunities.count, 'opportunity', 10)
   - else
     #{t :no_opportunity_records}
@@ -24,6 +30,9 @@
 %ul.list#accounts
   - unless @my_accounts.empty?
     = render partial: "home/account", collection: @my_accounts.limit(10)
+    .hidden_entities
+      = render partial: "home/account", collection: @my_accounts.offset(10)
+      = hide_showed_entities_message(@my_accounts.count, 'account', 10)
     = show_hidden_entities_message(@my_accounts.count, 'account', 10)
   - else
     #{t :no_account_records}

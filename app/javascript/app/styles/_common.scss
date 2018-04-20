@@ -820,6 +820,14 @@ a.dashboard-link:hover {
   margin:auto;
   display:inline-block; }
 
+.hidden_entities {
+  display: none; }
+
+.hide_entities_message, .show_entities_message {
+  width: 200px;
+  &:hover {
+    cursor: pointer; } }
+
 .system-type {
   width:110px;
   padding-right: 100px !important; }

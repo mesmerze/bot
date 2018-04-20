@@ -60,8 +60,22 @@ module HomeHelper
     if count > limit
       hidden_count = count - 10
       entity_string = I18n.t("#{hidden_count == 1 ? entity : entity.pluralize}_small")
-      content_tag(:p) do
-        t(:not_showing_hidden_entities, entity: entity_string, count: hidden_count)
+      content_tag(:p, class: "show_entities_message") do
+        text = content_tag(:span, class: "fa fa-eye", style: 'padding: 0 5px;') {}
+        text += t(:show_hidden_entities, entity: entity_string, count: hidden_count)
+        text.html_safe
+      end
+    end
+  end
+
+  def hide_showed_entities_message(count, entity, limit = 10)
+    if count > limit
+      hidden_count = count - 10
+      entity_string = I18n.t("#{hidden_count == 1 ? entity : entity.pluralize}_small")
+      content_tag(:p, class: "hide_entities_message") do
+        text = content_tag(:span, class: "fa fa-eye-slash", style: 'padding: 0 5px;') {}
+        text += t(:hide_showed_entities, entity: entity_string, count: hidden_count)
+        text.html_safe
       end
     end
   end

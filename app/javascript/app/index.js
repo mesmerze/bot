@@ -54,6 +54,7 @@ import './js/kpi.coffee';
 import './js/lead_picker.coffee';
 import './js/shops_picker.coffee';
 import './js/meetings.coffee';
+import './js/home.coffee';
 import './js/systems.coffee';
 
 import * as ActiveStorage from 'activestorage'
