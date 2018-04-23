@@ -1,5 +1,21 @@
 # TS Changelog
 
+### 0.5.0
+
+- Auto-create Google users in CRM (#140)
+- Meetings feature (#134)
+- Systems feature (#149)
+- File attachment feature
+- Send events to GCalendar
+- Bugfix: Remove multiple add refresh token migrations (#146) 
+- Add two stages to opportunity (#154)
+- Update Rails to version 5.2 (#159)
+- Show/hide entities at homepage (#156)
+- Select or create orgs on account new/edit (#160)
+- Accounts: Add sort by account category (#145)
+- Bug: Can't see closed / lost opportunities (#142)
+- Sales Dashboard: Fast-populate options (#157)
+
 ### 0.4.1
 
 - Fix Google env vars (#137)
