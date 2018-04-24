@@ -1,5 +1,11 @@
 # TS Changelog
 
+### 0.5.1
+
+- Use official release of Rails.
+- Fix Active Support initialization error.
+- Fix Terrapin gem console error.
+
 ### 0.5.0
 
 - Auto-create Google users in CRM (#140)

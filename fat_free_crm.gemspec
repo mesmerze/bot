@@ -30,8 +30,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'simple_form'
   gem.add_dependency 'will_paginate'
   gem.add_dependency 'paperclip'
-  # Manually added paperclip gem dependency "cocaine" in order to fix load error: "no such file to load -- cocaine"
-  gem.add_dependency 'cocaine'
   gem.add_dependency 'paper_trail',         '~> 9.0.0'
   gem.add_dependency 'devise',              '~> 4.3.0'
   gem.add_dependency 'devise-encryptable',  '~> 0.2.0'
