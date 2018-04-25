@@ -1,5 +1,9 @@
 # TS Changelog
 
+### 0.5.3
+
+- More JS fixes.
+
 ### 0.5.2
 
 - Attempt at fixing FontAwesome.

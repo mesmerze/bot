@@ -15,6 +15,7 @@ import 'webpack-jquery-ui'; // CSS and JS for jquery-ui here
 import 'select2';
 import 'cocoon/app/assets/javascripts/cocoon';
 import 'fullcalendar';
+import 'javascripts/cocoon';
 
 // Vendor js import
 import 'javascripts/autocomplete-rails';

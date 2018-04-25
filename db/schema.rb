@@ -549,6 +549,9 @@ ActiveRecord::Schema.define(version: 2018_04_14_082356) do
     t.datetime "updated_at"
     t.boolean "admin", default: false, null: false
     t.datetime "suspended_at"
+    t.integer "month_revenue"
+    t.integer "month_shops"
+    t.jsonb "projections", default: {}
     t.string "unconfirmed_email", limit: 254
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -558,9 +561,6 @@ ActiveRecord::Schema.define(version: 2018_04_14_082356) do
     t.string "confirmation_token", limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.integer "month_revenue"
-    t.integer "month_shops"
-    t.jsonb "projections", default: {}
     t.string "provider"
     t.string "uid"
     t.string "oauth_token"
