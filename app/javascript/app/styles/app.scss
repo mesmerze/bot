@@ -7,8 +7,9 @@
  */
 
 // Node modules css import
-@import "~select2/dist/css/select2.min";
+$fa-font-path: "~font-awesome/fonts";
 @import "~font-awesome/scss/font-awesome";
+@import "~select2/dist/css/select2.min";
 @import "~fullcalendar/dist/fullcalendar.min";
 
 // Vendor css import

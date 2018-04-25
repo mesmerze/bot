@@ -1,5 +1,9 @@
 # TS Changelog
 
+### 0.5.2
+
+- Attempt at fixing FontAwesome.
+
 ### 0.5.1
 
 - Use official release of Rails.
